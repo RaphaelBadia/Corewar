@@ -6,15 +6,15 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:42:39 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/18 14:42:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/18 15:22:52 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-extern t_op op_tab[];
+extern t_op g_ops[];
 
 void	wat()
 {
-	printf("%s\n", op_tab[0].name);
+	printf("%s\n", g_ops[0].name);
 }

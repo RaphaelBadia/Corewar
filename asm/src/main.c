@@ -6,13 +6,14 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/18 14:38:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/18 15:39:56 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "op.h"
 
-t_op    op_tab[17] =
+t_op	g_ops[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
@@ -39,7 +40,18 @@ t_op    op_tab[17] =
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
+int		usage(char *prog_name)
+{
+	ft_printf("Usage: %s [-a] <sourcefile.s>\n    -a : Instead of ", prog_name);
+	ft_printf("creating a .cor file, outputs a stripped and annotated version");
+	ft_printf(" of the code to the standard output\n");
+	return (1);
+}
+
 int		main(int ac, char **av)
 {
+	if (ac < 2)
+		return (usage(av[0]));
+	ft_printf("%d\n", CHAMP_MAX_SIZE);
 	return (0);
 }

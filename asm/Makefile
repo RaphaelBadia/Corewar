@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/18 14:24:52 by rbadia           ###   ########.fr        #
+#    Updated: 2017/02/18 16:56:38 by rbadia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,7 @@ SRC_PATH	= src
 PATH_INCLUDES	= includes
 OBJ_PATH	= obj
 # Source file
-SRC_FILE	=	main.c		\
-				op.c
+SRC_FILE	=	main.c
 # Object file
 OBJ_FILE	=	$(addprefix $(OBJ_PATH)/,	\
 				$(addsuffix .o,				\
