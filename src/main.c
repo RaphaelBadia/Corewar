@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:40:19 by jye               #+#    #+#             */
-/*   Updated: 2017/02/20 21:42:52 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/20 22:58:09 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		main(int ac, char **av)
 		if (j < 16)
 			op_tab[j].f(buff, &i, df);
 		else
-			printf("shit, i didnt find the function to use for %x %lu!\n", buff[i - 1], ret - i);
+			printf("shit, i didnt find the function to use for %x %lu %d!\n", buff[i - 1], ret - i, j);
 	}
 	return 0;
 }

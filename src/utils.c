@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 20:12:20 by jye               #+#    #+#             */
-/*   Updated: 2017/02/20 22:19:04 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/20 23:01:37 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	xor(unsigned char *buff, size_t *i, int df)
 		switch (f[d])
 		{
 		case REG_CODE:
-			dprintf(df, "r%d", *(buff + *i));
+			dprintf(df, "r%hhd", *(buff + *i));
 			*i += 1;
 			break ;
 		case IND_CODE:
@@ -192,40 +192,41 @@ void	zjump(unsigned char *buff, size_t *i, int df)
 
 void	ldi(unsigned char *buff, size_t *i, int df)
 {
-	/* char f[3]; */
+	char f[3];
 
-	/* f[0] = *(buff + *i) >> 6; */
-	/* f[1] = (*(buff + *i) >> 4) & 3; */
-	/* f[2] = (*(buff + *i) >> 2) & 3; */
-	/* *i += 1; */
-	/* dprintf(df, "\tand "); */
-	/* for (int d = 0; d < 3; d++) */
-	/* { */
-	/* 	switch (f[d]) */
-	/* 	{ */
-	/* 	case REG_CODE: */
-	/* 		dprintf(df, "r%d", *(buff + *i)); */
-	/* 		*i += 1; */
-	/* 		break ; */
-	/* 	case IND_CODE: */
-	/* 		dprintf(df, "%d", GET_UINT16(buff, *i)); */
-	/* 		*i += 2; */
-	/* 		break ; */
-	/* 	case DIR_CODE: */
-	/* 		dprintf(df, "%%%d", GET_UINT32(buff, *i)); */
-	/* 		*i += 4; */
-	/* 		break ; */
-	/* 	default: */
-	/* 		break ; */
-	/* 	} */
-	/* 	if (d < 2) */
-	/* 		dprintf(df, ", "); */
-	/* } */
-	/* dprintf(df, "\n");	 */
+	f[0] = *(buff + *i) >> 6;
+	f[1] = (*(buff + *i) >> 4) & 3;
+	f[2] = (*(buff + *i) >> 2) & 3;
+	*i += 1;
+	dprintf(df, "\tldi ");
+	for (int d = 0; d < 3; d++)
+	{
+		switch (f[d])
+		{
+		case REG_CODE:
+			dprintf(df, "r%hhd", *(buff + *i));
+			*i += 1;
+			break ;
+		case IND_CODE:
+			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		case DIR_CODE:
+			dprintf(df, "%%%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		default:
+			break ;
+		}
+		if (d < 2)
+			dprintf(df, ", ");
+	}
+	dprintf(df, "\n");
 }
 
 void	sti(unsigned char *buff, size_t *i, int df)
 {
+	
 }
 
 void	frk(unsigned char *buff, size_t *i, int df)
