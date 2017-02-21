@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 20:12:20 by jye               #+#    #+#             */
-/*   Updated: 2017/02/20 23:01:37 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/21 18:02:53 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,25 +226,145 @@ void	ldi(unsigned char *buff, size_t *i, int df)
 
 void	sti(unsigned char *buff, size_t *i, int df)
 {
-	
+	char f[3];
+
+	f[0] = *(buff + *i) >> 6;
+	f[1] = (*(buff + *i) >> 4) & 3;
+	f[2] = (*(buff + *i) >> 2) & 3;
+	*i += 1;
+	dprintf(df, "\tsti ");
+	for (int d = 0; d < 3; d++)
+	{
+		switch (f[d])
+		{
+		case REG_CODE:
+			dprintf(df, "r%hhd", *(buff + *i));
+			*i += 1;
+			break ;
+		case IND_CODE:
+			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		case DIR_CODE:
+			dprintf(df, "%%%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		default:
+			break ;
+		}
+		if (d < 2)
+			dprintf(df, ", ");
+	}
+	dprintf(df, "\n");
 }
 
 void	frk(unsigned char *buff, size_t *i, int df)
 {
+	dprintf(df, "\tfork %%%hd", (short)GET_UINT16(buff, *i));
+	*i += 2;
+	dprintf(df, "\n");
 }
 
 void	lld(unsigned char *buff, size_t *i, int df)
 {
+	char f[3];
+
+	f[0] = *(buff + *i) >> 6;
+	f[1] = (*(buff + *i) >> 4) & 3;
+	f[2] = (*(buff + *i) >> 2) & 3;
+	*i += 1;
+	dprintf(df, "\tlld ");
+	for (int d = 0; d < 2; d++)
+	{
+		switch (f[d])
+		{
+		case REG_CODE:
+			dprintf(df, "r%hhd", *(buff + *i));
+			*i += 1;
+			break ;
+		case IND_CODE:
+			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		case DIR_CODE:
+			dprintf(df, "%%%d", GET_UINT32(buff, *i));
+			*i += 4;
+			break ;
+		default:
+			break ;
+		}
+		if (d < 1)
+			dprintf(df, ", ");
+	}
+	dprintf(df, "\n");
 }
 
 void	lldi(unsigned char *buff, size_t *i, int df)
 {
+	char f[3];
+
+	f[0] = *(buff + *i) >> 6;
+	f[1] = (*(buff + *i) >> 4) & 3;
+	f[2] = (*(buff + *i) >> 2) & 3;
+	*i += 1;
+	dprintf(df, "\tlldi ");
+	for (int d = 0; d < 3; d++)
+	{
+		switch (f[d])
+		{
+		case REG_CODE:
+			dprintf(df, "r%hhd", *(buff + *i));
+			*i += 1;
+			break ;
+		case IND_CODE:
+			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		case DIR_CODE:
+			dprintf(df, "%%%d",(short)GET_UINT16(buff, *i));
+			*i += 2;
+			break ;
+		default:
+			break ;
+		}
+		if (d < 2)
+			dprintf(df, ", ");
+	}
+	dprintf(df, "\n");
 }
 
 void	lfork(unsigned char *buff, size_t *i, int df)
 {
+	dprintf(df, "\tlfork %%%hd", (short)GET_UINT16(buff, *i));
+	*i += 2;
+	dprintf(df, "\n");
 }
 
 void	aff(unsigned char *buff, size_t *i, int df)
 {
+	char f[3];
+
+	f[0] = *(buff + *i) >> 6;
+	f[1] = (*(buff + *i) >> 4) & 3;
+	f[2] = (*(buff + *i) >> 2) & 3;
+	*i += 1;
+	dprintf(df, "\taff ");
+	switch (f[0])
+	{
+	case REG_CODE:
+		dprintf(df, "r%hhd", *(buff + *i));
+		*i += 1;
+		break ;
+	case IND_CODE:
+		dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+		*i += 2;
+		break ;
+	case DIR_CODE:
+		dprintf(df, "%%%d",(short)GET_UINT16(buff, *i));
+		*i += 2;
+		break ;
+	default:
+		break ;
+	}
+	dprintf(df, "\n");
 }
