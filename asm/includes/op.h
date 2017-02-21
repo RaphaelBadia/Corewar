@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/21 22:45:06 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/21 23:37:03 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,6 @@ typedef struct		s_asm
 int					empty(char *str);
 void				ft_exit_err(char *msg);
 int					is_one_of(char c, char *that);
+int					ft_strchri(char *str, int i);
 
 #endif
