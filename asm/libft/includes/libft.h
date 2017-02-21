@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 19:43:06 by jye               #+#    #+#             */
-/*   Updated: 2016/12/30 17:52:49 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/21 22:10:36 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # define LBITS 0x101010101010101L
 # define HBITS 0x8080808080808080L
+# define BUFF_SIZE 1024
 
 typedef struct	s_list
 {
@@ -81,5 +82,6 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(const char *s, int fd);
 void			ft_putendl_fd(const char *s, int fd);
 void			ft_putnbr_fd(int z, int fd);
+int				get_next_line(const int fd, char **line);
 
 #endif

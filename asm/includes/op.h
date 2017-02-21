@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/18 16:39:31 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/21 22:45:06 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,30 @@ typedef struct		s_header
 	unsigned int	prog_size;
 	char			comment[COMMENT_LENGTH + 1];
 }					t_header;
+
+typedef struct		s_label
+{
+	char			*label_name;
+	char			*ptr;
+	struct s_lines	*next;
+}					t_label;
+
+typedef struct		s_asm
+{
+	t_header		header;
+	int				line;
+	int				column;
+	t_label			*to_fill;
+	t_label			*knowns;
+	unsigned char	*buffer;
+}					t_asm;
+
+/*
+** utils
+*/
+
+int					empty(char *str);
+void				ft_exit_err(char *msg);
+int					is_one_of(char c, char *that);
 
 #endif

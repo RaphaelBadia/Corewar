@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/18 15:39:56 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/21 22:13:52 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,14 @@ int		usage(char *prog_name)
 
 int		main(int ac, char **av)
 {
+	t_asm	data;
+
+	data.to_fill = NULL;
+	data.knowns = NULL;
+	data.line = 1;
+	data.column = 1;
 	if (ac < 2)
 		return (usage(av[0]));
-	ft_printf("%d\n", CHAMP_MAX_SIZE);
+	read_file(av[1], &data);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 19:43:06 by jye               #+#    #+#             */
-/*   Updated: 2016/12/30 17:01:30 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/21 22:12:03 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <string.h>
 # define LBITS 0x101010101010101L
 # define HBITS 0x8080808080808080L
-# define BUFF_SIZE 64
+# define BUFF_SIZE 1024
 
 typedef struct	s_list
 {
@@ -25,9 +25,9 @@ typedef struct	s_list
 }				t_list;
 
 t_list			*ft_lstnew(const void *content, size_t content_size);
-void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void			ft_lstadd(t_list **alst, t_list *new);
+void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t n));
+void			ft_lstdel(t_list **alst, void (*del)(void *, size_t n));
+void			ft_lstadd(t_list **alst, t_list *newz);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void			*ft_memset(void *str, int c, size_t n);
@@ -82,6 +82,6 @@ void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(const char *s, int fd);
 void			ft_putendl_fd(const char *s, int fd);
 void			ft_putnbr_fd(int z, int fd);
-long			get_next_line(const int fd, char **line);
+int				get_next_line(const int fd, char **line);
 
 #endif

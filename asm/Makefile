@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/18 16:56:38 by rbadia           ###   ########.fr        #
+#    Updated: 2017/02/21 22:44:55 by vcombey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,12 @@ SRC_PATH	= src
 PATH_INCLUDES	= includes
 OBJ_PATH	= obj
 # Source file
-SRC_FILE	=	main.c
+SRC_FILE	=	main.c			\
+				read_file.c		\
+				utils/empty.c	\
+				utils/ft_exit_err.c	\
+				utils/is_one_of.c
+
 # Object file
 OBJ_FILE	=	$(addprefix $(OBJ_PATH)/,	\
 				$(addsuffix .o,				\
@@ -49,6 +54,7 @@ $(NAME)	: $(OBJ_FILE) lib
 
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)/utils
 	@$(CC) $(CFLAGS) $(DEBUG) $(EXTRA) -I$(PATH_INCLUDES) -c -o $@ $<
 
 lib		:
