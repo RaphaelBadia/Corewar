@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 20:12:20 by jye               #+#    #+#             */
-/*   Updated: 2017/02/21 18:02:53 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/21 18:55:56 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ld(unsigned char *buff, size_t *i, int df)
 	}
 	else
 	{
-		dprintf(df, "\tld %d,", GET_UINT16(buff, *i));
+		dprintf(df, "\tld %hd,", (short)GET_UINT16(buff, *i));
 		(*i) += 2;
 	}
 	dprintf(df, " r%u\n", *(buff + *i));
