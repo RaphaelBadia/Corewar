@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/21 23:37:03 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 15:52:19 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ typedef struct		s_label
 	struct s_lines	*next;
 }					t_label;
 
+# define BUFFSIZE 42
+
 typedef struct		s_asm
 {
 	t_header		header;
@@ -104,15 +106,19 @@ typedef struct		s_asm
 	t_label			*to_fill;
 	t_label			*knowns;
 	unsigned char	*buffer;
+	unsigned int	buff_index;
+	unsigned int	buff_len;
 }					t_asm;
 
 /*
 ** utils
 */
+# include <stddef.h>
 
 int					empty(char *str);
-void				ft_exit_err(char *msg);
+void				ft_exit_err(char *msg, t_asm *data);
 int					is_one_of(char c, char *that);
 int					ft_strchri(char *str, int i);
+void				ft_cpy_buf(char *src, t_asm *data, size_t n);
 
 #endif

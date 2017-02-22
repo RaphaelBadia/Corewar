@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/21 23:45:01 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 16:05:23 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static void		fill_name(t_asm *data, char *name)
 	while (is_one_of(name[i], " \t"))
 		i++;
 	if (name[i] != 042) // c est un "
-		ft_exit_err("wrong syntax need \"");
+		ft_exit_err("wrong syntax need \"", data);
 	i++;
 	if (name[i] == '\0')
-		ft_exit_err("unexpected EOL");
+		ft_exit_err("unexpected EOL", data);
 	if ((name_len = ft_strchri(name + i, 042)) == -1)
-		ft_exit_err("wrong syntax missing a \"");
+		ft_exit_err("wrong syntax missing a \"", data);
 	if ((name_len == 0) || name_len > 128)
-		ft_exit_err("name cannot be empty or > 128");
+		ft_exit_err("name cannot be empty or > 128", data);
 	ft_memcpy(data->header.prog_name, name + i, name_len);
 }
 
@@ -47,14 +47,16 @@ static void		fill_comment(t_asm *data, char *comment)
 	while (is_one_of(comment[i], " \t"))
 		i++;
 	if (comment[i] != 042) // c est un "
-		ft_exit_err("wrong syntax need \"");
+		ft_exit_err("wrong syntax need \"", data);
 	i++;
 	if (comment[i] == '\0')
-		ft_exit_err("unexpected EOL");
+		ft_exit_err("unexpected EOL", data);
 	if ((comment_len = ft_strchri(comment + i, 042)) == -1)
-		ft_exit_err("wrong syntax missing a \"");
+		ft_exit_err("wrong syntax missing a \"", data);
 	if ((comment_len == 0) || comment_len > 128)
-		ft_exit_err("name cannot be empty or > 128");
+		ft_exit_err("name cannot be empty or > 128", data);
+	if (!empty(data->header.comment))
+		ft_exit_err("already seen this", data);
 	ft_memcpy(data->header.comment, comment + i, comment_len);
 }
 
@@ -68,44 +70,51 @@ void		read_name_comment(int fd, t_asm *data)
 	while ((ret = get_next_line(fd, &line)) != 0 && empty(line))
 	{
 		if (ret == -1)
-			ft_exit_err("EOF");
-		free(line);
+			ft_exit_err("End of file", data);
 		data->line++;
 	}
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	if (ft_strnequ(line + i, ".name:", 5))
-		fill_name(data, line + i + 7);
-	else if (ft_strnequ(line + i, ".comment:", 9))
-		fill_comment(data, line + i + 10);
+	if (ft_strnequ(line + i, ".name", 5))
+		fill_name(data, line + i + 5);
+	else if (ft_strnequ(line + i, ".comment", 8))
+		fill_comment(data, line + i + 8);
 	else
-		ft_exit_err("no name or comment");
+		ft_exit_err("no name or comment 1", data);
 	while ((ret = get_next_line(fd, &line)) != 0 && empty(line))
 	{
 		if (ret == -1)
-			ft_exit_err("EOF");
+			ft_exit_err("End of file", data);
 		free(line);
 		data->line++;
 	}
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	if (ft_strnequ(line + i, ".comment:", 9))
-		fill_comment(data, line + i + 10);
-	else if (ft_strnequ(line + i, ".name:", 5))
-		fill_name(data, line + i + 7);
+	if (ft_strnequ(line + i, ".comment", 8))
+		fill_comment(data, line + i + 8);
+	else if (ft_strnequ(line + i, ".name", 5))
+		fill_name(data, line + i + 5);
 	else
-		ft_exit_err("no name or comment");
+		ft_exit_err("no name or comment", data);
 }
 
 void		read_file(char *filename, t_asm *data)
 {
 	int		fd;
 	int		ret;
+	int		*a;
 
+	*a = 0xea83f3;
 	data->buffer = NULL;
 	if ((fd = open(filename, O_RDONLY)) == -1)
-		ft_exit_err("open");
+		ft_exit_err("open error", data);
 	read_name_comment(fd, data);
+	//ft_printf("%s (%s)\n", data->header.prog_name, data->header.comment);
+	//ft_cpy_buf(magic, data);
+	//ft_cpy_buf((char*)a, data, 4);
+	//ft_cpy_buf(data->header.prog_name, data, PROG_NAME_LENGTH);
+	//ft_cpy_buf(data->header.comment, data, COMMENT_LENGTH);
+	//write(1, data->buffer, data->buff_index);
 }
