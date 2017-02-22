@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/22 22:46:35 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/22 22:59:21 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "vm.h"
-#define HEADER sizeof(t_header)
+#define HEADER_SIZE (sizeof(t_header))
 #define DMP_FLAG "-dump"
 #define IDP_FLAG "-n"
 #define VIS_FLAG "--visual"
@@ -26,9 +26,9 @@ t_champ	*init_champ__(void)
 {
 	t_champ	*new;
 
-	if ((new = malloc(sizeof(t_champ) * 4)) == NULL)
+	if ((new = malloc(sizeof(t_champ) * MAX_PLAYERS)) == NULL)
 		return (NULL);
-	memset(new, 0, sizeof(t_champ) * 4);
+	memset(new, 0, sizeof(t_champ) * MAX_PLAYERS);
 	return (new);
 }
 
@@ -55,7 +55,7 @@ void	set_champ_data(t_champ *champ, char *file)
 	int				fd;
 	static int		id_player = 0;
 	ssize_t			ret;
-	unsigned char	buff[HEADER];
+	unsigned char	buff[HEADER_SIZE];
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
@@ -63,9 +63,12 @@ void	set_champ_data(t_champ *champ, char *file)
 		perror(ERROR);
 		exit(errno);
 	}
-	if (read(fd, buff, HEADER) < 1)
+	if ((ret = read(fd, buff, HEADER_SIZE)) < (long)HEADER_SIZE)
 	{
-		perror(ERROR);
+		if (ret == -1)
+			perror(ERROR);
+		else
+			printf("Incorrect header size");
 		exit(errno);
 	}
 	if (((buff[0] << 24) | (buff[1] << 16) | ((buff[2] << 8) | (buff[3]))) != COREWAR_EXEC_MAGIC)
@@ -82,7 +85,7 @@ void	set_champ_data(t_champ *champ, char *file)
 	champ->comment = malloc(2049);
 	champ->comment[2048] = 0;
 	memcpy(champ->comment, buff + 140, 2048);
-	ret = read(fd, buff, HEADER);
+	ret = read(fd, buff, HEADER_SIZE);
 	if (ret != champ->size)
 	{
 		printf("You can't fool me, you motherfucker\n");
@@ -98,7 +101,7 @@ void	set_champ_data(t_champ *champ, char *file)
 	close(fd);
 }
 
-void	set_champ(t_champ *champ, t_arg *arg)
+int		set_champ(t_champ *champ, t_arg *arg)
 {
 	int		j;
 
@@ -124,6 +127,7 @@ void	set_champ(t_champ *champ, t_arg *arg)
 		printf("Too many gladiators\n");
 		exit(0);
 	}
+	return (j);
 }
 
 int		main(int ac, char **av)
@@ -142,9 +146,6 @@ int		main(int ac, char **av)
 	set_flag(&vm, &arg);
 	if ((vm.champ = init_champ__()) == NULL)
 		return (1);
-	set_champ(vm.champ, &arg);
-//	write(1, vm.champ[0].byte_code, vm.champ[0].size);
-//	write(1, "\n", 1);
-	printf("%s\n%s\n%d\n%d\n", vm.champ[0].name, vm.champ[0].comment, vm.champ[0].size, vm.champ[0].id_player);
+	vm.nb_player = set_champ(vm.champ, &arg);
 	return (0);
 }
