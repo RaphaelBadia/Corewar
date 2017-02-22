@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 15:53:31 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 17:42:04 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ int		main(int ac, char **av)
 	data.knowns = NULL;
 	data.line = 1;
 	data.column = 1;
-	data.buffer = (unsigned char *)ft_strnew(42);
+	data.buffer = ft_strnew(42);
 	data.buff_index = 0;
 	data.buff_len = 42;
 	ft_bzero(data.header.prog_name, PROG_NAME_LENGTH + 1);
 	ft_bzero(data.header.comment, COMMENT_LENGTH + 1);
 	if (ac < 2)
 		return (usage(av[0]));
-	read_file(av[1], &data);
+	read_header(av[1], &data);
 	return (0);
 }

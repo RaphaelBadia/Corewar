@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/22 16:05:23 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 17:43:31 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,11 @@ void		read_name_comment(int fd, t_asm *data)
 	char	**arr;
 	int		i;
 
-	while ((ret = get_next_line(fd, &line)) != 0 && empty(line))
-	{
-		if (ret == -1)
-			ft_exit_err("End of file", data);
+	line = NULL;
+	while ((ret = get_next_line(fd, &line)) > 0 && empty(line))
 		data->line++;
-	}
+	if (ret < 1)
+		ft_exit_err("End of file", data);
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
@@ -82,13 +81,10 @@ void		read_name_comment(int fd, t_asm *data)
 		fill_comment(data, line + i + 8);
 	else
 		ft_exit_err("no name or comment 1", data);
-	while ((ret = get_next_line(fd, &line)) != 0 && empty(line))
-	{
-		if (ret == -1)
-			ft_exit_err("End of file", data);
-		free(line);
+	while ((ret = get_next_line(fd, &line)) > 0 && empty(line))
 		data->line++;
-	}
+	if (ret < 1)
+		ft_exit_err("End of file", data);
 	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
@@ -100,21 +96,22 @@ void		read_name_comment(int fd, t_asm *data)
 		ft_exit_err("no name or comment", data);
 }
 
-void		read_file(char *filename, t_asm *data)
+void		read_header(char *filename, t_asm *data)
 {
 	int		fd;
 	int		ret;
-	int		*a;
+	int		a;
 
-	*a = 0xea83f3;
-	data->buffer = NULL;
+	a = swap_bits(0xea83f3);
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		ft_exit_err("open error", data);
 	read_name_comment(fd, data);
-	//ft_printf("%s (%s)\n", data->header.prog_name, data->header.comment);
-	//ft_cpy_buf(magic, data);
-	//ft_cpy_buf((char*)a, data, 4);
-	//ft_cpy_buf(data->header.prog_name, data, PROG_NAME_LENGTH);
-	//ft_cpy_buf(data->header.comment, data, COMMENT_LENGTH);
-	//write(1, data->buffer, data->buff_index);
+	//magic
+	ft_cpy_buf((unsigned char *)&a, data, 4);
+	ft_cpy_buf(data->header.prog_name, data, PROG_NAME_LENGTH + 1);
+	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
+	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);//prog size
+	ft_cpy_buf(data->header.comment, data, COMMENT_LENGTH + 1);
+	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
+	write(1, data->buffer, data->buff_index);
 }

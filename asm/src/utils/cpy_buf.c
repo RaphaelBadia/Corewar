@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpy_buf.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcombey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/05 21:25:13 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/22 15:51:14 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 17:04:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	ft_realoc(t_asm *data, size_t n)
 	data->buff_len += BUFFSIZE;
 }
 
-void	ft_cpy_buf(char *str, t_asm *data, size_t n)
+void	ft_cpy_buf(unsigned char *str, t_asm *data, size_t n)
 {
-	size_t	k;
 	unsigned char	*dest;
 
 	if (str == NULL)

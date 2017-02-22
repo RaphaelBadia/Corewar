@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 15:52:19 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/22 17:43:05 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@
 # define NBR_LIVE				21
 # define MAX_CHECKS				10
 
+# include <stddef.h>
+
 /*
 ** Tableau des operations
-** https://docs.google.com/spreadsheets/d/1xTy1fQmra797pfamd0OBy2Q11sCwJpxEUd5i_7tp2EY/edit?usp=sharing
+** https://docs.google.com/spreadsheets/d/
+** 1xTy1fQmra797pfamd0OBy2Q11sCwJpxEUd5i_7tp2EY/edit?usp=sharing
 */
 
 typedef struct		s_op
@@ -110,15 +113,17 @@ typedef struct		s_asm
 	unsigned int	buff_len;
 }					t_asm;
 
+void				read_header(char *filename, t_asm *data);
+
 /*
 ** utils
 */
-# include <stddef.h>
 
 int					empty(char *str);
 void				ft_exit_err(char *msg, t_asm *data);
 int					is_one_of(char c, char *that);
 int					ft_strchri(char *str, int i);
-void				ft_cpy_buf(char *src, t_asm *data, size_t n);
+void				ft_cpy_buf(unsigned char *src, t_asm *data, size_t n);
+int					swap_bits(int integer);
 
 #endif

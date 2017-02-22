@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/22 15:53:52 by vcombey          ###   ########.fr        #
+#    Updated: 2017/02/22 17:32:50 by rbadia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC_FILE	=	main.c			\
 				utils/ft_exit_err.c	\
 				utils/is_one_of.c	\
 				utils/strchri.c		\
-				utils/cpy_buf.c
+				utils/cpy_buf.c		\
+				utils/swap_bits.c
 # Object file
 OBJ_FILE	=	$(addprefix $(OBJ_PATH)/,	\
 				$(addsuffix .o,				\
