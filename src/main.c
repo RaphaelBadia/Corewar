@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/22 22:27:37 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/22 22:46:35 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	set_champ_data(t_champ *champ, char *file)
 {
 	int				fd;
 	static int		id_player = 0;
+	ssize_t			ret;
 	unsigned char	buff[HEADER];
 
 	fd = open(file, O_RDONLY);
@@ -81,12 +82,17 @@ void	set_champ_data(t_champ *champ, char *file)
 	champ->comment = malloc(2049);
 	champ->comment[2048] = 0;
 	memcpy(champ->comment, buff + 140, 2048);
-	if (champ->size > CHAMP_MAX_SIZE)
+	ret = read(fd, buff, HEADER);
+	if (ret != champ->size)
+	{
+		printf("You can't fool me, you motherfucker\n");
+		exit(1);
+	}
+	else if (champ->size > CHAMP_MAX_SIZE)
 	{
 		printf("Gladiator size too fat, please consider doing a diet\n");
 		exit(1);
 	}
-	read(fd, buff, champ->size);
 	champ->byte_code = malloc(champ->size);
 	memcpy(champ->byte_code, buff, champ->size);
 	close(fd);
