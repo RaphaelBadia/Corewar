@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 17:43:05 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 19:51:03 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ typedef char	t_arg_type;
 # define T_IND					4
 # define T_LAB					8
 
+# define T_REGB					1
+# define T_DIRB					2
+# define T_INDB					3
 /*
 ** Header du programme
 ** Je ne sais pas ce qu'est le "magic"
@@ -95,8 +98,8 @@ typedef struct		s_header
 typedef struct		s_label
 {
 	char			*label_name;
-	char			*ptr;
-	struct s_lines	*next;
+	int				index;
+	struct s_label	*next;
 }					t_label;
 
 # define BUFFSIZE 42
@@ -113,7 +116,10 @@ typedef struct		s_asm
 	unsigned int	buff_len;
 }					t_asm;
 
-void				read_header(char *filename, t_asm *data);
+extern 				t_op g_ops[];
+
+void				read_header(t_asm *data, int fd);
+void				read_program(t_asm *data, int fd);
 
 /*
 ** utils
@@ -125,5 +131,7 @@ int					is_one_of(char c, char *that);
 int					ft_strchri(char *str, int i);
 void				ft_cpy_buf(unsigned char *src, t_asm *data, size_t n);
 int					swap_bits(int integer);
+char				*ft_strndup(const char *s, size_t n);
+char				**splitrim(char *str, t_asm *data);
 
 #endif

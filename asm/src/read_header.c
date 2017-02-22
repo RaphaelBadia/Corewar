@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   read_header.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/22 17:43:31 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 20:27:00 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "op.h"
 #include "libft.h"
 
@@ -64,7 +63,6 @@ void		read_name_comment(int fd, t_asm *data)
 {
 	int		ret;
 	char	*line;
-	char	**arr;
 	int		i;
 
 	line = NULL;
@@ -96,22 +94,18 @@ void		read_name_comment(int fd, t_asm *data)
 		ft_exit_err("no name or comment", data);
 }
 
-void		read_header(char *filename, t_asm *data)
+void		read_header(t_asm *data, int fd)
 {
-	int		fd;
-	int		ret;
 	int		a;
 
 	a = swap_bits(0xea83f3);
-	if ((fd = open(filename, O_RDONLY)) == -1)
-		ft_exit_err("open error", data);
 	read_name_comment(fd, data);
 	//magic
 	ft_cpy_buf((unsigned char *)&a, data, 4);
-	ft_cpy_buf(data->header.prog_name, data, PROG_NAME_LENGTH + 1);
+	ft_cpy_buf((unsigned char *)data->header.prog_name, data, PROG_NAME_LENGTH + 1);
 	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
 	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);//prog size
-	ft_cpy_buf(data->header.comment, data, COMMENT_LENGTH + 1);
+	ft_cpy_buf((unsigned char *)data->header.comment, data, COMMENT_LENGTH + 1);
 	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
 	write(1, data->buffer, data->buff_index);
 }

@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/22 17:32:50 by rbadia           ###   ########.fr        #
+#    Updated: 2017/02/22 19:45:36 by rbadia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +21,18 @@ SRC_PATH	= src
 PATH_INCLUDES	= includes
 OBJ_PATH	= obj
 # Source file
-SRC_FILE	=	main.c			\
-				read_file.c		\
-				utils/empty.c	\
-				utils/ft_exit_err.c	\
-				utils/is_one_of.c	\
-				utils/strchri.c		\
-				utils/cpy_buf.c		\
-				utils/swap_bits.c
+SRC_FILE	=	main.c					\
+				read_header.c			\
+				read_program.c			\
+				utils/empty.c			\
+				utils/ft_exit_err.c		\
+				utils/is_one_of.c		\
+				utils/strchri.c			\
+				utils/cpy_buf.c			\
+				utils/swap_bits.c		\
+				utils/ft_strndup.c		\
+				utils/splitrim.c		\
+				utils/ft_strstrlen.c	\
 # Object file
 OBJ_FILE	=	$(addprefix $(OBJ_PATH)/,	\
 				$(addsuffix .o,				\
