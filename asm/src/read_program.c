@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 20:49:54 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 22:06:36 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,27 @@ char		*get_label(t_asm *data, char *line)
 	return (line + i + label_size + 1);
 }
 
-void		check_type(char *op_buff, int type_argi, int args_i, int type)
+void		check_type(unsigned char *op_buff, int args_i, int type, int type_argi, t_asm *data)
 {
-	if ((arg_type & type) == 0)
+//	ft_printf("type = %d et argitype= %d\n", type, type_argi);
+	if ((type_argi & type) == 0)
 		ft_exit_err("bad type argument", data);
-	*op_buff |= (type << args_i);
+	if (type_argi == T_IND)
+		*op_buff |= (T_INDB << (6 - 2 * args_i));
+	else
+		*op_buff |= (type_argi << (6 - 2 * args_i));
 }
 
-int			get_param(char *op_buff, int *op_i, char *arg_i)
+int			get_param(char *op_buff, int *op_i, char *arg_i, t_asm *data)
 {
-	int argi_type;
+	//int type_argi;
 
 	if (arg_i[0] == 'r')
-		dsds;
+		return (T_REG);
+	else if (arg_i[0] == '%')
+		return (T_DIR);
+	else
+		return (T_IND);
 }
 
 void		op_sti(t_asm *data, char **args)
@@ -76,21 +84,31 @@ void		op_sti(t_asm *data, char **args)
 	unsigned char	op_buff[7];
 	int				op_i;
 	int				args_i;
-	int				type;
+	int				type_argi;
 
 	op_i = 0;
+	args_i = 0;
 	op_buff[0] = 0x0b;
+	op_buff[1] = 0;
+	// ft_printf("\n\n\n SIZE %d\n", ft_strstrlen(args));
 	if (ft_strstrlen(args) != 3)
-		ft_exit_err("sti must have 3 params", NULL);
-	type = get_param(op_buff, &op_i, args[args_i]);
-	check_type(op_buff + 1, args_i, T_REGB, type);
+		ft_exit_err("sti must have 3 params", data);
+	type_argi = get_param((char*)op_buff, &op_i, args[args_i], data);
+//	ft_printf("type_argi 1 = %d\n", type_argi);
+	check_type(op_buff + 1, args_i, T_REG, type_argi, data);
 	args_i++;
-	type = get_param(op_buff, &op_i, args[args_i]);
-	check_type(op_buff + 1, args_i, T_REGB | T_DIRB | T_INDB, type);
+
+	type_argi = get_param((char*)op_buff, &op_i, args[args_i], data);
+//	ft_printf("type_argi = %d", type_argi);
+	check_type(op_buff + 1, args_i, T_REG | T_DIR | T_IND, type_argi, data);
 	args_i++;
-	type = get_param(op_buff, &op_i, args[args_i]);
-	check_type(op_buff + 1, args_i, T_DIRB | T_REGB, type);
+
+	type_argi = get_param((char*)op_buff, &op_i, args[args_i], data);
+//	ft_printf("type_argi = %d", type_argi);
+	check_type(op_buff + 1, args_i, T_DIR | T_REG, type_argi, data);
 	args_i++;
+
+	op_i = 2;
 	ft_cpy_buf(op_buff, data, op_i);
 	(void)data;
 }
@@ -112,9 +130,9 @@ void		get_instruction(t_asm *data, char *line)
 	{
 		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
 		{
-			ft_printf("\nwow i have to execute '%s'\n", g_ops[j].name);
+			//ft_printf("\nwow i have to execute '%s'\n", g_ops[j].name);
 			op_sti(data, splitrim(line + i + instruction_size, data));
-			exit(1);
+			return ;
 		}
 		j++;
 	}
@@ -133,8 +151,10 @@ void		read_program(t_asm *data, int fd)
 		{
 			str = get_label(data, line);
 			get_instruction(data, str);
+			break ;
 		}
 		free(line);
 	}
-	display_labels(data->knowns);
+	ft_printf("\n\n\nhi\n");
+	//display_labels(data->knowns);
 }

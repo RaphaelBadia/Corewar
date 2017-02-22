@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 19:51:03 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 21:29:59 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void				read_program(t_asm *data, int fd);
 /*
 ** utils
 */
-
+size_t				ft_strstrlen(char **str);
 int					empty(char *str);
 void				ft_exit_err(char *msg, t_asm *data);
 int					is_one_of(char c, char *that);

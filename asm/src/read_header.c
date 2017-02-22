@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/22 20:27:00 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 21:54:47 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,4 @@ void		read_header(t_asm *data, int fd)
 	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);//prog size
 	ft_cpy_buf((unsigned char *)data->header.comment, data, COMMENT_LENGTH + 1);
 	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
-	write(1, data->buffer, data->buff_index);
 }

@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 18:44:09 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/22 21:55:33 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		main(int ac, char **av)
 		return (usage(av[0]));
 	read_header(&data, fd);
 	read_program(&data, fd);
+	write(2, data.buffer, data.buff_index);
 	return (0);
 }
