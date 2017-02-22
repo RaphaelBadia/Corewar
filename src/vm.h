@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/21 22:35:11 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/22 22:06:47 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 # define VM_H
 # include "op.h"
 # define ERROR "Error"
-# define USAGE "%s [-dump cycle -n player_id] <champion.cor...>\n"
-	
+
 /*
 ** The following flag should be added, -n -dump
 ** -n [number] player
@@ -53,17 +52,35 @@ typedef struct	s_champ
 {
 	char			*name;
 	char			*comment;
+	unsigned char	*byte_code;
 	unsigned int	size;
 	unsigned int	last_live;
 	unsigned int	live;
+	unsigned int	id_player;
 }				t_champ;
 
-typedef struct	s_statu
+typedef struct	s_arg
 {
+	char	**av;
+	int		i;
+	int		ac;
+}				t_arg;
+
+typedef struct	s_vm
+{
+	enum e_flag
+	{
+		dump = 1,
+		visual = 2
+	}				flag;
+	unsigned int	dump_cycle;
 	unsigned int	nb_player;
+	unsigned int	cycle_to_die;
 	unsigned long	nb_process;
 	unsigned long	cycle;
-}				t_statu
+	char			map[MEM_SIZE];
+	t_champ			*champ;
+}				t_vm;
 
 typedef struct	s_process
 {
@@ -74,5 +91,4 @@ typedef struct	s_process
 	int		carry;
 }				t_process;
 
-static char		g_map[MEM_SIZE] = {0};
 #endif
