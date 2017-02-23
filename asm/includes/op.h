@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 21:29:59 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/23 17:22:01 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,7 @@
 
 # include <stddef.h>
 
-/*
-** Tableau des operations
-** https://docs.google.com/spreadsheets/d/
-** 1xTy1fQmra797pfamd0OBy2Q11sCwJpxEUd5i_7tp2EY/edit?usp=sharing
-*/
-
-typedef struct		s_op
-{
-	char			*name;
-	int				argc;
-	int				argv[3];
-	int				opcode;
-	int				cycles;
-	char			*desc;
-	int				octal;
-	int				label_size;
-}					t_op;
-
-typedef char	t_arg_type;
+typedef char		t_arg_type;
 
 # define T_REG					1
 # define T_DIR					2
@@ -78,6 +60,7 @@ typedef char	t_arg_type;
 # define T_REGB					1
 # define T_DIRB					2
 # define T_INDB					3
+
 /*
 ** Header du programme
 ** Je ne sais pas ce qu'est le "magic"
@@ -113,13 +96,43 @@ typedef struct		s_asm
 	t_label			*knowns;
 	unsigned char	*buffer;
 	unsigned int	buff_index;
+	unsigned int	begin_program;
 	unsigned int	buff_len;
 }					t_asm;
 
-extern 				t_op g_ops[];
+/*
+** Tableau des operations
+** https://docs.google.com/spreadsheets/d/
+** 1xTy1fQmra797pfamd0OBy2Q11sCwJpxEUd5i_7tp2EY/edit?usp=sharing
+*/
+
+typedef struct		s_op
+{
+	char			*name;
+	int				argc;
+	int				argv[3];
+	int				opcode;
+	int				cycles;
+	char			*desc;
+	int				octal;
+	int				label_size;
+	void			(*op)(t_asm *data, char **args);
+}					t_op;
+
+extern				t_op g_ops[];
 
 void				read_header(t_asm *data, int fd);
 void				read_program(t_asm *data, int fd);
+
+/*
+** op functions
+*/
+
+void				op_nothing(t_asm *data, char **args);
+void				op_sti(t_asm *data, char **args);
+void				op_and(t_asm *data, char **args);
+void				op_live(t_asm *data, char **args);
+void				op_zjmp(t_asm *data, char **args);
 
 /*
 ** utils
@@ -133,5 +146,6 @@ void				ft_cpy_buf(unsigned char *src, t_asm *data, size_t n);
 int					swap_bits(int integer);
 char				*ft_strndup(const char *s, size_t n);
 char				**splitrim(char *str, t_asm *data);
+int					ft_atoi_safe(const char *str, int *result);
 
 #endif

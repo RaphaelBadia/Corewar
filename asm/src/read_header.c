@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/22 21:54:47 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/23 17:25:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void		read_name_comment(int fd, t_asm *data)
 		ft_exit_err("no name or comment", data);
 }
 
+ #include "ft_printf.h"
+
 void		read_header(t_asm *data, int fd)
 {
 	int		a;
@@ -107,4 +109,6 @@ void		read_header(t_asm *data, int fd)
 	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);//prog size
 	ft_cpy_buf((unsigned char *)data->header.comment, data, COMMENT_LENGTH + 1);
 	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
+	data->begin_program = data->buff_index;
+	ft_printf("the program begins at %d\n", data->buff_index);
 }
