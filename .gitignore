@@ -33,5 +33,4 @@
 *.su
 
 #bin
-./asm/asm
-./asm
+/asm/asm
