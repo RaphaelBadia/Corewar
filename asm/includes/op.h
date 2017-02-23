@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 17:22:01 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 18:51:52 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef char		t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+# define PROG_INSTRUCTS_START	(4 + PROG_NAME_LENGTH + 1 + 3 	\
+								+ 4 + COMMENT_LENGTH + 1 + 3)
 
 typedef struct		s_header
 {
@@ -82,6 +84,7 @@ typedef struct		s_label
 {
 	char			*label_name;
 	int				index;
+	int				index_op;
 	struct s_label	*next;
 }					t_label;
 
@@ -96,7 +99,6 @@ typedef struct		s_asm
 	t_label			*knowns;
 	unsigned char	*buffer;
 	unsigned int	buff_index;
-	unsigned int	begin_program;
 	unsigned int	buff_len;
 }					t_asm;
 
@@ -123,6 +125,17 @@ extern				t_op g_ops[];
 
 void				read_header(t_asm *data, int fd);
 void				read_program(t_asm *data, int fd);
+void				check_type(unsigned char *op_buff, int args_i, int type, int type_argi, t_asm *data);
+int					get_param(char *op_buff, int *op_i, char *arg_i, t_asm *data, int dir_size);
+
+/*
+** label functions
+*/
+
+int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i);
+void			fill_label_to_fill(t_asm *data);
+void			ft_addlabel(t_label **lst, char *name, int index, int index_op);
+void			display_labels(t_label *lst);
 
 /*
 ** op functions

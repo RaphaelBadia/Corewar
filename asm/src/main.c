@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 15:38:36 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 18:53:59 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int		main(int ac, char **av)
 		return (usage(av[0]));
 	read_header(&data, fd);
 	read_program(&data, fd);
+	int diff = data.buff_index - PROG_INSTRUCTS_START;
+	data.buffer[4 + PROG_NAME_LENGTH + 1 + 3] = diff >> 24 & 0xff;
+	data.buffer[4 + PROG_NAME_LENGTH + 1 + 3 + 1] = diff >> 16 & 0xff;
+	data.buffer[4 + PROG_NAME_LENGTH + 1 + 3 + 2] = diff >> 8 & 0xff;
+	data.buffer[4 + PROG_NAME_LENGTH + 1 + 3 + 3] = diff & 0xff;
 	write(2, data.buffer, data.buff_index);
 	return (0);
 }
