@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 20:16:05 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 22:27:36 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,58 +15,14 @@
 #include "op.h"
 #include <ft_printf.h>
 
-char		*get_label(t_asm *data, char *line)
-{
-	int		i;
-	int		label_size;
-	char	*label_name;
-
-	i = 0;
-	while (is_one_of(line[i], " \t"))
-		i++;
-	label_size = 0;
-	while (is_one_of(line[i + label_size], LABEL_CHARS))
-		label_size++;
-	if (line[i + label_size] != ':')
-		return (line + i);
-	label_name = ft_strndup(line + i, (size_t)label_size);
-	ft_addlabel(&data->knowns, label_name, data->buff_index, 0);
-	return (line + i + label_size + 1);
-}
-
 void		check_type(unsigned char *op_buff, int args_i, int type, int type_argi, t_asm *data)
 {
-//	ft_printf("type = %d et argitype= %d\n", type, type_argi);
 	if ((type_argi & type) == 0)
 		ft_exit_err("bad type argument", data);
 	if (type_argi == T_IND)
 		*op_buff |= (T_INDB << (6 - 2 * args_i));
 	else
 		*op_buff |= (type_argi << (6 - 2 * args_i));
-}
-
-int			get_label_to_find(t_asm *data, char *line, char *op_buff, int *op_i)
-{
-	int		i;
-	char	*label_name;
-
-	i = 0;
-	if (line[i] == '\0')
-		ft_exit_err("no label name", data);
-	while (line[i])
-	{
-		if (!is_one_of(line[i], LABEL_CHARS))
-			ft_exit_err("wrong label chars", data);
-		i++;
-	}
-	if (!(label_name = ft_strdup(line)))
-		ft_exit_err("malloc", data);
-	if (!(fill_label(label_name, data, op_buff, op_i)))
-	{
-		ft_addlabel(&data->to_fill, label_name, data->buff_index + *op_i, data->buff_index);
-		return (0);
-	}
-	return (1);
 }
 
 int			get_param(char *op_buff, int *op_i, char *arg_i, t_asm *data, int dir_size)
@@ -118,11 +74,11 @@ void		get_instruction(t_asm *data, char *line)
 
 	i = 0;
 	j = 0;
-	ft_printf("%d is the first char of line\n", *line);
 	while (is_one_of(line[i], " \t"))
 		i++;
 	instruction_size = 0;
-	while (line[i + instruction_size] != '\0' && !is_one_of(line[i + instruction_size], " \t"))
+	while (line[i + instruction_size] != '\0' &&
+	!is_one_of(line[i + instruction_size], " \t"))
 		instruction_size++;
 	if (instruction_size == 0)
 		return ;
@@ -131,9 +87,11 @@ void		get_instruction(t_asm *data, char *line)
 		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
 		{
 			g_ops[j].op(data, splitrim(line + i + instruction_size, data));
+			return ;
 		}
 		j++;
 	}
+	ft_exit_err("unkown command", data);
 }
 
 void		read_program(t_asm *data, int fd)
@@ -145,9 +103,9 @@ void		read_program(t_asm *data, int fd)
 	line = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (!empty(line))
+		if (!empty(remove_comment(line)))
 		{
-			ft_printf("wtf is happning '%s'\n", line);
+			// ft_printf("djskdjksdjsk dskjd skdjs %s\n", line);
 			str = get_label(data, line);
 			get_instruction(data, str);
 		}

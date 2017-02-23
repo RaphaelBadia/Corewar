@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 18:51:52 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 23:11:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,20 +136,37 @@ int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i);
 void			fill_label_to_fill(t_asm *data);
 void			ft_addlabel(t_label **lst, char *name, int index, int index_op);
 void			display_labels(t_label *lst);
-
+void			display_to_fill_list(t_label *lst);
+t_label			*ft_find_label_in_lst(char *name, t_label *lst);
+char			*get_label(t_asm *data, char *line);
+int				get_label_to_find(t_asm *data, char *line, char *op_buff,
+	int *op_i);
 /*
 ** op functions
 */
-
-void				op_nothing(t_asm *data, char **args);
-void				op_sti(t_asm *data, char **args);
-void				op_and(t_asm *data, char **args);
 void				op_live(t_asm *data, char **args);
+void				op_ld(t_asm *data, char **args);
+void				op_st(t_asm *data, char **args);
+void				op_add(t_asm *data, char **args);
+void				op_sub(t_asm *data, char **args);
+void				op_and(t_asm *data, char **args);
+void				op_or(t_asm *data, char **args);
+void				op_xor(t_asm *data, char **args);
 void				op_zjmp(t_asm *data, char **args);
+void				op_ldi(t_asm *data, char **args);
+void				op_sti(t_asm *data, char **args);
+void				op_fork(t_asm *data, char **args);
+void				op_lld(t_asm *data, char **args);
+void				op_lldi(t_asm *data, char **args);
+void				op_lfork(t_asm *data, char **args);
+void				op_aff(t_asm *data, char **args);
+void				op_nothing(t_asm *data, char **args);
 
 /*
 ** utils
 */
+
+char				*remove_comment(char *str);
 size_t				ft_strstrlen(char **str);
 int					empty(char *str);
 void				ft_exit_err(char *msg, t_asm *data);

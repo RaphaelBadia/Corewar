@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 18:44:32 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 22:24:10 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,62 +14,34 @@
 #include "op.h"
 #include "ft_printf.h"
 
-static t_label	*ft_find_label_in_lst(char *name, t_label *lst)
-{
-	t_label		*tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		if (ft_strequ(tmp->label_name, name))
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-static void			display_to_fill_list(t_label *lst)
-{
-	ft_printf("labels to fill:\n");
-	while (lst)
-	{
-		ft_printf("%s is needed at %d\n", lst->label_name, lst->index);
-		lst = lst->next;
-	}
-}
-
 int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i)
 {
 	t_label		*find;
+	short		diff;
 
 	if ((find = ft_find_label_in_lst(name, data->knowns)) == NULL)
 		return (0);
-	display_labels(data->knowns);
-	ft_printf("\n");
-	display_to_fill_list(data->to_fill);
-	short diff = find->index - data->buff_index;
-	ft_printf("diff: %#d, first: %hx, second: %hx\n", diff, diff >> 8 & 0xff, diff & 0xff);
+	// display_labels(data->knowns);
+	// ft_printf("\n");
+	// display_to_fill_list(data->to_fill);
+	diff = find->index - data->buff_index;
 	op_buff[*op_i] = diff >> 8 & 0xff;
 	op_buff[*op_i + 1] = diff & 0xff;
 	*op_i += 2;
-	// le +1 doit etre fait en fonction de si ya un octal ou non.
 	return (1);
 }
 
 int				fill_label_2(char *name, t_label *to_fill, t_asm *data)
 {
 	t_label		*know;
+	short		diff;
 
 	if ((know = ft_find_label_in_lst(name, data->knowns)) == NULL)
 		return (0);
-	display_labels(data->knowns);
-	ft_printf("\n");
-	//display_to_fill_list(data->to_fill);
-	short diff = know->index - to_fill->index_op;
-	ft_printf("diff: %#d, first: %hx, second: %hx\n", diff, diff >> 8 & 0xff, diff & 0xff);
+	// display_labels(data->knowns);
+	diff = know->index - to_fill->index_op;
 	data->buffer[to_fill->index] = diff >> 8 & 0xff;
 	data->buffer[to_fill->index + 1] = diff & 0xff;
-	// le +1 doit etre fait en fonction de si ya un octal ou non.
 	return (1);
 }
 
@@ -86,25 +58,47 @@ void			fill_label_to_fill(t_asm *data)
 	}
 }
 
-void			ft_addlabel(t_label **lst, char *name, int index, int index_op)
+char			*get_label(t_asm *data, char *line)
 {
-	t_label	*new;
+	int		i;
+	int		label_size;
+	char	*label_name;
 
-	if (!(new = malloc(sizeof(t_label))))
-		ft_exit_err("malloc error", NULL);
-	new->label_name = name;
-	new->index = index;
-	new->index_op = index_op;
-	new->next = *lst;
-	*lst = new;
+	i = 0;
+	while (is_one_of(line[i], " \t"))
+		i++;
+	label_size = 0;
+	while (is_one_of(line[i + label_size], LABEL_CHARS))
+		label_size++;
+	if (line[i + label_size] != ':')
+		return (line + i);
+	label_name = ft_strndup(line + i, (size_t)label_size);
+	ft_addlabel(&data->knowns, label_name, data->buff_index, 0);
+	return (line + i + label_size + 1);
 }
 
-void			display_labels(t_label *lst)
+int				get_label_to_find(t_asm *data, char *line, char *op_buff,
+	int *op_i)
 {
-	ft_printf("Displaying a list:\n");
-	while (lst)
+	int		i;
+	char	*label_name;
+
+	i = 0;
+	if (line[i] == '\0')
+		ft_exit_err("no label name", data);
+	while (line[i])
 	{
-		ft_printf("%s was defined at index %d\n", lst->label_name, lst->index);
-		lst = lst->next;
+		if (!is_one_of(line[i], LABEL_CHARS))
+			ft_exit_err("wrong label chars", data);
+		i++;
 	}
+	if (!(label_name = ft_strdup(line)))
+		ft_exit_err("malloc", data);
+	if (!(fill_label(label_name, data, op_buff, op_i)))
+	{
+		ft_addlabel(&data->to_fill, label_name, data->buff_index + *op_i,
+			data->buff_index);
+		return (0);
+	}
+	return (1);
 }
