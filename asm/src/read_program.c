@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   read_program.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: vcombey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/23 17:46:55 by vcombey           #+#    #+#             */
+/*   Updated: 2017/02/23 17:47:01 by vcombey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_program.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 17:29:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 17:46:49 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +26,52 @@
 #include "libft.h"
 #include "op.h"
 #include <ft_printf.h>
+
+t_label		*ft_find_label_in_lst(char *name, t_label *lst)
+{
+	t_label		*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		if (ft_strequ(tmp->label_name, name))
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+int			fill_label(char *name, t_asm *data)
+{
+	t_label		*find;
+
+	if ((find = ft_find_label_in_lst(name, data->knowns)) == NULL)
+		return (0);
+	//display_labels(data->knowns);
+	//display_labels(data->to_fill);
+	ft_printf("\nDIST : %d\n", data->to_fill->next->index - data->begin_program);
+	// 06 00 00 00
+	// 00 00 00 06
+	short diff = data->knowns->index - data->to_fill->index;
+	ft_printf("diff: %#d, first: %hx, second: %hx\n", diff, diff >> 8 & 0xff, diff & 0xff);
+	data->buffer[data->to_fill->index] = diff >> 8 & 0xff;
+	data->buffer[data->to_fill->index + 1] = diff & 0xff;
+	// le +1 doit etre fait en fonction de si ya un octal ou non.
+	return (1);
+}
+
+void		fill_label_to_fill(t_asm *data)
+{
+	t_label		*tmp;
+
+	tmp = data->to_fill;
+	while (tmp)
+	{
+		if (!(fill_label(tmp->label_name, data)))
+			ft_exit_err("label not find", data);
+		tmp = tmp->next;
+	}
+}
 
 void		ft_addlabel(t_label **lst, char *name, int index)
 {
@@ -52,6 +110,7 @@ char		*get_label(t_asm *data, char *line)
 	if (line[i + label_size] != ':')
 		return (line + i);
 	label_name = ft_strndup(line + i, (size_t)label_size);
+	if (!(fill_label(label_name, data)))
 	ft_addlabel(&data->knowns, label_name, data->buff_index);
 	return (line + i + label_size + 1);
 }
@@ -266,14 +325,4 @@ void		read_program(t_asm *data, int fd)
 		}
 		free(line);
 	}
-	display_labels(data->knowns);
-	display_labels(data->to_fill);
-	ft_printf("\nDIST : %d\n", data->to_fill->next->index - data->begin_program);
-	// 06 00 00 00
-	// 00 00 00 06
-	short diff = data->knowns->index - data->to_fill->index;
-	ft_printf("diff: %#d, first: %hx, second: %hx\n", diff, diff >> 8 & 0xff, diff & 0xff);
-	data->buffer[data->to_fill->index] = diff >> 8 & 0xff;
-	data->buffer[data->to_fill->index + 1] = diff & 0xff;
-	// le +1 doit etre fait en fonction de si ya un octal ou non.
 }
