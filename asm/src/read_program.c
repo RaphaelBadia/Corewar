@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 18:38:28 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 20:16:05 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +118,18 @@ void		get_instruction(t_asm *data, char *line)
 
 	i = 0;
 	j = 0;
+	ft_printf("%d is the first char of line\n", *line);
 	while (is_one_of(line[i], " \t"))
 		i++;
 	instruction_size = 0;
-	while (!is_one_of(line[i + instruction_size], " \t"))
+	while (line[i + instruction_size] != '\0' && !is_one_of(line[i + instruction_size], " \t"))
 		instruction_size++;
+	if (instruction_size == 0)
+		return ;
 	while (j < 16)
 	{
 		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
 		{
-			//ft_printf("\nwow i have to execute '%s'\n", g_ops[j].name);
 			g_ops[j].op(data, splitrim(line + i + instruction_size, data));
 		}
 		j++;
@@ -145,6 +147,7 @@ void		read_program(t_asm *data, int fd)
 	{
 		if (!empty(line))
 		{
+			ft_printf("wtf is happning '%s'\n", line);
 			str = get_label(data, line);
 			get_instruction(data, str);
 		}

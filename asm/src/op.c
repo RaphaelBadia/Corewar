@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:03:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 18:15:54 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 20:01:31 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void		op_live(t_asm *data, char **args)
 	args_i = 0;
 	op_buff[0] = 0x01;
 	op_i = 1;
+	ft_printf("live size is %d\n", ft_strstrlen(args));
 	if (ft_strstrlen(args) != 1)
 		ft_exit_err("live must have 1 params", data);
 	type_argi = get_param((char*)op_buff, &op_i, args[args_i], data, 4);
