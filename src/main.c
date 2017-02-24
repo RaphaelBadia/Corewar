@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 18:45:39 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/24 22:52:35 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,11 +286,55 @@ void	checks(t_vm *vm)
 /**************************************************************************************/
 /**************************************************************************************/
 
+int		check_octal(t_vm *vm, t_process *process)
+{
+	int	i;
+	unsigned int	offset;
+	unsigned char	byte_code;
+	unsigned char	octal;
+
+	byte_code = process->op_code;
+	i = 0;
+	offset = 6;
+	if (!g_op_tab[byte_code].octal)
+		return (1);
+	while (i < g_op_tab[byte_code].argc)
+	{
+		octal = (vm->map[process->pc + 1] >> offset) & 3;
+		if ((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE)
+			++i;
+		else if ((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE)
+			++i;
+		else if ((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE)
+			++i;
+		else
+			return (0);
+		offset -= 2;
+	}
+	return (1);
+}
+
 void	exec_opt(t_vm *vm, t_process *process)
 {
-	static void (*f[])(t_vm *, t_process *) = {NULL, &live, &ld};
-	
-	f[process->op_code](vm, process);
+	int	debug;
+	static void		(*f[])(t_vm *, t_process *) = {NULL, &live, &ld};
+	unsigned char	byte_code;
+
+	if ((debug = check_octal(vm, process)))
+		f[process->op_code](vm, process);
+	else
+		process->pc += 1;
+	printf("debug :%d\n", debug);
+	if (debug == 0)
+		abort();
+	process->op_code = 0;
+	process->exec_cycle = 0;
+	byte_code = vm->map[process->pc];
+	if (byte_code > 0 && byte_code < 17)
+	{
+		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
+		process->op_code = g_op_tab[byte_code].opcode;
+	}
 }
 
 void	check_opt(t_vm *vm, t_lst *process)
@@ -310,12 +354,6 @@ void	check_opt(t_vm *vm, t_lst *process)
 		else if (cp->exec_cycle == vm->cycle)
 		{
 			exec_opt(vm, cp);
-			byte_code = vm->map[cp->pc];
-			if (byte_code > 0 && byte_code < 17)
-			{
-				cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
-				cp->op_code = g_op_tab[byte_code].opcode;
-			}
 		}
 		else if (!cp->op_code)
 		{
@@ -370,8 +408,6 @@ void	play(t_vm *vm)
 //		printf("cycle :%lu\n", vm->cycle);
 	}
 	printf("purged");
-	/* check_winner */
-	/* print winner */
 }
 
 int		main(int ac, char **av)

@@ -6,11 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2017/02/24 18:43:07 by jye              ###   ########.fr       */
-=======
-/*   Updated: 2017/02/24 16:38:31 by vcombey          ###   ########.fr       */
->>>>>>> b939ef7d56c7762bef6e6430f0f6f5a846b6ed89
+/*   Updated: 2017/02/24 21:17:36 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +15,7 @@
 # include "op.h"
 # define ERROR "Error"
 # define MAP_MAX_SIZE (MEM_SIZE - 1)
-
+# define PTR(pc) (pc % MEM_SIZE)
 /*
 ** The following flag should be added, -n -dump
 ** -n [number] player
@@ -112,6 +108,7 @@ typedef struct	s_lst
 
 void	live(t_vm *vm, t_process *process);
 void	ld(t_vm *vm, t_process *process);
+void	st(t_vm *vm, t_process *process);
 
 /*
 ** LST function

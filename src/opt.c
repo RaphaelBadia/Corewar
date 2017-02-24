@@ -6,20 +6,44 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 18:56:08 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/24 22:53:05 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
-#include <stdio.h>
-# define GET_UINT32(buff, i)					\
-	((*(buff + (i % MEM_SIZE)) << 24) |			\
-	 (*(buff + (i % MEM_SIZE + 1)) << 16) |		\
-	 (*(buff + (i % MEM_SIZE + 2)) << 8) |		\
-	 (*(buff + (i % MEM_SIZE + 3))))
-# define GET_UINT16(buff, i)					\
-	((*(buff + (i % MEM_SIZE)) << 8) |			\
-	 (*(buff + (i % MEM_SIZE + 1))))
+
+/*
+** data[0] = to_get index, data[1] = octal, data[2] = label
+*/
+
+unsigned int	get_param(t_vm *vm, unsigned int pc, int data[3])
+{
+	unsigned int	param;
+	short			indir;
+
+	param = 0;
+	if (data[1] == REG_CODE)
+		param = vm->map[PTR(pc)];
+	else if (data[1] == DIR_CODE)
+	{
+		if (data[2])
+			param =	(vm->map[PTR(data[0])] << 8) | (vm->map[PTR(data[0] + 1)]);
+		else
+			param = (vm->map[PTR(data[0])] << 24) |		\
+				(vm->map[PTR(data[0] + 1)] << 16) |		\
+				(vm->map[PTR(data[0] + 2)] << 8) |		\
+				(vm->map[PTR(data[0] + 3)]);
+	}
+	else if (data[1] == IND_CODE)
+	{
+		indir = (vm->map[PTR(data[0])] << 8) | (vm->map[PTR(data[0] + 1)]);
+		param = (vm->map[PTR(pc + indir)] << 24) |	\
+				(vm->map[PTR(pc + 1 + indir)] << 16) |	\
+				(vm->map[PTR(pc + 2 + indir)] << 8) |	\
+				(vm->map[PTR(pc + 3 + indir)]);
+	}
+	return (param);
+}
 
 void	live(t_vm *vm, t_process *process)
 {
@@ -27,9 +51,8 @@ void	live(t_vm *vm, t_process *process)
 	unsigned int	i;
 
 	process->last_live = vm->cycle;
-	process->op_code = 0;
-	process->exec_cycle = 0;
-	id_player = GET_UINT32(vm->map, process->pc + 1);
+	id_player = get_param(vm, process->pc,
+					(int[3]){process->pc + 1, DIR_CODE, 0});
 	i = 0;
 	while (i < vm->nb_player)
 	{
@@ -49,26 +72,26 @@ void	ld(t_vm *vm, t_process *process)
 	unsigned char	octal;
 	unsigned int	param;
 	unsigned int	i;
-	short			indir;
 
-	process->last_live = vm->cycle;
-	process->op_code = 0;
-	process->exec_cycle = 0;
 	i = process->pc;
 	octal = vm->map[i + 1] >> 6;
 	if (octal == DIR_CODE)
 	{
-		param = GET_UINT32(vm->map, i + 2);
-		if (vm->map[i + 3] < 16)
+		param = get_param(vm, i, (int[3]){i + 2, DIR_CODE, 0});
+		if (vm->map[i + 3] <= 16)
 			process->r[vm->map[i + 6] - 1] = param;
 		process->pc += 7;
 	}
-	else
+	else if (octal == IND_CODE)
 	{
-		indir = GET_UINT16(vm->map, i + 2);
-		param = GET_UINT32(vm->map, i + indir);
-		if (vm->map[i + 3] < 16)
+		param = get_param(vm, i, (int[3]){i + 2, IND_CODE, 0});
+		if (vm->map[i + 3] <= 16)
 			process->r[vm->map[i + 4] - 1] = param;
 		process->pc += 5;
 	}
 }
+
+/* void	st(t_vm *vm, t_process *process) */
+/* { */
+/* 	unsigned char	octal; */
+/* } */
