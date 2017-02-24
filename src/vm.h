@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 10:15:04 by seto             ###   ########.fr       */
+/*   Updated: 2017/02/24 18:43:07 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define VM_H
 # include "op.h"
 # define ERROR "Error"
+# define MAP_MAX_SIZE (MEM_SIZE - 1)
 
 /*
 ** The following flag should be added, -n -dump
@@ -71,14 +72,15 @@ typedef struct	s_vm
 	enum			e_flag
 	{
 		dump = 1,
-		visual = 2
+		visual = 2,
+		aff = 4
 	}				flag;
 	unsigned int	dump_cycle;
 	unsigned int	nb_player;
 	unsigned int	cycle_to_die;
 	unsigned int	checks;
 	unsigned long	nb_process;
-	unsigned long	cycle;
+	unsigned long	cycle; // current cycle;
 	unsigned char	map[MEM_SIZE];
 	t_champ			*champ;
 }				t_vm;
@@ -105,6 +107,7 @@ typedef struct	s_lst
 */
 
 void	live(t_vm *vm, t_process *process);
+void	ld(t_vm *vm, t_process *process);
 
 /*
 ** LST function

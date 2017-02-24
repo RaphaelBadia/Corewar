@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 11:14:43 by seto             ###   ########.fr       */
+/*   Updated: 2017/02/24 18:45:39 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ int		check_lives(t_vm *vm)
 	{
 		if (vm->champ[i].live == NBR_LIVE)
 			return (1);
+		++i;
 	}
 	return (0);
 }
@@ -254,6 +255,8 @@ int		check_lives(t_vm *vm)
 
 void	checks(t_vm *vm)
 {
+	if (vm->cycle == 0)
+		return ;
 	if (check_lives(vm))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
@@ -272,6 +275,24 @@ void	checks(t_vm *vm)
 	}
 }
 
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+/**************************************************************************************/
+
+void	exec_opt(t_vm *vm, t_process *process)
+{
+	static void (*f[])(t_vm *, t_process *) = {NULL, &live, &ld};
+	
+	f[process->op_code](vm, process);
+}
+
 void	check_opt(t_vm *vm, t_lst *process)
 {
 	unsigned char	byte_code;
@@ -281,16 +302,53 @@ void	check_opt(t_vm *vm, t_lst *process)
 	{
 		cp = process->data;
 		byte_code = vm->map[cp->pc];
-		if (byte_code > 0 && byte_code < 17)
+		if (!cp->op_code && byte_code > 0 && byte_code < 17)
 		{
-			cp->exec_cycle = g_op_tab[byte_code - 1].cycles + vm->cycle; // cycle to exec opt;
-			cp->op_code = g_op_tab[byte_code - 1].opcode;
+			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
+			cp->op_code = g_op_tab[byte_code].opcode;
 		}
-		else
+		else if (cp->exec_cycle == vm->cycle)
 		{
-			cp->pc += 1; // if op_code was not found in the current PC
+			exec_opt(vm, cp);
+			byte_code = vm->map[cp->pc];
+			if (byte_code > 0 && byte_code < 17)
+			{
+				cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
+				cp->op_code = g_op_tab[byte_code].opcode;
+			}
+		}
+		else if (!cp->op_code)
+		{
+			if (++cp->pc > MAP_MAX_SIZE)
+				cp->pc = 0;
 		}
 		process = process->next;
+	}
+}
+
+void	purge_process(t_vm *vm, t_lst **process)
+{
+	t_process	*pro;
+	t_lst		*cp;
+
+	if (vm->cycle == 0)
+		return ;
+	cp = *process;
+	while (cp && (pro = cp->data))
+	{
+		if (pro->last_live < vm->cycle - vm->cycle_to_die)
+			pop_lst__(&cp, &free);
+		else
+			break ;
+	}
+	*process = cp;
+	while (cp)
+	{
+		pro = cp->data;
+		if (pro->last_live < vm->cycle - vm->cycle_to_die)
+			pop_lst__(&cp, &free);
+		else
+			cp = cp->next;
 	}
 }
 
@@ -300,25 +358,18 @@ void	play(t_vm *vm)
 	t_process	*cp;
 
 	process = init_process(vm);
-	/* while (process) */
-	/* { */
-	vm->cycle = 300;
-	check_opt(vm, process);
-	printf("process\n");
-	printf("%u\n", ((t_process *)process->data)->exec_cycle);
-	printf("%u\n", ((t_process *)process->data)->op_code);
-//	live(vm, process->data);
-	printf("%u\n", ((t_process *)process->data)->pc);
-	printf("%u\n", ((t_process *)process->data)->last_live);
-	printf("champion\n");
-		/* exec_opt(vm, process); */
-	/* 	if (vm->cycle % vm->cycle_to_die) */
-	/* 	{ */
-	/* 		checks(vm); */
-	/* 		purge_process(vm->cycle, &process); */
-	/* 	} */
-	/* 	vm->cycle += 1; */
-	/* } */
+	while (process)
+	{
+		check_opt(vm, process);
+		if (!(vm->cycle % vm->cycle_to_die))
+		{
+			checks(vm);
+			purge_process(vm, &process);
+		}
+		vm->cycle += 1;
+//		printf("cycle :%lu\n", vm->cycle);
+	}
+	printf("purged");
 	/* check_winner */
 	/* print winner */
 }
@@ -345,8 +396,9 @@ int		main(int ac, char **av)
 		vm.champ = realloc(vm.champ, sizeof(t_champ) * vm.nb_player);
 	set_map(&vm);
 //	print_map(vm.map);
+	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
-	printf("%u\n", vm.champ[0].last_live);
-	printf("%u\n", vm.champ[0].live);
+	/* printf("%u\n", vm.champ[0].last_live); */
+	/* printf("%u\n", vm.champ[0].live); */
 	return (0);
 }
