@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/23 22:43:03 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/24 10:15:04 by seto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define VM_H
 # include "op.h"
 # define ERROR "Error"
-# define PC_MAX (MEM_SIZE - 1)
 
 /*
 ** The following flag should be added, -n -dump

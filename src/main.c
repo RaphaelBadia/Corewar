@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/23 23:00:13 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/24 11:14:43 by seto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,7 @@ void	check_opt(t_vm *vm, t_lst *process)
 		if (byte_code > 0 && byte_code < 17)
 		{
 			cp->exec_cycle = g_op_tab[byte_code - 1].cycles + vm->cycle; // cycle to exec opt;
+			cp->op_code = g_op_tab[byte_code - 1].opcode;
 		}
 		else
 		{
@@ -301,10 +302,15 @@ void	play(t_vm *vm)
 	process = init_process(vm);
 	/* while (process) */
 	/* { */
-	vm->cycle = 1;
+	vm->cycle = 300;
 	check_opt(vm, process);
-	live(vm, process->data);
-	print_map(vm->map);
+	printf("process\n");
+	printf("%u\n", ((t_process *)process->data)->exec_cycle);
+	printf("%u\n", ((t_process *)process->data)->op_code);
+//	live(vm, process->data);
+	printf("%u\n", ((t_process *)process->data)->pc);
+	printf("%u\n", ((t_process *)process->data)->last_live);
+	printf("champion\n");
 		/* exec_opt(vm, process); */
 	/* 	if (vm->cycle % vm->cycle_to_die) */
 	/* 	{ */
@@ -340,5 +346,7 @@ int		main(int ac, char **av)
 	set_map(&vm);
 //	print_map(vm.map);
 	play(&vm);
+	printf("%u\n", vm.champ[0].last_live);
+	printf("%u\n", vm.champ[0].live);
 	return (0);
 }

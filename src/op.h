@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/21 18:36:55 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/24 10:41:04 by seto             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-static t_op		g_op_tab[16] =
+static const t_op		g_op_tab[16] =
 {
 	{"live", 1, {T_DIR},
 		1, 10, 0, 0},
