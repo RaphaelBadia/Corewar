@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 17:47:02 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/24 14:40:45 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef char		t_arg_type;
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
+# define PROG_INSTRUCTS_START	(4 + PROG_NAME_LENGTH + 1 + 3 	\
+								+ 4 + COMMENT_LENGTH + 1 + 3)
 
 typedef struct		s_header
 {
@@ -82,6 +84,7 @@ typedef struct		s_label
 {
 	char			*label_name;
 	int				index;
+	int				index_op;
 	struct s_label	*next;
 }					t_label;
 
@@ -96,7 +99,6 @@ typedef struct		s_asm
 	t_label			*knowns;
 	unsigned char	*buffer;
 	unsigned int	buff_index;
-	unsigned int	begin_program;
 	unsigned int	buff_len;
 }					t_asm;
 
@@ -123,20 +125,48 @@ extern				t_op g_ops[];
 
 void				read_header(t_asm *data, int fd);
 void				read_program(t_asm *data, int fd);
+void				check_type(unsigned char *op_buff, int args_i, int type, int type_argi, t_asm *data);
+int					get_param(char *op_buff, int *op_i, char *arg_i, t_asm *data, int dir_size);
 
+/*
+** label functions
+*/
+
+int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i);
+void			fill_label_to_fill(t_asm *data);
+void			ft_addlabel(t_label **lst, char *name, int index, int index_op);
+void			display_labels(t_label *lst);
+void			display_to_fill_list(t_label *lst);
+t_label			*ft_find_label_in_lst(char *name, t_label *lst);
+char			*get_label(t_asm *data, char *line);
+int				get_label_to_find(t_asm *data, char *line, char *op_buff,
+	int *op_i);
 /*
 ** op functions
 */
-
-void				op_nothing(t_asm *data, char **args);
-void				op_sti(t_asm *data, char **args);
-void				op_and(t_asm *data, char **args);
 void				op_live(t_asm *data, char **args);
+void				op_ld(t_asm *data, char **args);
+void				op_st(t_asm *data, char **args);
+void				op_add(t_asm *data, char **args);
+void				op_sub(t_asm *data, char **args);
+void				op_and(t_asm *data, char **args);
+void				op_or(t_asm *data, char **args);
+void				op_xor(t_asm *data, char **args);
 void				op_zjmp(t_asm *data, char **args);
+void				op_ldi(t_asm *data, char **args);
+void				op_sti(t_asm *data, char **args);
+void				op_fork(t_asm *data, char **args);
+void				op_lld(t_asm *data, char **args);
+void				op_lldi(t_asm *data, char **args);
+void				op_lfork(t_asm *data, char **args);
+void				op_aff(t_asm *data, char **args);
+void				op_nothing(t_asm *data, char **args);
 
 /*
 ** utils
 */
+
+char				*remove_comment(char *str);
 size_t				ft_strstrlen(char **str);
 int					empty(char *str);
 void				ft_exit_err(char *msg, t_asm *data);

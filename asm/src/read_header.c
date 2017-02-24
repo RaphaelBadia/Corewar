@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/23 17:25:35 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/23 22:27:04 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		fill_name(t_asm *data, char *name)
 	i = 0;
 	while (is_one_of(name[i], " \t"))
 		i++;
-	if (name[i] != 042) // c est un "
+	if (name[i] != 042)
 		ft_exit_err("wrong syntax need \"", data);
 	i++;
 	if (name[i] == '\0')
@@ -34,6 +34,10 @@ static void		fill_name(t_asm *data, char *name)
 		ft_exit_err("wrong syntax missing a \"", data);
 	if ((name_len == 0) || name_len > 128)
 		ft_exit_err("name cannot be empty or > 128", data);
+	if (!empty(name + i + name_len + 1))
+		ft_exit_err("line must only contain one info", data);
+	if (data->header.prog_name[0] != '\0')
+		ft_exit_err("name already set", data);
 	ft_memcpy(data->header.prog_name, name + i, name_len);
 }
 
@@ -45,7 +49,7 @@ static void		fill_comment(t_asm *data, char *comment)
 	i = 0;
 	while (is_one_of(comment[i], " \t"))
 		i++;
-	if (comment[i] != 042) // c est un "
+	if (comment[i] != 042)
 		ft_exit_err("wrong syntax need \"", data);
 	i++;
 	if (comment[i] == '\0')
@@ -56,17 +60,21 @@ static void		fill_comment(t_asm *data, char *comment)
 		ft_exit_err("name cannot be empty or > 128", data);
 	if (!empty(data->header.comment))
 		ft_exit_err("already seen this", data);
+	if (!empty(comment + i + comment_len + 1))
+		ft_exit_err("line must only contain one info", data);
+	if (data->header.comment[0] != '\0')
+		ft_exit_err("comment already set", data);
 	ft_memcpy(data->header.comment, comment + i, comment_len);
 }
 
-void		read_name_comment(int fd, t_asm *data)
+void			read_name_comment(int fd, t_asm *data)
 {
 	int		ret;
 	char	*line;
 	int		i;
 
 	line = NULL;
-	while ((ret = get_next_line(fd, &line)) > 0 && empty(line))
+	while ((ret = get_next_line(fd, &line)) > 0 && empty(remove_comment(line)))
 		data->line++;
 	if (ret < 1)
 		ft_exit_err("End of file", data);
@@ -79,36 +87,20 @@ void		read_name_comment(int fd, t_asm *data)
 		fill_comment(data, line + i + 8);
 	else
 		ft_exit_err("no name or comment 1", data);
-	while ((ret = get_next_line(fd, &line)) > 0 && empty(line))
-		data->line++;
-	if (ret < 1)
-		ft_exit_err("End of file", data);
-	i = 0;
-	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
-		i++;
-	if (ft_strnequ(line + i, ".comment", 8))
-		fill_comment(data, line + i + 8);
-	else if (ft_strnequ(line + i, ".name", 5))
-		fill_name(data, line + i + 5);
-	else
-		ft_exit_err("no name or comment", data);
 }
 
- #include "ft_printf.h"
-
-void		read_header(t_asm *data, int fd)
+void			read_header(t_asm *data, int fd)
 {
 	int		a;
 
 	a = swap_bits(0xea83f3);
 	read_name_comment(fd, data);
-	//magic
+	read_name_comment(fd, data);
 	ft_cpy_buf((unsigned char *)&a, data, 4);
-	ft_cpy_buf((unsigned char *)data->header.prog_name, data, PROG_NAME_LENGTH + 1);
-	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
-	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);//prog size
+	ft_cpy_buf((unsigned char *)data->header.prog_name, data, PROG_NAME_LENGTH
+	+ 1);
+	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);
+	ft_cpy_buf((unsigned char *)"\0\0\0\0", data, 4);
 	ft_cpy_buf((unsigned char *)data->header.comment, data, COMMENT_LENGTH + 1);
-	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);//padding
-	data->begin_program = data->buff_index;
-	ft_printf("the program begins at %d\n", data->buff_index);
+	ft_cpy_buf((unsigned char *)"\0\0\0", data, 3);
 }
