@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 16:28:28 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/24 18:30:05 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		create_cor(char *source_file, t_asm data)
 	cor_name[n - 1] = 'c';
 	cor_name[n] = 'o';
 	cor_name[n + 1] = 'r';
-	fd = open(cor_name, O_CREAT, 0600);
+	fd = open(cor_name, O_CREAT | O_WRONLY, 0600);
 	write(1, "Writing output program to ", 26);
 	ft_putstr(cor_name);
 	write(1, "\n", 1);
