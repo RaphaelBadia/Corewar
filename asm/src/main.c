@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 18:30:05 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/24 20:31:08 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,21 @@ void		create_cor(char *source_file, t_asm data)
 	write(fd, data.buffer, data.buff_index);
 }
 
+void	free_lst(t_label *lst)
+{
+	t_label		*tmp;
+	t_label		*tmp_next;
+
+	tmp = lst;
+	while(tmp)
+	{
+		tmp_next = tmp->next;
+		free(tmp->label_name);
+		free(tmp);
+		tmp = tmp_next;
+	}
+}
+
 int			main(int ac, char **av)
 {
 	t_asm	data;
@@ -125,5 +140,8 @@ int			main(int ac, char **av)
 	read_program(&data, fd);
 	program_size(&data);
 	create_cor(av[1], data);
+	free_lst(data.knowns);
+	free_lst(data.to_fill);
+	free(data.buffer);
 	return (0);
 }
