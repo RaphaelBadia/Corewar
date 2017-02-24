@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 22:27:36 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/24 14:56:59 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,45 +25,47 @@ void		check_type(unsigned char *op_buff, int args_i, int type, int type_argi, t_
 		*op_buff |= (type_argi << (6 - 2 * args_i));
 }
 
-int			get_param(char *op_buff, int *op_i, char *arg_i, t_asm *data, int dir_size)
+int			get_param_dir(char *op_buff, int *op_i, char *param, t_asm *data, int dir_size)
 {
-	int		reg;
 	int		dir;
 
-	if (arg_i[0] == 'r')
+	if (param[1] == ':')
 	{
-		if (!ft_atoi_safe(arg_i + 1, &reg) || reg < 0 || reg > 16)
+		if (!get_label_to_find(data, param + 2, op_buff, op_i))
+		{
+			ft_memcpy(op_buff + *op_i, "\0\0\0\0", dir_size);
+			*op_i += dir_size;
+		}
+	}
+	else
+	{
+		if (!ft_atoi_safe(param + 1, &dir))
+			ft_exit_err("%% must be followed only by nb or :label\n", data);
+		if (dir_size == 2)
+			dir <<= 16;
+		dir = swap_bits(dir);
+		ft_memcpy(op_buff + *op_i, &dir, dir_size);
+		*op_i += dir_size;
+	}
+	return (T_DIR);
+}
+
+int			get_param(char *op_buff, int *op_i, char *param, t_asm *data, int dir_size)
+{
+	int		reg;
+
+	if (param[0] == 'r')
+	{
+		if (!ft_atoi_safe(param + 1, &reg) || reg < 0 || reg > 16)
 			ft_exit_err("reg must be like r<0-16>\n", data);
 		ft_memcpy(op_buff + *op_i, &reg, 1);
 		*op_i += 1;
 		return (T_REG);
 	}
-	else if (arg_i[0] == '%')
-	{
-		if (arg_i[1] == ':')
-		{
-			if (!get_label_to_find(data, arg_i + 2, op_buff, op_i))
-			{
-				ft_memcpy(op_buff + *op_i, "\0\0\0\0", dir_size);
-				*op_i += dir_size;
-			}
-		}
-		else
-		{
-			if (!ft_atoi_safe(arg_i + 1, &dir))
-				ft_exit_err("%% must be followed only by nb or :label\n", data);
-			if (dir_size == 2)
-				dir <<= 16;
-			dir = swap_bits(dir);
-			ft_memcpy(op_buff + *op_i, &dir, dir_size);
-			*op_i += dir_size;
-		}
-		return (T_DIR);
-	}
+	else if (param[0] == '%')
+		return (get_param_dir(op_buff, op_i, param, data, dir_size));
 	else
-	{
 		return (T_IND);
-	}
 }
 
 void		get_instruction(t_asm *data, char *line)
@@ -105,7 +107,6 @@ void		read_program(t_asm *data, int fd)
 	{
 		if (!empty(remove_comment(line)))
 		{
-			// ft_printf("djskdjksdjsk dskjd skdjs %s\n", line);
 			str = get_label(data, line);
 			get_instruction(data, str);
 		}

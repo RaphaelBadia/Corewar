@@ -6,15 +6,15 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:42:39 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/18 15:22:52 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/24 14:43:28 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
-
+	#include <stdio.h>
 extern t_op g_ops[];
 
-void	wat()
+void	wat(void)
 {
 	printf("%s\n", g_ops[0].name);
 }

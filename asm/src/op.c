@@ -6,12 +6,13 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:03:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 23:11:37 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/24 16:21:51 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 #include "ft_printf.h"
+#include <stdlib.h>
 
 void		op_live(t_asm *data, char **args)
 {
@@ -356,6 +357,7 @@ void		op_aff(t_asm *data, char **args)
 	check_type(op_buff + 1, args_i, T_REG, type_argi, data);
 	ft_cpy_buf(op_buff, data, op_i);
 }
+
 void		op_nothing(t_asm *data, char **args)
 {
 	(void)data;

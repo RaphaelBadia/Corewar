@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 23:12:55 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/24 16:27:23 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <ft_printf.h>
 #include <op.h>
+#include <stdlib.h>
 
 t_op		g_ops[17] =
 {
@@ -61,27 +62,68 @@ static void	program_size(t_asm *data)
 	data->buffer[4 + PROG_NAME_LENGTH + 1 + 3 + 3] = diff & 0xff;
 }
 
+int			open_source(char *source_file)
+{
+	int		fd;
+	int		n;
+
+	n = ft_strlen(source_file);
+	if ((n < 2) || (source_file[n - 2] != '.') || (source_file[n - 1] != 's'))
+	{
+		ft_putstr("Usage: ./asm <sourcefile.s>\n");
+		exit(1);
+	}
+	if ((fd = open(source_file, O_RDONLY)) == -1)
+		ft_exit_err("open error", NULL);
+	return (fd);
+}
+
+void		create_cor(char *source_file, t_asm data)
+{
+	int		fd;
+	int		n;
+	char	*cor_name;
+
+	n = ft_strlen(source_file);
+	if (!(cor_name = ft_strnew(n + 2)))
+		ft_exit_err("malloc error", &data);
+	ft_strcpy(cor_name, source_file);
+	cor_name[n - 1] = 'c';
+	cor_name[n] = 'o';
+	cor_name[n + 1] = 'r';
+	fd = open(cor_name, O_CREAT, 0600);
+	write(1, "Writing output program to ", 26);
+	ft_putstr(cor_name);
+	write(1, "\n", 1);
+	write(fd, data.buffer, data.buff_index);
+}
+
 int			main(int ac, char **av)
 {
 	t_asm	data;
 	int		fd;
 
+	if (ac != 2)
+	{
+		ft_putstr("Usage: ./asm <sourcefile.s>\n");
+		exit(1);
+	}
+	if (ac < 2)
+		return (usage(av[0]));
 	data.to_fill = NULL;
 	data.knowns = NULL;
 	data.line = 1;
 	data.column = 1;
-	data.buffer = (unsigned char *)ft_strnew(42);
+	if (!(data.buffer = (unsigned char *)ft_strnew(42)))
+		ft_exit_err("malloc error", &data);
 	data.buff_index = 0;
 	data.buff_len = 42;
-	if ((fd = open(av[1], O_RDONLY)) == -1)
-		ft_exit_err("open error", &data);
+	fd = open_source(av[1]);
 	ft_bzero(data.header.prog_name, PROG_NAME_LENGTH + 1);
 	ft_bzero(data.header.comment, COMMENT_LENGTH + 1);
-	if (ac < 2)
-		return (usage(av[0]));
 	read_header(&data, fd);
 	read_program(&data, fd);
 	program_size(&data);
-	write(2, data.buffer, data.buff_index);
+	create_cor(av[1], data);
 	return (0);
 }
