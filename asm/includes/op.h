@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 14:40:45 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/24 16:35:04 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@ typedef struct		s_asm
 ** 1xTy1fQmra797pfamd0OBy2Q11sCwJpxEUd5i_7tp2EY/edit?usp=sharing
 */
 
+typedef struct		s_instruction
+{
+	char			*op_buff;
+	int				op_i;
+	//char			**args; pour la logique du truc ??
+	int				args_i;
+}					t_instruction;
+
 typedef struct		s_op
 {
 	char			*name;
@@ -141,9 +149,11 @@ t_label			*ft_find_label_in_lst(char *name, t_label *lst);
 char			*get_label(t_asm *data, char *line);
 int				get_label_to_find(t_asm *data, char *line, char *op_buff,
 	int *op_i);
+
 /*
 ** op functions
 */
+
 void				op_live(t_asm *data, char **args);
 void				op_ld(t_asm *data, char **args);
 void				op_st(t_asm *data, char **args);
