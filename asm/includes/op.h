@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/25 19:00:52 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/25 21:49:08 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,5 +193,6 @@ int								swap_bits(int integer);
 char							*ft_strndup(const char *s, size_t n);
 char							**splitrim(char *str, t_asm *data);
 int								ft_atoi_safe(const char *str, int *result);
+void							ft_arrfree(char **arr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/25 21:25:23 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/25 21:46:54 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			read_name_comment(int fd, t_asm *data)
 		data->column = 1;
 		if (!empty(remove_comment(line)))
 			break ;
+		ft_strdel(&line);
 	}
 	if (ret < 1)
 		ft_exit_err("End of file", data);
@@ -92,6 +93,7 @@ void			read_name_comment(int fd, t_asm *data)
 		fill_comment(data, line + i + 8);
 	else
 		ft_exit_err("no name or comment 1", data);
+	ft_strdel(&line);
 }
 
 void			read_header(t_asm *data, int fd)

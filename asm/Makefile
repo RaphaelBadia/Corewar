@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/23 22:22:05 by rbadia           ###   ########.fr        #
+#    Updated: 2017/02/25 21:51:12 by rbadia           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC_FILE	=	main.c					\
 				utils/ft_atoi_safe.c	\
 				utils/label.c			\
 				utils/remove_comment.c	\
+				utils/ft_arrfree.c		\
 # Object file
 OBJ_FILE	=	$(addprefix $(OBJ_PATH)/,	\
 				$(addsuffix .o,				\
