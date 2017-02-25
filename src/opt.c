@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 22:53:05 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/25 22:52:46 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,36 @@ void	ld(t_vm *vm, t_process *process)
 	}
 }
 
-/* void	st(t_vm *vm, t_process *process) */
-/* { */
-/* 	unsigned char	octal; */
-/* } */
+void	write_mem(t_vm *vm, unsigned int pc, unsigned int value)
+{
+	vm->map[pc] = (value >> 24);
+	vm->map[pc + 1] = (value >> 16) & 0xff;
+	vm->map[pc + 2] = (value >> 8) & 0xff;
+	vm->map[pc + 3] = (value) & 0xff;
+}
+
+void	st(t_vm *vm, t_process *process)
+{
+	unsigned char	octal;
+	unsigned int	param;
+	unsigned int	reg_val;
+	unsigned int	i;
+
+	i = process->pc;
+	octal = (vm->map[i + 1] >> 4) & 3;
+	if (vm->map[i + 2] <= 16)
+		reg_val = process->r[vm->map[i + 2] - 1];
+	if (octal == REG_CODE)
+	{
+		param = get_param(vm, i, (int[3]){i + 3, REG_CODE, 0});
+		process->pc += 4;
+		if (param <= 16)
+			param = process->r[param - 1];
+	}
+	else if (octal == IND_CODE)
+	{
+		param = get_param(vm, i, (int[3]){i + 3, IND_CODE, 0});
+		process->pc += 5;
+	}
+	write_mem(vm, process->pc + (param % IDX_MOD), reg_val);
+}

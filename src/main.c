@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 22:55:50 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/25 22:44:35 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int		check_octal(t_vm *vm, t_process *process)
 void	exec_opt(t_vm *vm, t_process *process)
 {
 //	int	debug;
-	static void		(*f[])(t_vm *, t_process *) = {NULL, &live, &ld};
+	static void		(*f[])(t_vm *, t_process *) = {NULL, &live, &ld, &st};
 	unsigned char	byte_code;
 
 	if (check_octal(vm, process))
@@ -431,7 +431,6 @@ int		main(int ac, char **av)
 	if (vm.nb_player < 4)
 		vm.champ = realloc(vm.champ, sizeof(t_champ) * vm.nb_player);
 	set_map(&vm);
-//	print_map(vm.map);
 	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
 	/* printf("%u\n", vm.champ[0].last_live); */

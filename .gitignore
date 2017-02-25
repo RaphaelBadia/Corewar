@@ -5,6 +5,7 @@
 *.elf
 *.dmp
 
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -32,6 +33,12 @@
 # Debug files
 *.dSYM/
 *.su
+
+
+*.cor
+*.s
+asm
+vm
 *~
 *.*~
 .*#
