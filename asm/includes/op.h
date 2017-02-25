@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 20:35:07 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/25 19:00:52 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct					s_label
 	char						*label_name;
 	int							index;
 	int							index_op;
+	int							line;
+	int							column;
 	struct s_label				*next;
 }								t_label;
 

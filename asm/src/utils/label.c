@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 20:21:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/23 20:25:57 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/25 19:01:04 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ void			ft_addlabel(t_label **lst, char *name, int index, int index_op)
 	new->index = index;
 	new->index_op = index_op;
 	new->next = *lst;
+	new->column = -1;
+	new->line = -1;
 	*lst = new;
+}
+
+void			ft_addlabelline(t_label *label, t_asm *data)
+{
+	label->line = data->line;
+	label->column = data->column;
 }
 
 void			display_labels(t_label *lst)

@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 18:41:31 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/25 21:05:31 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,30 @@ int			get_param_dir(t_instruction *ins, char *param, t_asm *data,
 	return (T_DIR);
 }
 
+int			get_param_indir(t_instruction *ins, char *param, t_asm *data)
+{
+	int		dir;
+
+	if (param[0] == ':')
+	{
+		if (!get_label_to_find(data, param + 1, ins->op_buff, &(ins->op_i)))
+		{
+			ft_memcpy(ins->op_buff + ins->op_i, "\0\0\0\0", 2);
+			ins->op_i += 2;
+		}
+	}
+	else
+	{
+		if (!ft_atoi_safe(param, &dir))
+			ft_exit_err("indir must be a nb or a :label\n", data);
+		dir <<= 16;
+		dir = swap_bits(dir);
+		ft_memcpy(ins->op_buff + ins->op_i, &dir, 2);
+		ins->op_i += 2;
+	}
+	return (T_IND);
+}
+
 int			get_param(t_instruction *ins, char *param, t_asm *data,
 		int dir_size)
 {
@@ -67,7 +91,7 @@ int			get_param(t_instruction *ins, char *param, t_asm *data,
 	else if (param[0] == '%')
 		return (get_param_dir(ins, param, data, dir_size));
 	else
-		return (T_IND);
+		return (get_param_indir(ins, param, data));
 }
 
 void		get_instruction(t_asm *data, char *line)
@@ -86,6 +110,7 @@ void		get_instruction(t_asm *data, char *line)
 		instruction_size++;
 	if (instruction_size == 0)
 		return ;
+	data->column += i;
 	while (j < 16)
 	{
 		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
@@ -113,6 +138,8 @@ void		read_program(t_asm *data, int fd)
 			get_instruction(data, str);
 		}
 		free(line);
+		data->line++;
+		data->column = 1;
 	}
 	fill_label_to_fill(data);
 }

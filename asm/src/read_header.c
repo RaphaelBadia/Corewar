@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/23 22:27:04 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/25 21:25:23 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static void		fill_comment(t_asm *data, char *comment)
 		ft_exit_err("unexpected EOL", data);
 	if ((comment_len = ft_strchri(comment + i, 042)) == -1)
 		ft_exit_err("wrong syntax missing a \"", data);
-	if ((comment_len == 0) || comment_len > 128)
-		ft_exit_err("name cannot be empty or > 128", data);
+	if ((comment_len == 0) || comment_len > 2048)
+		ft_exit_err("comment cannot be empty or > 2048", data);
 	if (!empty(data->header.comment))
 		ft_exit_err("already seen this", data);
 	if (!empty(comment + i + comment_len + 1))
@@ -74,8 +74,13 @@ void			read_name_comment(int fd, t_asm *data)
 	int		i;
 
 	line = NULL;
-	while ((ret = get_next_line(fd, &line)) > 0 && empty(remove_comment(line)))
+	while ((ret = get_next_line(fd, &line)) > 0)
+	{
 		data->line++;
+		data->column = 1;
+		if (!empty(remove_comment(line)))
+			break ;
+	}
 	if (ret < 1)
 		ft_exit_err("End of file", data);
 	i = 0;

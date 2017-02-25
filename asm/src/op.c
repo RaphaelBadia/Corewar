@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:03:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 17:47:59 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/25 21:21:10 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,9 +312,10 @@ void		op_aff(t_asm *data, char **args)
 	t_instruction	ins;
 	int				type_argi;
 
+	ins.op_i = 2;
 	ins.args_i = 0;
 	ins.op_buff[0] = 0x10;
-	ins.op_i = 1;
+	ins.op_buff[1] = 0;
 	if (ft_strstrlen(args) != 1)
 		ft_exit_err("aff must have 1 params", data);
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);

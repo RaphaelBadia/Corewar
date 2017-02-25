@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
-/*   Updated: 2016/11/11 19:51:11 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/25 19:11:03 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char			**ft_strsplit(const char *s, char c)
 	if ((n = h_count(s, c)) == -1)
 		return (NULL);
 	wlen = 0;
-	if (!(fresh = (char **)malloc(sizeof(char *) * n + 1)))
+	if (!(fresh = (char **)malloc(sizeof(char *) * (n + 1))))
 		return (NULL);
 	fresh[n] = NULL;
 	start = fresh;
