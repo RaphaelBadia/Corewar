@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 21:11:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/26 21:13:36 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -524,7 +524,7 @@ void	lldi(t_vm *vm, t_process *process)
 		process->r[i - 1] = get_lparam(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
 }
 
-void	fork(t_vm *vm, t_process *process, t_lst *lst_process)
+void	frk(t_vm *vm, t_process *process, t_lst *lst_process)
 {
 	unsigned int	target;
 	unsigned int	i;

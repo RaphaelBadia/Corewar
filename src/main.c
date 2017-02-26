@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 20:37:18 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 21:18:23 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,9 @@ int		check_octal(t_vm *vm, t_process *process)
 void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 {
 //	int	debug;
-	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub};
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
+								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
+								&lldi, &lfork};
 	unsigned char	byte_code;
 
 	if (check_octal(vm, process))
@@ -345,7 +347,7 @@ void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 void	check_opt(t_vm *vm, t_lst *process)
 {
 	unsigned char	byte_code;
-	t_lst			*cp;
+	t_process		*cp;
 
 	while (process)
 	{
@@ -362,7 +364,7 @@ void	check_opt(t_vm *vm, t_lst *process)
 		}
 		else if (!cp->op_code)
 		{
-			if (++cp->pc > MAX_SIZE)
+			if (++cp->pc > MEM_SIZE)
 				cp->pc = 0;
 		}
 		process = process->next;
