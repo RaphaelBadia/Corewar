@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 20:51:42 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/26 21:11:40 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,9 +237,11 @@ void	and(t_vm *vm, t_process *process)
 	{
 		if (octal[i] == REG_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
 			if (param[i] > 0 && param[i] <= 16)
 				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
 			offset += 1;
 		}
 		else if (octal[i] == DIR_CODE)
@@ -282,9 +284,11 @@ void	or(t_vm *vm, t_process *process)
 	{
 		if (octal[i] == REG_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
 			if (param[i] > 0 && param[i] <= 16)
 				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
 			offset += 1;
 		}
 		else if (octal[i] == DIR_CODE)
@@ -327,9 +331,11 @@ void	xor(t_vm *vm, t_process *process)
 	{
 		if (octal[i] == REG_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
 			if (param[i] > 0 && param[i] <= 16)
 				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
 			offset += 1;
 		}
 		else if (octal[i] == DIR_CODE)
@@ -385,9 +391,11 @@ void	ldi(t_vm *vm, t_process *process)
 	{
 		if (octal[i] == REG_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
 			if (param[i] > 0 && param[i] <= 16)
 				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
 			offset += 1;
 		}
 		else if (octal[i] == DIR_CODE)
@@ -408,7 +416,112 @@ void	ldi(t_vm *vm, t_process *process)
 
 void	sti(t_vm *vm, t_process *process)
 {
+	unsigned int	pc;
+	unsigned int	i;
+	unsigned int	offset;
+	unsigned int	param[2];
+	unsigned char	octal[2];
 
+	pc = process->pc;
+	i = 0;
+	octal[0] = (vm->map[PTR(pc + 1)] >> 4) & 3;
+	octal[1] = (vm->map[PTR(pc + 1)] >> 2) & 3;
+	offset = 2;
+	while (i < 2)
+	{
+		if (octal[i] == REG_CODE)
+		{
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
+			if (param[i] > 0 && param[i] <= 16)
+				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
+			offset += 1;
+		}
+		else if (octal[i] == DIR_CODE)
+		{
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			offset += 4;
+		}
+		else
+		{
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, IND_CODE, 0});
+			offset += 2;
+		}
+		++i;
+	}
+	if ((i = vm->map[PTR(pc + 2)]) > 0 && i <= 17)
+		write_mem(vm, i + ((param[0] + param[1]) % IDX_MOD), process->r[i - 1]);
+		// process->r[i - 1] = get_param(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+
+}
+
+void	lld(t_vm *vm, t_process *process)
+{
+	unsigned char	octal;
+	unsigned int	param;
+	unsigned int	i;
+
+	i = process->pc;
+	octal = vm->map[PTR(i + 1)] >> 6;
+	if (octal == DIR_CODE)
+	{
+		param = get_lparam(vm, i, (int[3]){i + 2, DIR_CODE, 0});
+		if (vm->map[PTR(i + 6)] > 0 && vm->map[PTR(i + 6)] <= 16 && !(process->r[vm->map[PTR(i + 6)] - 1] = param))
+			process->carry = 1;
+		else
+			process->carry = 0;
+		process->pc += 7;
+	}
+	else if (octal == IND_CODE)
+	{
+		param = get_lparam(vm, i, (int[3]){i + 2, IND_CODE, 0});
+		if (vm->map[PTR(i + 4)] > 0 && vm->map[PTR(i + 4)] <= 16 && !(process->r[vm->map[PTR(i + 4)] - 1] = param))
+			process->carry = 1;
+		else
+			process->carry = 0;
+		process->pc += 5;
+	}
+}
+
+void	lldi(t_vm *vm, t_process *process)
+{
+	unsigned int	pc;
+	unsigned int	i;
+	unsigned int	offset;
+	unsigned int	param[2];
+	unsigned char	octal[2];
+
+	pc = process->pc;
+	i = 0;
+	octal[0] = vm->map[PTR(pc + 1)] >> 6;
+	octal[1] = (vm->map[PTR(pc + 1)] >> 4) & 3;
+	offset = 2;
+	while (i < 2)
+	{
+		if (octal[i] == REG_CODE)
+		{
+			param[i] = get_lparam(vm, pc, (int[3]){pc + offset, REG_CODE, 0});
+			if (param[i] > 0 && param[i] <= 16)
+				param[i] = process->r[param[i] - 1];
+			else
+				param[i] = 0;
+			offset += 1;
+		}
+		else if (octal[i] == DIR_CODE)
+		{
+			param[i] = get_lparam(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
+			offset += 4;
+		}
+		else
+		{
+			param[i] = get_lparam(vm, pc, (int[3]){pc + offset, IND_CODE, 0});
+			offset += 2;
+		}
+		++i;
+	}
+	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
+		process->r[i - 1] = get_lparam(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
 }
 
 void	fork(t_vm *vm, t_process *process, t_lst *lst_process)
