@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/24 21:17:36 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 00:29:23 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct	s_lst
 void	live(t_vm *vm, t_process *process);
 void	ld(t_vm *vm, t_process *process);
 void	st(t_vm *vm, t_process *process);
+void	add(t_vm *vm, t_process *process);
 
 /*
 ** LST function

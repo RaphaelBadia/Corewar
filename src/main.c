@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/25 22:44:35 by root             ###   ########.fr       */
+/*   Updated: 2017/02/25 23:45:20 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,6 +433,7 @@ int		main(int ac, char **av)
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
+	print_map(vm.map);
 	/* printf("%u\n", vm.champ[0].last_live); */
 	/* printf("%u\n", vm.champ[0].live); */
 	return (0);

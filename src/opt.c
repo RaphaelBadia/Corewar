@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/25 22:52:46 by root             ###   ########.fr       */
+/*   Updated: 2017/02/26 01:52:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ unsigned int	get_param(t_vm *vm, unsigned int pc, int data[3])
 
 	param = 0;
 	if (data[1] == REG_CODE)
-		param = vm->map[PTR(pc)];
+		param = vm->map[PTR(data[0])];
 	else if (data[1] == DIR_CODE)
 	{
 		if (data[2])
@@ -78,14 +78,14 @@ void	ld(t_vm *vm, t_process *process)
 	if (octal == DIR_CODE)
 	{
 		param = get_param(vm, i, (int[3]){i + 2, DIR_CODE, 0});
-		if (vm->map[i + 3] <= 16)
+		if (vm->map[i + 6] > 0 && vm->map[i + 6] <= 16)
 			process->r[vm->map[i + 6] - 1] = param;
 		process->pc += 7;
 	}
 	else if (octal == IND_CODE)
 	{
 		param = get_param(vm, i, (int[3]){i + 2, IND_CODE, 0});
-		if (vm->map[i + 3] <= 16)
+		if (vm->map[i + 4] > 0 && vm->map[i + 4] <= 16)
 			process->r[vm->map[i + 4] - 1] = param;
 		process->pc += 5;
 	}
@@ -108,19 +108,76 @@ void	st(t_vm *vm, t_process *process)
 
 	i = process->pc;
 	octal = (vm->map[i + 1] >> 4) & 3;
-	if (vm->map[i + 2] <= 16)
+	if (vm->map[i + 2] > 0 && vm->map[i + 2] <= 16)
 		reg_val = process->r[vm->map[i + 2] - 1];
 	if (octal == REG_CODE)
 	{
 		param = get_param(vm, i, (int[3]){i + 3, REG_CODE, 0});
-		process->pc += 4;
-		if (param <= 16)
+		if (param > 0 && param <= 16)
 			param = process->r[param - 1];
+		write_mem(vm, process->pc + (param % IDX_MOD), reg_val);
+		process->pc += 4;
 	}
 	else if (octal == IND_CODE)
 	{
 		param = get_param(vm, i, (int[3]){i + 3, IND_CODE, 0});
+		printf("param %#.8x\n", param);
+		printf("%#.8x\n", reg_val);
+		write_mem(vm, i + (param % IDX_MOD), reg_val);
 		process->pc += 5;
 	}
-	write_mem(vm, process->pc + (param % IDX_MOD), reg_val);
+}
+
+void	add(t_vm *vm, t_process *process)
+{
+	unsigned int	param[3];
+	unsigned int	reg_val[2];
+	unsigned int	i;
+
+	i = process->pc;
+	param[0] = get_param(vm, i, (int[3]){i + 2, REG_CODE, 0});
+	param[1] = get_param(vm, i, (int[3]){i + 3, REG_CODE, 0});
+	param[2] = get_param(vm, i, (int[3]){i + 4, REG_CODE, 0});
+	if (param[0] > 0 && param[0] <= 16)
+		reg_val[0] = process->r[param[0] - 1];
+	else
+	{} // if register bad then what?
+	if (param[1] > 0 && param[1] <= 16)
+		reg_val[1] = process->r[param[1] - 1];
+	else
+	{} // ?? see above
+	if (param[2] > 0 && param[2] <= 16)
+	{
+		if ((process->r[param[2] - 1] = reg_val[0] + reg_val[1]) == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
+}
+
+void	sub(t_vm *vm, t_process *process)
+{
+	unsigned int	param[3];
+	unsigned int	reg_val[2];
+	unsigned int	i;
+
+	i = process->pc;
+	param[0] = get_param(vm, i, (int[3]){i + 2, REG_CODE, 0});
+	param[1] = get_param(vm, i, (int[3]){i + 3, REG_CODE, 0});
+	param[2] = get_param(vm, i, (int[3]){i + 4, REG_CODE, 0});
+	if (param[0] > 0 && param[0] <= 16)
+		reg_val[0] = process->r[param[0] - 1];
+	else
+	{} // if register bad then what?
+	if (param[1] > 0 && param[1] <= 16)
+		reg_val[1] = process->r[param[1] - 1];
+	else
+	{} // ?? see above
+	if (param[2] > 0 && param[2] <= 16)
+	{
+		if ((process->r[param[2] - 1] = reg_val[0] - reg_val[1]) == 0)
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
 }
