@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 21:13:36 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 23:13:20 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	live(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
+	printf("vm->map %hhx, pc %u", vm->map[process->pc], process->pc);
 	process->pc += 5;
 }
 
@@ -189,6 +190,7 @@ void	add(t_vm *vm, t_process *process)
 	}
 	else
 		process->carry = 0;
+	process->pc += 5;
 }
 
 void	sub(t_vm *vm, t_process *process)
@@ -218,6 +220,7 @@ void	sub(t_vm *vm, t_process *process)
 	}
 	else
 		process->carry = 0;
+	process->pc += 5;
 }
 
 void	and(t_vm *vm, t_process *process)
@@ -231,7 +234,7 @@ void	and(t_vm *vm, t_process *process)
 	pc = process->pc;
 	i = 0;
 	octal[0] = vm->map[PTR(pc + 1)] >> 6;
-	octal[1] = (vm->map[PTR(pc + 2)] >> 4) & 3;
+	octal[1] = (vm->map[PTR(pc + 1)] >> 4) & 3;
 	offset = 2;
 	while (i < 2)
 	{
@@ -256,15 +259,18 @@ void	and(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(pc + offset)]) > 0 && i <= 17)
 	{
 		if (!(process->r[i - 1] = param[0] & param[1]))
+		{
 			process->carry = 1;
+		}
 		else
 			process->carry = 0;
 	}
 	else
 		process->carry = 0;
+	process->pc += offset + 1;
 }
 
 void	or(t_vm *vm, t_process *process)
@@ -312,6 +318,7 @@ void	or(t_vm *vm, t_process *process)
 	}
 	else
 		process->carry = 0;
+	process->pc += offset + 1;
 }
 
 void	xor(t_vm *vm, t_process *process)
@@ -325,7 +332,7 @@ void	xor(t_vm *vm, t_process *process)
 	pc = process->pc;
 	i = 0;
 	octal[0] = vm->map[pc + 1] >> 6;
-	octal[1] = (vm->map[pc + 2] >> 4) & 3;
+	octal[1] = (vm->map[pc + 1] >> 4) & 3;
 	offset = 2;
 	while (i < 2)
 	{
@@ -359,6 +366,7 @@ void	xor(t_vm *vm, t_process *process)
 	}
 	else
 		process->carry = 0;
+	process->pc += offset + 1;
 }
 
 void	zjmp(t_vm *vm, t_process *process)
@@ -412,6 +420,7 @@ void	ldi(t_vm *vm, t_process *process)
 	}
 	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
 		process->r[i - 1] = get_param(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+	process->pc += offset + 1;
 }
 
 void	sti(t_vm *vm, t_process *process)
@@ -426,7 +435,7 @@ void	sti(t_vm *vm, t_process *process)
 	i = 0;
 	octal[0] = (vm->map[PTR(pc + 1)] >> 4) & 3;
 	octal[1] = (vm->map[PTR(pc + 1)] >> 2) & 3;
-	offset = 2;
+	offset = 3;
 	while (i < 2)
 	{
 		if (octal[i] == REG_CODE)
@@ -453,6 +462,7 @@ void	sti(t_vm *vm, t_process *process)
 	if ((i = vm->map[PTR(pc + 2)]) > 0 && i <= 17)
 		write_mem(vm, i + ((param[0] + param[1]) % IDX_MOD), process->r[i - 1]);
 		// process->r[i - 1] = get_param(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+	process->pc += offset;
 
 }
 

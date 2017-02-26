@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 21:18:23 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 22:23:49 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,7 +381,7 @@ void	purge_process(t_vm *vm, t_lst **process)
 	cp = *process;
 	while (cp && (pro = cp->data))
 	{
-		if (pro->last_live < vm->cycle - vm->cycle_to_die)
+		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 			pop_lst__(&cp, &free);
 		else
 			break ;
@@ -390,7 +390,7 @@ void	purge_process(t_vm *vm, t_lst **process)
 	while (cp)
 	{
 		pro = cp->data;
-		if (pro->last_live < vm->cycle - vm->cycle_to_die)
+		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 			pop_lst__(&cp, &free);
 		else
 			cp = cp->next;
@@ -414,7 +414,7 @@ void	play(t_vm *vm)
 		vm->cycle += 1;
 //		printf("cycle :%lu\n", vm->cycle);
 	}
-	printf("purged, vm->cycle:%lu\n", vm->cycle);
+	printf("purged, vm->cycle:%lu\n", vm->cycle - 1);
 }
 
 int		main(int ac, char **av)
