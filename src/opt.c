@@ -6,10 +6,14 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 20:37:13 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 20:49:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
 #include "vm.h"
 
 /*
@@ -405,4 +409,23 @@ void	ldi(t_vm *vm, t_process *process)
 void	sti(t_vm *vm, t_process *process)
 {
 
+}
+
+void	fork(t_vm *vm, t_process *process, t_lst *lst_process)
+{
+	unsigned int	target;
+	unsigned int	i;
+	t_process		*new_p;
+
+	if (!(new_p = malloc(sizeof(t_process))))
+	{
+		perror(ERROR);
+		exit(1);
+	}
+	i = process->pc;
+	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
+	memcpy(new_p, process, sizeof(t_process));
+	new_p->pc = i + target;
+	push_lst__(&lst_process, new_p);
+	process->pc += 5;
 }
