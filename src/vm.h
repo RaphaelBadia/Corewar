@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 20:23:50 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/26 21:20:06 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct	s_vm
 	{
 		dump = 1,
 		visual = 2,
-		aff = 4
+		aff_flag = 4
 	}				flag;
 	unsigned int	dump_cycle;
 	unsigned int	nb_player;
@@ -116,10 +116,10 @@ void	xor(t_vm *vm, t_process *process);
 void	zjmp(t_vm *vm, t_process *process);
 void	ldi(t_vm *vm, t_process *process);
 void	sti(t_vm *vm, t_process *process);
-void	frk(t_vm *vm, t_process *process, t_lst *process);
+void	frk(t_vm *vm, t_process *process, t_lst *lst_process);
 void	lld(t_vm *vm, t_process *process);
 void	lldi(t_vm *vm, t_process *process);
-void	lfork(t_vm *vm, t_process *proecss, t_lst *process);
+void	lfork(t_vm *vm, t_process *process, t_lst *lst_process);
 void	aff(t_vm *vm, t_process *process);
 
 /*
