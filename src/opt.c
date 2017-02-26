@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 20:49:39 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/26 20:50:59 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,7 +425,7 @@ void	fork(t_vm *vm, t_process *process, t_lst *lst_process)
 	i = process->pc;
 	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
-	new_p->pc = i + target;
+	new_p->pc = i + (target % IDX_MOD);
 	push_lst__(&lst_process, new_p);
 	process->pc += 5;
 }
