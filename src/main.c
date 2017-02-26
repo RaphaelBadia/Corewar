@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/25 23:45:20 by root             ###   ########.fr       */
+/*   Updated: 2017/02/26 20:37:18 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,14 +314,19 @@ int		check_octal(t_vm *vm, t_process *process)
 	return (1);
 }
 
-void	exec_opt(t_vm *vm, t_process *process)
+void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 {
 //	int	debug;
-	static void		(*f[])(t_vm *, t_process *) = {NULL, &live, &ld, &st};
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub};
 	unsigned char	byte_code;
 
 	if (check_octal(vm, process))
-		f[process->op_code](vm, process);
+	{
+		if (process->op_code == 12 || process->op_code == 15)
+			f[process->op_code](vm, process, lst_pro);
+		else
+			f[process->op_code](vm, process);
+	}
 	else
 		process->pc += 1;
 //	printf("debug :%d\n", debug);
@@ -340,7 +345,7 @@ void	exec_opt(t_vm *vm, t_process *process)
 void	check_opt(t_vm *vm, t_lst *process)
 {
 	unsigned char	byte_code;
-	t_process		*cp;
+	t_lst			*cp;
 
 	while (process)
 	{
@@ -353,11 +358,11 @@ void	check_opt(t_vm *vm, t_lst *process)
 		}
 		else if (cp->exec_cycle == vm->cycle)
 		{
-			exec_opt(vm, cp);
+			exec_opt(vm, cp, process);
 		}
 		else if (!cp->op_code)
 		{
-			if (++cp->pc > MAP_MAX_SIZE)
+			if (++cp->pc > MAX_SIZE)
 				cp->pc = 0;
 		}
 		process = process->next;
