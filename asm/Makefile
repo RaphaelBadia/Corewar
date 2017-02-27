@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/02/27 16:31:44 by vcombey          ###   ########.fr        #
+#    Updated: 2017/02/27 18:15:59 by vcombey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,25 @@ OBJ_PATH	= obj
 SRC_FILE	=	main.c					\
 				read_header.c			\
 				read_program.c			\
+				get_param.c				\
 				label.c					\
-				op.c					\
+				op/add.c				\
+				op/aff.c				\
+				op/and.c				\
+				op/fork.c				\
+				op/ld.c					\
+				op/ldi.c				\
+				op/lfork.c				\
+				op/live.c				\
+				op/lld.c				\
+				op/lldi.c				\
+				op/nothing.c			\
+				op/or.c					\
+				op/st.c					\
+				op/sti.c				\
+				op/sub.c				\
+				op/xor.c				\
+				op/zjmp.c				\
 				utils/empty.c			\
 				utils/ft_exit_err.c		\
 				utils/is_one_of.c		\
@@ -68,6 +85,7 @@ $(NAME)	: $(OBJ_FILE) lib
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(OBJ_PATH)/utils
+	@mkdir -p $(OBJ_PATH)/op
 	@$(CC) $(CFLAGS) $(DEBUG) $(EXTRA) -I$(PATH_INCLUDES) -c -o $@ $<
 
 lib		:
