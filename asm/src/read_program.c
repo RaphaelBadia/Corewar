@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/27 18:14:57 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/27 18:31:13 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		get_instruction(t_asm *data, char *line)
 	{
 		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
 		{
+			data->column += ft_strlen(g_ops[j].name);
 			g_ops[j].op(data, splitrim(line + i + instruction_size, data));
 			return ;
 		}

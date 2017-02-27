@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/25 19:05:11 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/27 18:34:50 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ int				get_label_to_find(t_asm *data, char *line, char *op_buff,
 		ft_exit_err("no label name", data);
 	while (line[i])
 	{
-		data->column++;
 		if (!is_one_of(line[i], LABEL_CHARS))
 			ft_exit_err("wrong label chars", data);
 		i++;
+		data->column++;
 	}
 	if (!(label_name = ft_strdup(line)))
 		ft_exit_err("malloc", data);
