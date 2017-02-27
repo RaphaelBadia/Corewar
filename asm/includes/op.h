@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/25 21:49:08 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/02/27 16:11:06 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int								fill_label(char *name, t_asm *data,
 void							fill_label_to_fill(t_asm *data);
 void							ft_addlabel(t_label **lst, char *name,
 		int index, int index_op);
+void							ft_addlabelline(t_label *label, t_asm *data);
 void							display_labels(t_label *lst);
 void							display_to_fill_list(t_label *lst);
 t_label							*ft_find_label_in_lst(char *name, t_label *lst);
