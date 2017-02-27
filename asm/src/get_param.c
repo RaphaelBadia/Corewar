@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:14:52 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/27 18:14:54 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/27 18:25:35 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int			get_param_dir(t_instruction *ins, char *param, t_asm *data,
 	else
 	{
 		if (!ft_atoi_safe(param + 1, &dir))
-			ft_exit_err("%% must be followed only by nb or :label\n", data);
+			ft_exit_err("% must be followed only by nb or :label", data);
 		if (dir_size == 2)
 			dir <<= 16;
 		dir = swap_bits(dir);
@@ -73,7 +73,7 @@ int			get_param(t_instruction *ins, char *param, t_asm *data,
 	if (param[0] == 'r')
 	{
 		if (!ft_atoi_safe(param + 1, &reg) || reg < 0 || reg > 16)
-			ft_exit_err("reg must be like r<0-16>\n", data);
+			ft_exit_err("reg must be like r<0-16>", data);
 		ft_memcpy(ins->op_buff + ins->op_i, &reg, 1);
 		ins->op_i += 1;
 		return (T_REG);
