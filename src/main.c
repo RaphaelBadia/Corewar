@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 02:22:01 by root             ###   ########.fr       */
+/*   Updated: 2017/02/27 16:51:04 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,7 +419,7 @@ void	play(t_vm *vm)
 			purge_process(vm, &process);
 		}
 		vm->cycle += 1;
-//		printf("cycle :%lu\n", vm->cycle);
+		printf("vm->nb_process : %u\n", vm->nb_process);
 	}
 	printf("purged, vm->cycle:%lu\n", vm->cycle - 1);
 }

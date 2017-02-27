@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 16:47:08 by root             ###   ########.fr       */
+/*   Updated: 2017/02/27 17:00:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -492,7 +492,7 @@ void	lld(t_vm *vm, t_process *process)
 
 void	lldi(t_vm *vm, t_process *process)
 {	
-		unsigned int	pc;
+	unsigned int	pc;
 	unsigned int	i;
 	unsigned int	offset;
 	unsigned int	param[2];
@@ -548,7 +548,9 @@ void	frk(t_vm *vm, t_process *process, t_lst *lst_process)
 	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
 	new_p->pc += (target % IDX_MOD);
-	push_lst__(&lst_process, new_p);
+	vm->nb_process += 1;
+	append_lst__(lst_process, new_p);
+	abort();
 	process->pc += 3;
 }
 
@@ -567,6 +569,8 @@ void	lfork(t_vm *vm, t_process *process, t_lst *lst_process)
 	target = get_lparam(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
 	new_p->pc += target;
-	push_lst__(&lst_process, new_p);
+	vm->nb_process += 1;
+	append_lst__(lst_process, new_p);
+	abort();
 	process->pc += 3;
 }
