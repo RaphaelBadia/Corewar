@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 02:34:07 by root             ###   ########.fr       */
+/*   Updated: 2017/02/27 16:47:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,12 +258,10 @@ void	and(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(pc + offset)]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(pc + offset)]) > 0 && i < 17)
 	{
 		if (!(process->r[i - 1] = param[0] & param[1]))
-		{
 			process->carry = 1;
-		}
 		else
 			process->carry = 0;
 	}
@@ -308,7 +306,7 @@ void	or(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[offset + pc]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(offset + pc)]) > 0 && i < 17)
 	{
 		if (!(process->r[i - 1] = param[0] | param[1]))
 			process->carry = 1;
@@ -330,8 +328,8 @@ void	xor(t_vm *vm, t_process *process)
 
 	pc = process->pc;
 	i = 0;
-	octal[0] = vm->map[pc + 1] >> 6;
-	octal[1] = (vm->map[pc + 1] >> 4) & 3;
+	octal[0] = vm->map[PTR(pc + 1)] >> 6;
+	octal[1] = (vm->map[PTR(pc + 1)] >> 4) & 3;
 	offset = 2;
 	while (i < 2)
 	{
@@ -356,7 +354,7 @@ void	xor(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(offset + pc)]) > 0 && i < 17)
 	{
 		if (!(process->r[i - 1] = param[0] ^ param[1]))
 			process->carry = 1;
@@ -417,9 +415,9 @@ void	ldi(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(offset + pc)]) > 0 && i < 17)
 		process->r[i - 1] = get_param(vm, pc,
-									  (int[3]){pc +((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+									  (int[3]){pc +((param[0] + param[1]) % IDX_MOD), DIR_CODE, 0});
 	process->pc += offset + 1;
 }
 
@@ -459,7 +457,7 @@ void	sti(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(pc + 2)]) > 0 && i <= 17)
+	if ((i = vm->map[PTR(pc + 2)]) > 0 && i < 17)
 		write_mem(vm, pc + ((param[0] + param[1]) % IDX_MOD), process->r[i - 1]);
 	process->pc += offset;
 }
@@ -493,8 +491,8 @@ void	lld(t_vm *vm, t_process *process)
 }
 
 void	lldi(t_vm *vm, t_process *process)
-{
-	unsigned int	pc;
+{	
+		unsigned int	pc;
 	unsigned int	i;
 	unsigned int	offset;
 	unsigned int	param[2];
@@ -518,8 +516,8 @@ void	lldi(t_vm *vm, t_process *process)
 		}
 		else if (octal[i] == DIR_CODE)
 		{
-			param[i] = get_lparam(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
-			offset += 4;
+			param[i] = get_lparam(vm, pc, (int[3]){pc + offset, DIR_CODE, 1});
+			offset += 2;
 		}
 		else
 		{
@@ -528,15 +526,18 @@ void	lldi(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
-		process->r[i - 1] = get_lparam(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+	if ((i = vm->map[PTR(offset + pc)]) > 0 && i < 17)
+		process->r[i - 1] = get_lparam(vm, pc,
+									  (int[3]){pc + param[0] + param[1], DIR_CODE, 0});
+	process->pc += offset + 1;
+
 }
 
 void	frk(t_vm *vm, t_process *process, t_lst *lst_process)
 {
-	unsigned int	target;
 	unsigned int	i;
 	t_process		*new_p;
+	short			target;
 
 	if (!(new_p = malloc(sizeof(t_process))))
 	{
@@ -546,16 +547,16 @@ void	frk(t_vm *vm, t_process *process, t_lst *lst_process)
 	i = process->pc;
 	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
-	new_p->pc = i + (target % IDX_MOD);
+	new_p->pc += (target % IDX_MOD);
 	push_lst__(&lst_process, new_p);
-	process->pc += 5;
+	process->pc += 3;
 }
 
 void	lfork(t_vm *vm, t_process *process, t_lst *lst_process)
 {
-	unsigned int	target;
 	unsigned int	i;
 	t_process		*new_p;
+	short			target;
 
 	if (!(new_p = malloc(sizeof(t_process))))
 	{
@@ -563,9 +564,9 @@ void	lfork(t_vm *vm, t_process *process, t_lst *lst_process)
 		exit(1);
 	}
 	i = process->pc;
-	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
+	target = get_lparam(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
-	new_p->pc = i + target;
+	new_p->pc += target;
 	push_lst__(&lst_process, new_p);
-	process->pc += 5;
+	process->pc += 3;
 }
