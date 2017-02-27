@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 20:35:07 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/27 17:41:25 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ typedef struct					s_label
 	char						*label_name;
 	int							index;
 	int							index_op;
+	int							line;
+	int							column;
 	struct s_label				*next;
 }								t_label;
 
@@ -146,6 +148,7 @@ int								fill_label(char *name, t_asm *data,
 void							fill_label_to_fill(t_asm *data);
 void							ft_addlabel(t_label **lst, char *name,
 		int index, int index_op);
+void							ft_addlabelline(t_label *label, t_asm *data);
 void							display_labels(t_label *lst);
 void							display_to_fill_list(t_label *lst);
 t_label							*ft_find_label_in_lst(char *name, t_label *lst);
@@ -191,5 +194,7 @@ int								swap_bits(int integer);
 char							*ft_strndup(const char *s, size_t n);
 char							**splitrim(char *str, t_asm *data);
 int								ft_atoi_safe(const char *str, int *result);
+void							ft_arrfree(char **arr);
+void							free_lst(t_label *lst);
 
 #endif

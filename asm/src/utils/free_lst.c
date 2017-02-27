@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_comment.c                                   :+:      :+:    :+:   */
+/*   free_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vcombey <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/23 22:16:49 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/25 21:07:18 by rbadia           ###   ########.fr       */
+/*   Created: 2017/02/27 16:30:27 by vcombey           #+#    #+#             */
+/*   Updated: 2017/02/27 16:31:11 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <stdlib.h>
+#include <op.h>
 
-char	*remove_comment(char *str)
+void		free_lst(t_label *lst)
 {
-	char	*start_comment;
+	t_label		*tmp;
+	t_label		*tmp_next;
 
-	if ((start_comment = ft_strchr(str, '#')) != NULL)
-		*start_comment = '\0';
-	if ((start_comment = ft_strchr(str, ';')) != NULL)
-		*start_comment = '\0';
-	return (str);
+	tmp = lst;
+	while (tmp)
+	{
+		tmp_next = tmp->next;
+		free(tmp->label_name);
+		free(tmp);
+		tmp = tmp_next;
+	}
 }

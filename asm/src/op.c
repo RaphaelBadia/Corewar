@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:03:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 17:47:59 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/25 21:50:59 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void		op_live(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(NULL, T_DIR, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_ld(t_asm *data, char **args)
@@ -46,6 +47,7 @@ void		op_ld(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_st(t_asm *data, char **args)
@@ -65,6 +67,7 @@ void		op_st(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_IND | T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_add(t_asm *data, char **args)
@@ -87,6 +90,7 @@ void		op_add(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_sub(t_asm *data, char **args)
@@ -109,6 +113,7 @@ void		op_sub(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_and(t_asm *data, char **args)
@@ -131,6 +136,7 @@ void		op_and(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_or(t_asm *data, char **args)
@@ -153,6 +159,7 @@ void		op_or(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_xor(t_asm *data, char **args)
@@ -175,6 +182,7 @@ void		op_xor(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_zjmp(t_asm *data, char **args)
@@ -190,6 +198,7 @@ void		op_zjmp(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(NULL, T_DIR, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_ldi(t_asm *data, char **args)
@@ -212,6 +221,7 @@ void		op_ldi(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_sti(t_asm *data, char **args)
@@ -234,6 +244,7 @@ void		op_sti(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(&ins, T_DIR | T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_fork(t_asm *data, char **args)
@@ -249,6 +260,7 @@ void		op_fork(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(NULL, T_DIR, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_lld(t_asm *data, char **args)
@@ -268,6 +280,7 @@ void		op_lld(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 4);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_lldi(t_asm *data, char **args)
@@ -290,6 +303,7 @@ void		op_lldi(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_lfork(t_asm *data, char **args)
@@ -305,6 +319,7 @@ void		op_lfork(t_asm *data, char **args)
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(NULL, T_DIR, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_aff(t_asm *data, char **args)
@@ -312,14 +327,16 @@ void		op_aff(t_asm *data, char **args)
 	t_instruction	ins;
 	int				type_argi;
 
+	ins.op_i = 2;
 	ins.args_i = 0;
 	ins.op_buff[0] = 0x10;
-	ins.op_i = 1;
+	ins.op_buff[1] = 0;
 	if (ft_strstrlen(args) != 1)
 		ft_exit_err("aff must have 1 params", data);
 	type_argi = get_param(&ins, args[ins.args_i], data, 2);
 	check_type(&ins, T_REG, type_argi, data);
 	ft_cpy_buf((unsigned char*)ins.op_buff, data, ins.op_i);
+	ft_arrfree(args);
 }
 
 void		op_nothing(t_asm *data, char **args)
@@ -328,4 +345,5 @@ void		op_nothing(t_asm *data, char **args)
 	(void)args;
 	ft_printf("im not coded yet\n");
 	exit(1);
+	ft_arrfree(args);
 }

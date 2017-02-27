@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 20:35:06 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/27 17:39:31 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,7 @@ t_op		g_ops[17] =
 
 int			usage(char *prog_name)
 {
-	ft_printf("Usage: %s [-a] <sourcefile.s>\n    -a : Instead of ", prog_name);
-	ft_printf("creating a .cor file, outputs a stripped and annotated version");
-	ft_printf(" of the code to the standard output\n");
+	ft_printf("Usage: %s <sourcefile.s>\n", prog_name);
 	return (1);
 }
 
@@ -62,7 +60,7 @@ static void	program_size(t_asm *data)
 	data->buffer[4 + PROG_NAME_LENGTH + 1 + 3 + 3] = diff & 0xff;
 }
 
-int			open_source(char *source_file)
+static int	open_source(char *source_file)
 {
 	int		fd;
 	int		n;
@@ -78,7 +76,7 @@ int			open_source(char *source_file)
 	return (fd);
 }
 
-void		create_cor(char *source_file, t_asm data)
+static void	create_cor(char *source_file, t_asm data)
 {
 	int		fd;
 	int		n;
@@ -91,26 +89,12 @@ void		create_cor(char *source_file, t_asm data)
 	cor_name[n - 1] = 'c';
 	cor_name[n] = 'o';
 	cor_name[n + 1] = 'r';
-	fd = open(cor_name, O_CREAT | O_WRONLY, 0600);
+	fd = open(cor_name, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	write(1, "Writing output program to ", 26);
 	ft_putstr(cor_name);
 	write(1, "\n", 1);
 	write(fd, data.buffer, data.buff_index);
-}
-
-void	free_lst(t_label *lst)
-{
-	t_label		*tmp;
-	t_label		*tmp_next;
-
-	tmp = lst;
-	while(tmp)
-	{
-		tmp_next = tmp->next;
-		free(tmp->label_name);
-		free(tmp);
-		tmp = tmp_next;
-	}
+	free(cor_name);
 }
 
 int			main(int ac, char **av)
@@ -119,11 +103,6 @@ int			main(int ac, char **av)
 	int		fd;
 
 	if (ac != 2)
-	{
-		ft_putstr("Usage: ./asm <sourcefile.s>\n");
-		exit(1);
-	}
-	if (ac < 2)
 		return (usage(av[0]));
 	data.to_fill = NULL;
 	data.knowns = NULL;

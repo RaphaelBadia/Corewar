@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/24 20:22:21 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/02/25 19:05:11 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ void			fill_label_to_fill(t_asm *data)
 	while (tmp)
 	{
 		if (!(fill_label_2(tmp->label_name, tmp, data)))
+		{
+			data->line = tmp->line;
+			data->column = tmp->column;
 			ft_exit_err("label not found", data);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -64,6 +68,7 @@ char			*get_label(t_asm *data, char *line)
 	i = 0;
 	while (is_one_of(line[i], " \t"))
 		i++;
+	data->column += i;
 	label_size = 0;
 	while (is_one_of(line[i + label_size], LABEL_CHARS))
 		label_size++;
@@ -71,6 +76,7 @@ char			*get_label(t_asm *data, char *line)
 		return (line + i);
 	label_name = ft_strndup(line + i, (size_t)label_size);
 	ft_addlabel(&data->knowns, label_name, data->buff_index, 0);
+	data->column += label_size + 1;
 	return (line + i + label_size + 1);
 }
 
@@ -85,6 +91,7 @@ int				get_label_to_find(t_asm *data, char *line, char *op_buff,
 		ft_exit_err("no label name", data);
 	while (line[i])
 	{
+		data->column++;
 		if (!is_one_of(line[i], LABEL_CHARS))
 			ft_exit_err("wrong label chars", data);
 		i++;
@@ -95,6 +102,7 @@ int				get_label_to_find(t_asm *data, char *line, char *op_buff,
 	{
 		ft_addlabel(&data->to_fill, label_name, data->buff_index + *op_i,
 			data->buff_index);
+		ft_addlabelline(data->to_fill, data);
 		return (0);
 	}
 	return (1);
