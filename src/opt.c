@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 23:13:20 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/27 02:34:07 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	live(t_vm *vm, t_process *process)
 		}
 		++i;
 	}
-	printf("vm->map %hhx, pc %u", vm->map[process->pc], process->pc);
 	process->pc += 5;
 }
 
@@ -408,8 +407,8 @@ void	ldi(t_vm *vm, t_process *process)
 		}
 		else if (octal[i] == DIR_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
-			offset += 4;
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 1});
+			offset += 2;
 		}
 		else
 		{
@@ -419,7 +418,8 @@ void	ldi(t_vm *vm, t_process *process)
 		++i;
 	}
 	if ((i = vm->map[PTR(offset + pc)]) > 0 && i <= 17)
-		process->r[i - 1] = get_param(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+		process->r[i - 1] = get_param(vm, pc,
+									  (int[3]){pc +((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
 	process->pc += offset + 1;
 }
 
@@ -449,8 +449,8 @@ void	sti(t_vm *vm, t_process *process)
 		}
 		else if (octal[i] == DIR_CODE)
 		{
-			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 0});
-			offset += 4;
+			param[i] = get_param(vm, pc, (int[3]){pc + offset, DIR_CODE, 1});
+			offset += 2;
 		}
 		else
 		{
@@ -460,10 +460,8 @@ void	sti(t_vm *vm, t_process *process)
 		++i;
 	}
 	if ((i = vm->map[PTR(pc + 2)]) > 0 && i <= 17)
-		write_mem(vm, i + ((param[0] + param[1]) % IDX_MOD), process->r[i - 1]);
-		// process->r[i - 1] = get_param(vm, pc, (int[3]){pc + ((param[0] + param[1]) % IDX_MOD), IND_CODE, 0});
+		write_mem(vm, pc + ((param[0] + param[1]) % IDX_MOD), process->r[i - 1]);
 	process->pc += offset;
-
 }
 
 void	lld(t_vm *vm, t_process *process)

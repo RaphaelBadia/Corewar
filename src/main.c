@@ -6,11 +6,12 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 22:23:49 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/27 02:22:01 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <limits.h>
 #include <string.h>
 #include <errno.h>
 #include <stdio.h>
@@ -234,8 +235,11 @@ int		check_lives(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		if (vm->champ[i].live == NBR_LIVE)
+		if (vm->champ[i].live >= NBR_LIVE)
+		{
+			printf("champion %s nbr_live %u\n", vm->champ[i].name, vm->champ[i].live);
 			return (1);
+		}
 		++i;
 	}
 	return (0);
@@ -260,17 +264,21 @@ void	checks(t_vm *vm)
 	if (check_lives(vm))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
+		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
 		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else if (vm->checks == 10)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
+		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
 		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else
 	{
+		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
+		RESET_LIVE(vm);
 		vm->checks += 1;
 	}
 }
@@ -316,7 +324,6 @@ int		check_octal(t_vm *vm, t_process *process)
 
 void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 {
-//	int	debug;
 	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
 								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
 								&lldi, &lfork};
@@ -331,9 +338,6 @@ void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 	}
 	else
 		process->pc += 1;
-//	printf("debug :%d\n", debug);
-//	if (debug == 0)
-//		abort();
 	process->op_code = 0;
 	process->exec_cycle = 0;
 	byte_code = vm->map[process->pc];
@@ -356,7 +360,7 @@ void	check_opt(t_vm *vm, t_lst *process)
 		if (!cp->op_code && byte_code > 0 && byte_code < 17)
 		{
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
-			cp->op_code = g_op_tab[byte_code].opcode;
+			cp->op_code = byte_code;
 		}
 		else if (cp->exec_cycle == vm->cycle)
 		{
@@ -399,15 +403,18 @@ void	purge_process(t_vm *vm, t_lst **process)
 
 void	play(t_vm *vm)
 {
-	t_lst		*process;
-	t_process	*cp;
+	t_lst			*process;
+	t_process		*cp;
+	unsigned long	last_check;
 
 	process = init_process(vm);
+	last_check = 0;
 	while (process)
 	{
 		check_opt(vm, process);
-		if (!(vm->cycle % vm->cycle_to_die))
+		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
+			last_check = vm->cycle;
 			checks(vm);
 			purge_process(vm, &process);
 		}
