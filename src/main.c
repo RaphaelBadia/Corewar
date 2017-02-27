@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 16:51:04 by root             ###   ########.fr       */
+/*   Updated: 2017/02/27 17:27:05 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ t_lst	*init_process(t_vm *vm)
 		++i;
 		pc += MEM_SIZE / vm->nb_player;
 	}
+	vm->nb_process = vm->nb_player;
 	return (process);
 }
 
@@ -237,7 +238,6 @@ int		check_lives(t_vm *vm)
 	{
 		if (vm->champ[i].live >= NBR_LIVE)
 		{
-			printf("champion %s nbr_live %u\n", vm->champ[i].name, vm->champ[i].live);
 			return (1);
 		}
 		++i;
@@ -264,20 +264,17 @@ void	checks(t_vm *vm)
 	if (check_lives(vm))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
-		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
 		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else if (vm->checks == 10)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
-		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
 		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else
 	{
-		printf("vm->cycle_to_die %u %u\n",vm->cycle_to_die, vm->cycle);
 		RESET_LIVE(vm);
 		vm->checks += 1;
 	}
@@ -386,7 +383,10 @@ void	purge_process(t_vm *vm, t_lst **process)
 	while (cp && (pro = cp->data))
 	{
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
+		{
+			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
+		}
 		else
 			break ;
 	}
@@ -395,7 +395,10 @@ void	purge_process(t_vm *vm, t_lst **process)
 	{
 		pro = cp->data;
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
+		{
+			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
+		}
 		else
 			cp = cp->next;
 	}
@@ -419,9 +422,8 @@ void	play(t_vm *vm)
 			purge_process(vm, &process);
 		}
 		vm->cycle += 1;
-		printf("vm->nb_process : %u\n", vm->nb_process);
+		printf("vm->nb_process : %u  cycle : %u\n", vm->nb_process, vm->cycle);
 	}
-	printf("purged, vm->cycle:%lu\n", vm->cycle - 1);
 }
 
 int		main(int ac, char **av)

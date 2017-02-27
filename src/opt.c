@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 17:00:41 by root             ###   ########.fr       */
+/*   Updated: 2017/02/27 17:45:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -547,10 +547,11 @@ void	frk(t_vm *vm, t_process *process, t_lst *lst_process)
 	i = process->pc;
 	target = get_param(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
+	new_p->exec_cycle = 0;
+	new_p->op_code = 0;
 	new_p->pc += (target % IDX_MOD);
 	vm->nb_process += 1;
 	append_lst__(lst_process, new_p);
-	abort();
 	process->pc += 3;
 }
 
@@ -568,9 +569,10 @@ void	lfork(t_vm *vm, t_process *process, t_lst *lst_process)
 	i = process->pc;
 	target = get_lparam(vm, i, (int[3]){i + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
+	new_p->exec_cycle = 0;
+	new_p->op_code = 0;
 	new_p->pc += target;
 	vm->nb_process += 1;
 	append_lst__(lst_process, new_p);
-	abort();
 	process->pc += 3;
 }
