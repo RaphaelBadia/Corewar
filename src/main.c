@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 17:27:05 by root             ###   ########.fr       */
+/*   Updated: 2017/02/28 17:01:51 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,7 +267,7 @@ void	checks(t_vm *vm)
 		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
-	else if (vm->checks == 10)
+	else if (vm->checks == 9)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		RESET_LIVE(vm);
@@ -422,7 +422,7 @@ void	play(t_vm *vm)
 			purge_process(vm, &process);
 		}
 		vm->cycle += 1;
-		printf("vm->nb_process : %u  cycle : %u\n", vm->nb_process, vm->cycle);
+//		printf("vm->nb_process : %u  cycle : %u\n", vm->nb_process, vm->cycle);
 	}
 }
 
