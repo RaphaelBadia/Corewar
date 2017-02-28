@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/26 21:20:06 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/28 19:19:07 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 # define VM_H
 # include "op.h"
 # define ERROR "Error"
-# define PTR(pc) (pc % MEM_SIZE)
+# define PTR(pc) ((pc) % MEM_SIZE)
+# define MOD_CHAR 256
 /*
 ** The following flag should be added, -n -dump
 ** -n [number] player
@@ -72,9 +73,11 @@ typedef struct	s_vm
 	{
 		dump = 1,
 		visual = 2,
-		aff_flag = 4
+		aff_flag = 4,
+		stop = 8
 	}				flag;
 	unsigned int	dump_cycle;
+	unsigned int	stop_cycle;
 	unsigned int	nb_player;
 	unsigned int	cycle_to_die;
 	unsigned int	checks;

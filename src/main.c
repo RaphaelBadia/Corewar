@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/28 17:01:51 by jye              ###   ########.fr       */
+/*   Updated: 2017/02/28 21:41:04 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #define DMP_FLAG "-dump"
 #define IDP_FLAG "-n"
 #define VIS_FLAG "--visual"
+#define AFF_FLAG "-a"
+#define STOP_FLAG "-s"
 
 /**************************************************************************************/
 /**************************************************************************************/
@@ -39,12 +41,37 @@ t_champ	*init_champ__(void)
 	return (new);
 }
 
+int		reset_flag(t_vm *vm, unsigned int flag)
+{
+	if (flag == dump && (vm->flag |= flag))
+	{
+		if (vm->flag & visual)
+			vm->flag ^= visual;
+		if (vm->flag & stop)
+			vm->flag ^= stop;
+	}
+	else if (flag == stop && (vm->flag |= flag))
+	{
+		if (vm->flag & visual)
+			vm->flag ^= visual;
+		if (vm->flag & dump)
+			vm->flag ^= dump;
+	}
+	else if (flag == visual && (vm->flag |= flag))
+	{
+		if (vm->flag & dump)
+			vm->flag ^= dump;
+		if (vm->flag & stop)
+			vm->flag ^= stop;
+	}
+	return (1);
+}
+
 void	set_flag(t_vm *vm, t_arg *arg)
 {
 	while (++arg->i < arg->ac)
-		if (!strcmp(arg->av[arg->i], DMP_FLAG) && (vm->flag |= dump))
+		if (!strcmp(arg->av[arg->i], DMP_FLAG) && reset_flag(vm, dump))
 		{
-			vm->flag |= 1;
 			if (arg->i + 1 > arg->ac)
 			{
 				//USAGE
@@ -52,6 +79,20 @@ void	set_flag(t_vm *vm, t_arg *arg)
 			}
 			else
 				vm->dump_cycle = atoi(arg->av[++arg->i]);
+		}
+		else if (!strcmp(arg->av[arg->i], VIS_FLAG))
+			reset_flag(vm, visual);
+		else if (!strcmp(arg->av[arg->i], AFF_FLAG))
+			vm->flag |= aff_flag;
+		else if (!strcmp(arg->av[arg->i], STOP_FLAG) && reset_flag(vm, stop))
+		{
+			if (arg->i + 1 > arg->ac)
+			{
+				//USAGE
+				exit(2);
+			}
+			else
+				vm->stop_cycle = atoi(arg->av[++arg->i]);
 		}
 		else
 			return ;
@@ -305,7 +346,7 @@ int		check_octal(t_vm *vm, t_process *process)
 		return (1);
 	while (i < g_op_tab[byte_code].argc)
 	{
-		octal = (vm->map[process->pc + 1] >> offset) & 3;
+		octal = (vm->map[PTR(process->pc + 1)] >> offset) & 3;
 		if ((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE)
 			++i;
 		else if ((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE)
@@ -323,7 +364,7 @@ void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 {
 	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
 								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
-								&lldi, &lfork};
+								&lldi, &lfork, &aff};
 	unsigned char	byte_code;
 
 	if (check_octal(vm, process))
@@ -337,7 +378,7 @@ void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
 		process->pc += 1;
 	process->op_code = 0;
 	process->exec_cycle = 0;
-	byte_code = vm->map[process->pc];
+	byte_code = vm->map[PTR(process->pc)];
 	if (byte_code > 0 && byte_code < 17)
 	{
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
@@ -353,7 +394,7 @@ void	check_opt(t_vm *vm, t_lst *process)
 	while (process)
 	{
 		cp = process->data;
-		byte_code = vm->map[cp->pc];
+		byte_code = vm->map[PTR(cp->pc)];
 		if (!cp->op_code && byte_code > 0 && byte_code < 17)
 		{
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
@@ -404,10 +445,25 @@ void	purge_process(t_vm *vm, t_lst **process)
 	}
 }
 
+void	print_winner(t_vm *vm)
+{
+	unsigned int	winner;
+	unsigned int	i;
+
+	winner = 0;
+	i = 1;
+	while (i < 4)
+	{
+		if (vm->champ[winner].last_live < vm->champ[i].last_live)
+			winner = i;
+		++i;
+	}
+	printf("ANNNNNNNNNNNNNNNNNNND THE WINNER IS %s (id %d) (\"%s\") WITH A WEIGHT OF %u BYTES!", vm->champ[winner].name, vm->champ[winner].id_player, vm->champ[winner].comment, vm->champ[winner].size);
+}
+
 void	play(t_vm *vm)
 {
 	t_lst			*process;
-	t_process		*cp;
 	unsigned long	last_check;
 
 	process = init_process(vm);
@@ -422,8 +478,29 @@ void	play(t_vm *vm)
 			purge_process(vm, &process);
 		}
 		vm->cycle += 1;
-//		printf("vm->nb_process : %u  cycle : %u\n", vm->nb_process, vm->cycle);
 	}
+	print_winner(vm);
+}
+
+void	play_dump(t_vm *vm)
+{
+	t_lst			*process;
+	unsigned long	last_check;
+
+	process = init_process(vm);
+	last_check = 0;
+	while (process && vm->cycle != vm->dump_cycle)
+	{
+		check_opt(vm, process);
+		if (last_check == vm->cycle - vm->cycle_to_die)
+		{
+			last_check = vm->cycle;
+			checks(vm);
+			purge_process(vm, &process);
+		}
+		vm->cycle += 1;
+	}
+//	print_map(vm->map);
 }
 
 int		main(int ac, char **av)
@@ -444,13 +521,14 @@ int		main(int ac, char **av)
 	if ((vm.champ = init_champ__()) == NULL)
 		return (1);
 	vm.nb_player = set_champ(vm.champ, &arg);
-	if (vm.nb_player < 4)
-		vm.champ = realloc(vm.champ, sizeof(t_champ) * vm.nb_player);
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
-	play(&vm);
+	if (vm.flag & dump)
+		play_dump(&vm);
+	else if (vm.flag & stop)
+	{}
+	else
+		play(&vm);
 	print_map(vm.map);
-	/* printf("%u\n", vm.champ[0].last_live); */
-	/* printf("%u\n", vm.champ[0].live); */
 	return (0);
 }

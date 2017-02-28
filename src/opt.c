@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/02/27 17:45:08 by root             ###   ########.fr       */
+/*   Updated: 2017/02/28 22:29:38 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include <unistd.h>
 #include "vm.h"
 
 /*
@@ -23,7 +24,7 @@
 unsigned int	get_param(t_vm *vm, unsigned int pc, int data[3])
 {
 	unsigned int	param;
-	short			indir;
+	unsigned short	indir;
 
 	param = 0;
 	if (data[1] == REG_CODE)
@@ -52,7 +53,7 @@ unsigned int	get_param(t_vm *vm, unsigned int pc, int data[3])
 unsigned int	get_lparam(t_vm *vm, unsigned int pc, int data[3])
 {
 	unsigned int	param;
-	short			indir;
+	unsigned short	indir;
 
 	param = 0;
 	if (data[1] == REG_CODE)
@@ -117,7 +118,7 @@ void	ld(t_vm *vm, t_process *process)
 			process->carry = 0;
 		process->pc += 7;
 	}
-	else if (octal == IND_CODE)
+	else
 	{
 		param = get_param(vm, i, (int[3]){i + 2, IND_CODE, 0});
 		if (vm->map[PTR(i + 4)] > 0 && vm->map[PTR(i + 4)] <= 16 && !(process->r[vm->map[PTR(i + 4)] - 1] = param))
@@ -139,14 +140,16 @@ void	write_mem(t_vm *vm, unsigned int pc, unsigned int value)
 void	st(t_vm *vm, t_process *process)
 {
 	unsigned char	octal;
-	unsigned int	param;
+	short			param;
 	unsigned int	reg_val;
 	unsigned int	i;
 
 	i = process->pc;
 	octal = (vm->map[PTR(i + 1)] >> 4) & 3;
 	if (vm->map[PTR(i + 2)] > 0 && vm->map[PTR(i + 2)] <= 16)
-		reg_val = process->r[vm->map[PTR(i + 2)] - 1];
+		if (!(reg_val = process->r[vm->map[PTR(i + 2)] - 1]))
+			abort();
+	printf("reg_val : %u\n", reg_val);
 	if (octal == REG_CODE)
 	{
 		param = get_param(vm, i, (int[3]){i + 3, REG_CODE, 0});
@@ -369,7 +372,7 @@ void	xor(t_vm *vm, t_process *process)
 void	zjmp(t_vm *vm, t_process *process)
 {
 	unsigned int	pc;
-	short			param;
+	unsigned short	param;
 
 	pc = process->pc;
 	param = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
@@ -426,7 +429,7 @@ void	sti(t_vm *vm, t_process *process)
 	unsigned int	pc;
 	unsigned int	i;
 	unsigned int	offset;
-	unsigned int	param[2];
+	short			param[2];
 	unsigned char	octal[2];
 
 	pc = process->pc;
@@ -575,4 +578,19 @@ void	lfork(t_vm *vm, t_process *process, t_lst *lst_process)
 	vm->nb_process += 1;
 	append_lst__(lst_process, new_p);
 	process->pc += 3;
+}
+
+void	aff(t_vm *vm, t_process *process)
+{
+	unsigned int	reg;
+	unsigned int	i;
+	char			af;
+
+	i = process->pc;
+	if (!(vm->flag & aff_flag))
+		return ;
+	reg = get_lparam(vm, i, (int[3]){i + 2, REG_CODE, 0});
+	if (reg > 0 && reg <= 16)
+		af = process->r[reg - 1] % MOD_CHAR;
+	write (1, &af, 1);
 }
