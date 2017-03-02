@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/02/28 21:41:04 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/02 20:55:20 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,88 +321,89 @@ void	checks(t_vm *vm)
 	}
 }
 
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
-/**************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
+/*************************************************************************************/
 
-int		check_octal(t_vm *vm, t_process *process)
+unsigned int	check_octal(t_vm *vm, t_process *process)
 {
-	int	i;
+	int				i;
 	unsigned int	offset;
 	unsigned char	byte_code;
 	unsigned char	octal;
+	unsigned char	octal_code;
 
 	byte_code = process->op_code;
 	i = 0;
 	offset = 6;
 	if (!g_op_tab[byte_code].octal)
-		return (1);
+		return (0);
+	octal_code = vm->map[PTR(process->pc + 1)]
 	while (i < g_op_tab[byte_code].argc)
 	{
-		octal = (vm->map[PTR(process->pc + 1)] >> offset) & 3;
-		if ((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE)
-			++i;
-		else if ((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE)
-			++i;
-		else if ((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE)
+		octal = (octal_code >> offset) & 3;
+		if (((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) ||
+			((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE) ||
+			((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE))
 			++i;
 		else
-			return (0);
+			return (nskip(byte_code, octal_code));
 		offset -= 2;
 	}
-	return (1);
+	return (0);
 }
 
-void	exec_opt(t_vm *vm, t_process *process, t_lst *lst_pro)
+void	exec_opt(t_vm *vm, t_process *process)
 {
-	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
-								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
-								&lldi, &lfork, &aff};
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub/*, &and, */
+								/* &or, &xor, &zjmp, &ldi, &sti, &frk, &lld, */
+								/* &lldi, &lfork, &aff */};
 	unsigned char	byte_code;
+	unsigned int	octal_skip;
 
-	if (check_octal(vm, process))
+	if (!(octal_skip = check_octal(vm, process)))
 	{
-		if (process->op_code == 12 || process->op_code == 15)
-			f[process->op_code](vm, process, lst_pro);
-		else
-			f[process->op_code](vm, process);
+		printf("byte_code: %u\n", process->op_code);
+		f[process->op_code](vm, process);
 	}
 	else
-		process->pc += 1;
+		process->pc += octal_skip;
 	process->op_code = 0;
 	process->exec_cycle = 0;
 	byte_code = vm->map[PTR(process->pc)];
-	if (byte_code > 0 && byte_code < 17)
+	if (byte_code > 0 && byte_code <= 16)
 	{
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		process->op_code = g_op_tab[byte_code].opcode;
 	}
 }
 
-void	check_opt(t_vm *vm, t_lst *process)
+void	check_opt(t_vm *vm)
 {
 	unsigned char	byte_code;
 	t_process		*cp;
+	t_lst			*process;
 
+	process = vm->process;
 	while (process)
 	{
 		cp = process->data;
 		byte_code = vm->map[PTR(cp->pc)];
-		if (!cp->op_code && byte_code > 0 && byte_code < 17)
+		if (!cp->op_code && byte_code > 0 && byte_code <= 17)
 		{
-			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle; // cycle to exec opt;
+			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 			cp->op_code = byte_code;
 		}
 		else if (cp->exec_cycle == vm->cycle)
 		{
-			exec_opt(vm, cp, process);
+			exec_opt(vm, cp);
 		}
 		else if (!cp->op_code)
 		{
@@ -413,31 +414,33 @@ void	check_opt(t_vm *vm, t_lst *process)
 	}
 }
 
-void	purge_process(t_vm *vm, t_lst **process)
+void	purge_process(t_vm *vm)
 {
 	t_process	*pro;
 	t_lst		*cp;
 
 	if (vm->cycle == 0)
 		return ;
-	cp = *process;
+	cp = vm->process;
 	while (cp && (pro = cp->data))
 	{
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 		{
 			vm->nb_process -= 1;
+			printf("last_live %u\n", pro->last_live);
 			pop_lst__(&cp, &free);
 		}
 		else
 			break ;
 	}
-	*process = cp;
+	vm->process = cp;
 	while (cp)
 	{
 		pro = cp->data;
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 		{
 			vm->nb_process -= 1;
+			printf("last_live %u\n", pro->last_live);
 			pop_lst__(&cp, &free);
 		}
 		else
@@ -445,62 +448,25 @@ void	purge_process(t_vm *vm, t_lst **process)
 	}
 }
 
-void	print_winner(t_vm *vm)
-{
-	unsigned int	winner;
-	unsigned int	i;
-
-	winner = 0;
-	i = 1;
-	while (i < 4)
-	{
-		if (vm->champ[winner].last_live < vm->champ[i].last_live)
-			winner = i;
-		++i;
-	}
-	printf("ANNNNNNNNNNNNNNNNNNND THE WINNER IS %s (id %d) (\"%s\") WITH A WEIGHT OF %u BYTES!", vm->champ[winner].name, vm->champ[winner].id_player, vm->champ[winner].comment, vm->champ[winner].size);
-}
-
 void	play(t_vm *vm)
 {
-	t_lst			*process;
 	unsigned long	last_check;
 
-	process = init_process(vm);
+	vm->process = init_process(vm);
 	last_check = 0;
-	while (process)
+	while (vm->process)
 	{
-		check_opt(vm, process);
+		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
 			last_check = vm->cycle;
 			checks(vm);
-			purge_process(vm, &process);
+			purge_process(vm);
 		}
 		vm->cycle += 1;
 	}
-	print_winner(vm);
-}
-
-void	play_dump(t_vm *vm)
-{
-	t_lst			*process;
-	unsigned long	last_check;
-
-	process = init_process(vm);
-	last_check = 0;
-	while (process && vm->cycle != vm->dump_cycle)
-	{
-		check_opt(vm, process);
-		if (last_check == vm->cycle - vm->cycle_to_die)
-		{
-			last_check = vm->cycle;
-			checks(vm);
-			purge_process(vm, &process);
-		}
-		vm->cycle += 1;
-	}
-//	print_map(vm->map);
+	printf("Game over cycle:%lu\n", vm->cycle);
+//	print_winner(vm);
 }
 
 int		main(int ac, char **av)
@@ -523,12 +489,7 @@ int		main(int ac, char **av)
 	vm.nb_player = set_champ(vm.champ, &arg);
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
-	if (vm.flag & dump)
-		play_dump(&vm);
-	else if (vm.flag & stop)
-	{}
-	else
-		play(&vm);
+	play(&vm);
 	print_map(vm.map);
 	return (0);
 }

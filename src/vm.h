@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/02/28 19:19:07 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/02 20:55:13 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@
 ** process are unique
 */
 
+typedef struct	s_lst
+{
+	struct s_lst	*prev;
+	struct s_lst	*next;
+	void			*data;
+}				t_lst;
+
 typedef struct	s_champ
 {
 	char			*name;
@@ -85,11 +92,12 @@ typedef struct	s_vm
 	unsigned long	cycle; // current cycle;
 	unsigned char	map[MEM_SIZE];
 	t_champ			*champ;
+	t_lst			*process;
 }				t_vm;
 
 typedef struct	s_process
 {
-	unsigned int	r[16];
+	int				r[16];
 	unsigned int	last_live;
 	unsigned int	exec_cycle;
 	unsigned int	op_code;
@@ -97,33 +105,29 @@ typedef struct	s_process
 	unsigned int	carry;
 }				t_process;
 
-typedef struct	s_lst
-{
-	struct s_lst	*prev;
-	struct s_lst	*next;
-	void			*data;
-}				t_lst;
-
 /*
 ** OPT function
 */
 
-void	live(t_vm *vm, t_process *process);
-void	ld(t_vm *vm, t_process *process);
-void	st(t_vm *vm, t_process *process);
-void	add(t_vm *vm, t_process *process);
-void	sub(t_vm *vm, t_process *process);
-void	and(t_vm *vm, t_process *process);
-void	or(t_vm *vm, t_process *process);
-void	xor(t_vm *vm, t_process *process);
-void	zjmp(t_vm *vm, t_process *process);
-void	ldi(t_vm *vm, t_process *process);
-void	sti(t_vm *vm, t_process *process);
-void	frk(t_vm *vm, t_process *process, t_lst *lst_process);
-void	lld(t_vm *vm, t_process *process);
-void	lldi(t_vm *vm, t_process *process);
-void	lfork(t_vm *vm, t_process *process, t_lst *lst_process);
-void	aff(t_vm *vm, t_process *process);
+void			live(t_vm *vm, t_process *process);
+void			ld(t_vm *vm, t_process *process);
+void			st(t_vm *vm, t_process *process);
+void			add(t_vm *vm, t_process *process);
+void			sub(t_vm *vm, t_process *process);
+void			and(t_vm *vm, t_process *process);
+void			or(t_vm *vm, t_process *process);
+void			xor(t_vm *vm, t_process *process);
+void			zjmp(t_vm *vm, t_process *process);
+void			ldi(t_vm *vm, t_process *process);
+void			sti(t_vm *vm, t_process *process);
+void			frk(t_vm *vm, t_process *process);
+void			lld(t_vm *vm, t_process *process);
+void			lldi(t_vm *vm, t_process *process);
+void			lfork(t_vm *vm, t_process *process);
+void			aff(t_vm *vm, t_process *process);
+int				get_param(t_vm *vm, unsigned int pc, int data[3]);
+void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
+unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
 
 /*
 ** LST function
