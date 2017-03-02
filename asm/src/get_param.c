@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:14:52 by vcombey           #+#    #+#             */
-/*   Updated: 2017/03/02 22:21:03 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/02 23:08:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "libft.h"
 #include "op.h"
 #include <ft_printf.h>
+
+static int	is_nb(char c)
+{
+	return (ft_isdigit(c) || c == '-');
+}
 
 int			get_param_dir(t_instruction *ins, char *param, t_asm *data,
 		int dir_size)
@@ -32,7 +37,7 @@ int			get_param_dir(t_instruction *ins, char *param, t_asm *data,
 	else
 	{
 		data->column += 1;
-		if (!ft_isdigit(*(param + 1)) || !ft_atoi_safe(param + 1, &dir))
+		if (!ft_atoi_safe(param + 1, &dir) || !is_nb(*(param + 1)))
 			ft_exit_err("% must be followed by a number or a :label", data);
 		if (dir_size == 2)
 			dir <<= 16;
