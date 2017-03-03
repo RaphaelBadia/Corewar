@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/04 00:26:32 by root             ###   ########.fr       */
+/*   Updated: 2017/03/04 00:45:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,9 +362,9 @@ void	exec_opt(t_vm *vm, t_process *process)
 //		fflush(stdout);
 //		if (process->op_code == 16)
 //		{
-			print_map(vm->map);
-			usleep(10000);
-			printf("\e[2J");
+//			print_map(vm->map);
+//			usleep(10000);
+//			printf("\e[2J");
 //			fflush(stdout);
 //		}
 		f[process->op_code](vm, process);

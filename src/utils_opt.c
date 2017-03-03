@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/03 22:56:46 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/04 00:35:22 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,12 @@ int				test_reg(t_vm *vm, unsigned char byte_code,
 	unsigned int	offset;
 	int				i;
 
-	if ((octal[0] = octal_code >> 6) != T_REG &&
-		(octal[1] = (octal_code >> 4) & 3) != T_REG &&
-		(octal[2] = (octal_code >> 2) & 3) != T_REG)
+	octal[0] = octal_code >> 6;
+	octal[1] = (octal_code >> 4) & 3;
+	octal[2] = (octal_code >> 2) & 3;
+	if (octal[0] != T_REG &&
+		octal[1] != T_REG &&
+		octal[2] != T_REG)
 		return (0);
 	offset = 2;
 	i = -1;
