@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/02 20:55:20 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/03 17:48:36 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@
 #define AFF_FLAG "-a"
 #define STOP_FLAG "-s"
 
-/**************************************************************************************/
-/**************************************************************************************/
-/*************************** SET CHAMPION DATA ****************************************/
-/**************************************************************************************/
-/**************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************* SET CHAMPION DATA ****************************************/
+/************************************************************************************/
+/************************************************************************************/
 
 t_champ	*init_champ__(void)
 {
@@ -304,33 +304,31 @@ void	checks(t_vm *vm)
 		return ;
 	if (check_lives(vm))
 	{
+		printf("%u\n", vm->champ[0].live);
 		vm->cycle_to_die -= CYCLE_DELTA;
-		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else if (vm->checks == 9)
 	{
+		printf("%u\n", vm->champ[0].live);
 		vm->cycle_to_die -= CYCLE_DELTA;
-		RESET_LIVE(vm);
 		vm->checks = 0;
 	}
 	else
-	{
-		RESET_LIVE(vm);
 		vm->checks += 1;
-	}
+	RESET_LIVE(vm);
 }
 
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
-/*************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
 
 unsigned int	check_octal(t_vm *vm, t_process *process)
 {
@@ -345,36 +343,40 @@ unsigned int	check_octal(t_vm *vm, t_process *process)
 	offset = 6;
 	if (!g_op_tab[byte_code].octal)
 		return (0);
-	octal_code = vm->map[PTR(process->pc + 1)]
-	while (i < g_op_tab[byte_code].argc)
+	octal_code = vm->map[PTR(process->pc + 1)];
+	while (i < g_op_tab[byte_code].argc &&
+			(octal = (octal_code >> offset) & 3))
 	{
-		octal = (octal_code >> offset) & 3;
-		if (((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) ||
+		if ((((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) ||
 			((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE) ||
-			((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE))
+			((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE)))
 			++i;
 		else
 			return (nskip(byte_code, octal_code));
 		offset -= 2;
 	}
-	return (0);
+	if (test_reg(vm, byte_code, octal_code, process->pc))
+		return (nskip(byte_code, octal_code));
+	else
+		return (0);
 }
 
 void	exec_opt(t_vm *vm, t_process *process)
 {
-	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub/*, &and, */
-								/* &or, &xor, &zjmp, &ldi, &sti, &frk, &lld, */
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
+								&or, &xor, &zjmp/*, &ldi, &sti, &frk, &lld, */
 								/* &lldi, &lfork, &aff */};
 	unsigned char	byte_code;
 	unsigned int	octal_skip;
 
 	if (!(octal_skip = check_octal(vm, process)))
 	{
-		printf("byte_code: %u\n", process->op_code);
 		f[process->op_code](vm, process);
 	}
 	else
+	{
 		process->pc += octal_skip;
+	}
 	process->op_code = 0;
 	process->exec_cycle = 0;
 	byte_code = vm->map[PTR(process->pc)];
@@ -382,6 +384,11 @@ void	exec_opt(t_vm *vm, t_process *process)
 	{
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		process->op_code = g_op_tab[byte_code].opcode;
+	}
+	else
+	{
+		if (++process->pc > MEM_SIZE)
+			process->pc = process->pc % MEM_SIZE;
 	}
 }
 
@@ -408,7 +415,7 @@ void	check_opt(t_vm *vm)
 		else if (!cp->op_code)
 		{
 			if (++cp->pc > MEM_SIZE)
-				cp->pc = 0;
+				cp->pc = cp->pc % MEM_SIZE;
 		}
 		process = process->next;
 	}
@@ -427,7 +434,6 @@ void	purge_process(t_vm *vm)
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 		{
 			vm->nb_process -= 1;
-			printf("last_live %u\n", pro->last_live);
 			pop_lst__(&cp, &free);
 		}
 		else
@@ -440,7 +446,6 @@ void	purge_process(t_vm *vm)
 		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
 		{
 			vm->nb_process -= 1;
-			printf("last_live %u\n", pro->last_live);
 			pop_lst__(&cp, &free);
 		}
 		else

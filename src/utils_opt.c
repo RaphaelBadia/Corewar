@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/02 20:55:17 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/03 17:51:26 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@
 ** data[0] = to_get index, data[1] = octal, data[2] = label
 */
 
-int		get_param(t_vm *vm, unsigned int pc, int data[3])
+void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
+{
+	vm->map[PTR(pc)] = val >> 24;
+	vm->map[PTR(pc + 1)] = (val >> 16) & 0xff;
+	vm->map[PTR(pc + 2)] = (val >> 8) & 0xff;
+	vm->map[PTR(pc + 3)] = val & 0xff;
+}
+
+int				get_param(t_vm *vm, unsigned int pc, int data[3])
 {
 	int		param;
 	short	indir;
@@ -49,6 +57,36 @@ int		get_param(t_vm *vm, unsigned int pc, int data[3])
 	return (param);
 }
 
+int				test_reg(t_vm *vm, unsigned char byte_code,
+						unsigned char octal_code, unsigned int pc)
+{
+	unsigned char	octal[3];
+	unsigned int	offset;
+	int				i;
+
+	if ((octal[0] = octal_code >> 6) != T_REG &&
+		(octal[1] = (octal_code >> 4) & 3) != T_REG &&
+		(octal[2] = (octal_code >> 2) & 3) != T_REG)
+		return (0);
+	offset = 2;
+	i = -1;
+	while (++i < g_op_tab[byte_code].argc)
+	{
+		if (octal[i] != T_REG)
+		{
+			if (octal[i] == T_DIR)
+				offset += g_op_tab[byte_code].label_size ? 2 : 4;
+			else
+				offset += 2;
+			continue ;
+		}
+		if (!vm->map[PTR(pc + offset)] &&
+			vm->map[PTR(pc + offset)] <= REG_NUMBER)
+			offset += 1;
+	}
+	return (0);
+}
+
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code)
 {
 	int				i;
@@ -56,32 +94,24 @@ unsigned int	nskip(unsigned char byte_code, unsigned char octal_code)
 	unsigned int	skip;
 	unsigned char	octal;
 
-	i = -1;
+	i = 0;
 	offset = 6;
 	skip = 0;
-	while (++i < g_op_tab[byte_code].argc)
+	while (i < g_op_tab[byte_code].argc)
 	{
 		octal = (octal_code >> offset) & 3;
-		if (octal == DIR_CODE)
+		if (octal == DIR_CODE && ++i)
 		{
 			if (g_op_tab[byte_code].label_size)
 				skip += 2;
 			else
 				skip += 4;
 		}
-		else if (octal == REG_CODE)
+		else if (octal == REG_CODE && ++i)
 			skip += 1;
-		else if (octal == IND_CODE)
+		else if (octal == IND_CODE && ++i)
 			skip += 2;
 		offset -= 2;
 	}
 	return (skip);
-}
-
-void	st_param(t_vm *vm, unsigned int pc, unsigned int val)
-{
-	vm->map[PTR(pc)] = val >> 24;
-	vm->map[PTR(pc + 1)] = (val >> 16) & 0xff;
-	vm->map[PTR(pc + 2)] = (val >> 8) & 0xff;
-	vm->map[PTR(pc + 3)] = val & 0xff;
 }

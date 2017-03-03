@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/02 20:55:13 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/02 22:25:39 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct	s_vm
 
 typedef struct	s_process
 {
-	int				r[16];
+	int				r[REG_NUMBER];
 	unsigned int	last_live;
 	unsigned int	exec_cycle;
 	unsigned int	op_code;
@@ -128,6 +128,8 @@ void			aff(t_vm *vm, t_process *process);
 int				get_param(t_vm *vm, unsigned int pc, int data[3]);
 void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
+int				test_reg(t_vm *vm, unsigned char byte_code,
+						unsigned char octal_code, unsigned int pc);
 
 /*
 ** LST function
