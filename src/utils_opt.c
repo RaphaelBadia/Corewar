@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/03 17:51:26 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/03 22:56:46 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,35 @@ int				get_param(t_vm *vm, unsigned int pc, int data[3])
 	return (param);
 }
 
+int	 			get_lparam(t_vm *vm, unsigned int pc, int data[3])
+{
+	int		param;
+	short	indir;
+
+	param = 0;
+	if (data[1] == REG_CODE)
+		param = vm->map[PTR(data[0])];
+	else if (data[1] == DIR_CODE)
+	{
+		if (data[2])
+			param = (vm->map[PTR(data[0])] << 8) | (vm->map[PTR(data[0] + 1)]);
+		else
+			param = (vm->map[PTR(data[0])] << 24) |		\
+				(vm->map[PTR(data[0] + 1)] << 16) |		\
+				(vm->map[PTR(data[0] + 2)] << 8) |		\
+				(vm->map[PTR(data[0] + 3)]);
+	}
+	else if (data[1] == IND_CODE)
+	{
+		indir = (vm->map[PTR(data[0])] << 8) | (vm->map[PTR(data[0] + 1)]);
+		param = (vm->map[PTR(pc + (indir))] << 24) |	\
+			(vm->map[PTR(pc + 1 + (indir))] << 16) |	\
+			(vm->map[PTR(pc + 2 + (indir))] << 8) |	\
+			(vm->map[PTR(pc + 3 + (indir))]);
+	}
+	return (param);
+}
+
 int				test_reg(t_vm *vm, unsigned char byte_code,
 						unsigned char octal_code, unsigned int pc)
 {
@@ -80,9 +109,11 @@ int				test_reg(t_vm *vm, unsigned char byte_code,
 				offset += 2;
 			continue ;
 		}
-		if (!vm->map[PTR(pc + offset)] &&
+		if (vm->map[PTR(pc + offset)] &&
 			vm->map[PTR(pc + offset)] <= REG_NUMBER)
 			offset += 1;
+		else
+			return (1);
 	}
 	return (0);
 }
@@ -96,21 +127,22 @@ unsigned int	nskip(unsigned char byte_code, unsigned char octal_code)
 
 	i = 0;
 	offset = 6;
-	skip = 0;
+	skip = 2;
 	while (i < g_op_tab[byte_code].argc)
 	{
 		octal = (octal_code >> offset) & 3;
-		if (octal == DIR_CODE && ++i)
+		if (octal == DIR_CODE)
 		{
 			if (g_op_tab[byte_code].label_size)
 				skip += 2;
 			else
 				skip += 4;
 		}
-		else if (octal == REG_CODE && ++i)
+		else if (octal == REG_CODE)
 			skip += 1;
-		else if (octal == IND_CODE && ++i)
+		else if (octal == IND_CODE)
 			skip += 2;
+		++i;
 		offset -= 2;
 	}
 	return (skip);

@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/02 22:25:39 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/03 22:47:32 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ typedef struct	s_champ
 	unsigned char	*byte_code;
 	unsigned int	size;
 	unsigned int	last_live;
-	unsigned int	live;
 	unsigned int	id_player;
 }				t_champ;
 
@@ -88,6 +87,7 @@ typedef struct	s_vm
 	unsigned int	nb_player;
 	unsigned int	cycle_to_die;
 	unsigned int	checks;
+	unsigned int	live;
 	unsigned long	nb_process;
 	unsigned long	cycle; // current cycle;
 	unsigned char	map[MEM_SIZE];
@@ -126,6 +126,7 @@ void			lldi(t_vm *vm, t_process *process);
 void			lfork(t_vm *vm, t_process *process);
 void			aff(t_vm *vm, t_process *process);
 int				get_param(t_vm *vm, unsigned int pc, int data[3]);
+int				get_lparam(t_vm *vm, unsigned int pc, int data[3]);
 void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
 int				test_reg(t_vm *vm, unsigned char byte_code,
