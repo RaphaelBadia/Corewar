@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 20:50:19 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/05 22:36:02 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,8 +369,7 @@ void	exec_opt(t_vm *vm, t_process *process)
 	byte_code = vm->map[PTR(process->pc)];
 	if (byte_code > 0 && byte_code <= 16)
 	{
-		if ((process->op_code = byte_code) == 1)
-			process->last_live = g_op_tab[byte_code].cycles + vm->cycle;
+		process->op_code = byte_code;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 	}
 	else
@@ -393,8 +392,7 @@ void	check_opt(t_vm *vm)
 		byte_code = vm->map[PTR(cp->pc)];
 		if (!cp->op_code && byte_code > 0 && byte_code <= 17)
 		{
-			if ((cp->op_code = byte_code) == 1)
-				cp->last_live = g_op_tab[byte_code].cycles + vm->cycle;
+			cp->op_code = byte_code;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		}
 		else if (cp->exec_cycle == vm->cycle)
