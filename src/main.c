@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/04 14:33:15 by root             ###   ########.fr       */
+/*   Updated: 2017/03/05 20:50:19 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,24 +274,35 @@ t_lst	*init_process(t_vm *vm)
 	return (process);
 }
 
+void	reset_live(t_vm *vm)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (i < vm->nb_player)
+	{
+		vm->champ[i].live = 0;
+		++i;
+	}
+}
+
 void	checks(t_vm *vm)
 {
 	if (vm->cycle == 0)
 		return ;
-	if (vm->live >= 21)
+	if (vm->live > 20)
 	{
-//		printf("%u\n", vm->champ[0].live);
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->checks = 0;
 	}
 	else if (vm->checks == 9)
 	{
-//		printf("%u\n", vm->champ[0].live);
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->checks = 0;
 	}
 	else
 		vm->checks += 1;
+	reset_live(vm);
 	vm->live = 0;
 }
 
@@ -332,9 +343,7 @@ unsigned int	check_octal(t_vm *vm, t_process *process)
 		offset -= 2;
 	}
 	if (test_reg(vm, byte_code, octal_code, process->pc))
-	{
 		return (nskip(byte_code, octal_code));
-	}
 	else
 		return (0);
 }
@@ -343,37 +352,13 @@ void	exec_opt(t_vm *vm, t_process *process)
 {
 	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
 								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
-								&lldi, &lfork/*, &aff */};
+								&lldi, &lfork};
 	unsigned char	byte_code;
 	unsigned int	octal_skip;
 
-	/* if (vm->cycle == 3783) */
-	/* { */
-	/* 	print_map(vm->map); */
-	/* 	abort(); */
-	/* } */
 	if (!(octal_skip = check_octal(vm, process)))
 	{
-//		printf("process->op_code %s %u\n",
-//			   g_op_tab[process->op_code].name, process->op_code);
-//		printf("process->pc %u\n", process->pc);
-//		printf("vm->cycle %u,exec_cycle %u\n",
-//			   vm->cycle - g_op_tab[process->op_code].cycles, vm->cycle);
-//		fflush(stdout);
-//		if (process->op_code == 16)
-//		{
-		/* usleep(10000); */
-		/* printf("\e[2J"); */
-		/* printf("vm->cycle %u\n", vm->cycle); */
-		/* print_map(vm->map); */
-		/* usleep(10000); */
-
-
-//			fflush(stdout);
-//		}
-//		printf("op_code %u\n", process->op_code);
 		f[process->op_code](vm, process);
-//		printf("process->pc %u\n\n", process->pc);
 	}
 	else
 	{
@@ -384,8 +369,9 @@ void	exec_opt(t_vm *vm, t_process *process)
 	byte_code = vm->map[PTR(process->pc)];
 	if (byte_code > 0 && byte_code <= 16)
 	{
+		if ((process->op_code = byte_code) == 1)
+			process->last_live = g_op_tab[byte_code].cycles + vm->cycle;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-		process->op_code = g_op_tab[byte_code].opcode;
 	}
 	else
 	{
@@ -407,8 +393,9 @@ void	check_opt(t_vm *vm)
 		byte_code = vm->map[PTR(cp->pc)];
 		if (!cp->op_code && byte_code > 0 && byte_code <= 17)
 		{
+			if ((cp->op_code = byte_code) == 1)
+				cp->last_live = g_op_tab[byte_code].cycles + vm->cycle;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-			cp->op_code = byte_code;
 		}
 		else if (cp->exec_cycle == vm->cycle)
 		{
@@ -423,17 +410,23 @@ void	check_opt(t_vm *vm)
 	}
 }
 
-void	purge_process(t_vm *vm)
+void	purge_process(t_vm *vm, unsigned long last_check)
 {
 	t_process	*pro;
 	t_lst		*cp;
 
 	if (vm->cycle == 0)
 		return ;
+	else if (vm->cycle_to_die & 0xf0000000)
+	{
+		while (vm->process)
+			pop_lst__(&vm->process, &free);
+		return ;
+	}
 	cp = vm->process;
 	while (cp && (pro = cp->data))
 	{
-		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
+		if (!pro->last_live || (pro->last_live < last_check))
 		{
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
@@ -445,7 +438,7 @@ void	purge_process(t_vm *vm)
 	while (cp)
 	{
 		pro = cp->data;
-		if (!pro->last_live || (pro->last_live < vm->cycle - vm->cycle_to_die))
+		if (!pro->last_live || (pro->last_live < last_check))
 		{
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
@@ -464,16 +457,15 @@ void	play(t_vm *vm)
 	while (vm->process)
 	{
 		check_opt(vm);
+		vm->cycle += 1;
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
-			last_check = vm->cycle;
 			checks(vm);
-			purge_process(vm);
+			purge_process(vm, last_check);
+			last_check = vm->cycle;
 		}
-		vm->cycle += 1;
 	}
 	printf("Game over cycle:%lu\n", vm->cycle);
-//	print_winner(vm);
 }
 
 int		main(int ac, char **av)

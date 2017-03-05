@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/04 00:35:22 by root             ###   ########.fr       */
+/*   Updated: 2017/03/04 18:13:44 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
 	vm->map[PTR(pc + 1)] = (val >> 16) & 0xff;
 	vm->map[PTR(pc + 2)] = (val >> 8) & 0xff;
 	vm->map[PTR(pc + 3)] = val & 0xff;
+//	if (pc == 0x78)
+//	{
+//		fflush(stdout);
+//		printf("%#.8x\n", val);
+//	}
 }
 
 int				get_param(t_vm *vm, unsigned int pc, int data[3])

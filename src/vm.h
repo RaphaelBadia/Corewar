@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/03 22:47:32 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/05 21:06:45 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_champ
 	char			*comment;
 	unsigned char	*byte_code;
 	unsigned int	size;
+	unsigned int	live;
 	unsigned int	last_live;
 	unsigned int	id_player;
 }				t_champ;
@@ -109,6 +110,7 @@ typedef struct	s_process
 ** OPT function
 */
 
+
 void			live(t_vm *vm, t_process *process);
 void			ld(t_vm *vm, t_process *process);
 void			st(t_vm *vm, t_process *process);
@@ -131,7 +133,6 @@ void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
 int				test_reg(t_vm *vm, unsigned char byte_code,
 						unsigned char octal_code, unsigned int pc);
-
 /*
 ** LST function
 */

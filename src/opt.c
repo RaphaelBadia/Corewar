@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/04 14:18:35 by root             ###   ########.fr       */
+/*   Updated: 2017/03/05 18:20:47 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	live(t_vm *vm, t_process *process)
 		if (vm->champ[i].id_player == id_player)
 		{
 			vm->champ[i].last_live = vm->cycle;
+			vm->champ[i].live += 1;
 		}
 		++i;
 	}
 	vm->live += 1;
-	process->last_live = vm->cycle;
 	process->pc += 5;
 }
 
@@ -103,6 +103,8 @@ void	add(t_vm *vm, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
+//	if (r[2] == 9)
+//		printf("r[2] %x\n", process->r[r[2] - 1]);
 	process->pc += 5;
 }
 
@@ -261,6 +263,8 @@ void	zjmp(t_vm *vm, t_process *process)
 		process->pc += jump;
 	else
 		process->pc += 3;
+//	if (process->pc = 0x1b1)
+//		printf("fuck man\n");
 }
 
 void	ldi(t_vm *vm, t_process *process)
@@ -380,8 +384,9 @@ void	frk(t_vm *vm, t_process *process)
 	byte_code = vm->map[PTR(new_p->pc)];
 	vm->nb_process += 1;
 	bool_ = (byte_code > 0 && byte_code <= 16);
+	if ((new_p->op_code = bool_ ? byte_code : 0) == 1)
+		new_p->last_live = g_op_tab[byte_code].cycles + vm->cycle;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
-	new_p->op_code = bool_ ? g_op_tab[byte_code].opcode : 0;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }
@@ -469,8 +474,9 @@ void	lfork(t_vm *vm, t_process *process)
 	byte_code = vm->map[PTR(new_p->pc)];
 	vm->nb_process += 1;
 	bool_ = (byte_code > 0 && byte_code <= 16);
+	if ((new_p->op_code = bool_ ? byte_code : 0) == 1)
+		new_p->last_live = g_op_tab[byte_code].cycles + vm->cycle;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
-	new_p->op_code = bool_ ? g_op_tab[byte_code].opcode : 0;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }
