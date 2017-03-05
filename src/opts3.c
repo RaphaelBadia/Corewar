@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 21:48:00 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/05 21:48:41 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/05 22:05:19 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				lld(unsigned char *buff, size_t *i, int df)
 		else if (f[d] == IND_CODE)
 			ft_dprintf(df, "%hd", (short)get_uint16(buff, *i));
 		else if (f[d] == DIR_CODE)
-			ft_dprintf(df, "%%%hd", (short)get_uint16(buff, *i));
+			ft_dprintf(df, "%%%hd", (short)get_uint32(buff, *i));
 		*i += get_code_value(f[d], 1);
 		if (d < 2)
 			ft_dprintf(df, ", ");

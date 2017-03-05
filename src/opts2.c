@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 21:47:22 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/05 21:59:48 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/05 22:03:43 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void				and(unsigned char *buff, size_t *i, int df)
 		else if (f[d] == IND_CODE)
 			ft_dprintf(df, "%hd", (short)get_uint16(buff, *i));
 		else if (f[d] == DIR_CODE)
-			ft_dprintf(df, "%%%hd", (short)get_uint16(buff, *i));
-		*i += get_code_value(f[d], 4);
+			ft_dprintf(df, "%%%hd", (short)get_uint32(buff, *i));
+		*i += get_code_value(f[d], 1);
 		if (d < 2)
 			ft_dprintf(df, ", ");
 		++d;
@@ -58,7 +58,7 @@ void				or(unsigned char *buff, size_t *i, int df)
 		else if (f[d] == IND_CODE)
 			ft_dprintf(df, "%hd", (short)get_uint16(buff, *i));
 		else if (f[d] == DIR_CODE)
-			ft_dprintf(df, "%%%hd", (short)get_uint16(buff, *i));
+			ft_dprintf(df, "%%%hd", (short)get_uint32(buff, *i));
 		*i += get_code_value(f[d], 1);
 		if (d < 2)
 			ft_dprintf(df, ", ");
@@ -85,7 +85,7 @@ void				xor(unsigned char *buff, size_t *i, int df)
 		else if (f[d] == IND_CODE)
 			ft_dprintf(df, "%hd", (short)get_uint16(buff, *i));
 		else if (f[d] == DIR_CODE)
-			ft_dprintf(df, "%%%hd", (short)get_uint16(buff, *i));
+			ft_dprintf(df, "%%%hd", (short)get_uint32(buff, *i));
 		*i += get_code_value(f[d], 1);
 		if (d < 2)
 			ft_dprintf(df, ", ");
