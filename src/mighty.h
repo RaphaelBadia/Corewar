@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mighty.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/02/20 22:32:48 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/05 17:19:15 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,16 @@
 		exit(1);								\
 	}while(0)
 
-typedef struct	s_champion
+typedef struct	s_disassembly
 {
-	char 			*name;
-	char 			*comment;
-	char 			*code;
-	unsigned int	size;
-}				t_champion;
+	char 			*prog_name;
+	char 			*prog_comment;
+	size_t			prog_size;
+	int				binary_fd;
+	int				output_fd;
+	size_t			byte;
+	ssize_t			file_size;
+}				t_disassembly;
 
 typedef struct	s_op
 {

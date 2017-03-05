@@ -6,45 +6,83 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 20:12:20 by jye               #+#    #+#             */
-/*   Updated: 2017/02/21 18:55:56 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/05 18:45:03 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mighty.h"
 #include <stdio.h>
-# define GET_UINT32(buff, i)					\
-	((*(buff + i) << 24) |						\
-	 (*(buff + i + 1) << 16) |					\
-	 (*(buff + i + 2) << 8) |					\
-	 (*(buff + i + 3)))
-# define GET_UINT16(buff, i)					\
-	((*(buff + i) << 8) |						\
-	 (*(buff + i + 1)))
+#include <unistd.h>
 
-void	live(unsigned char *buff, size_t *i, int df)
+// # define GET_UINT32(buff, i)					\
+// 	((*(buff + i) << 24) |						\
+// 	 (*(buff + i + 1) << 16) |					\
+// 	 (*(buff + i + 2) << 8) |					\
+// 	 (*(buff + i + 3)))
+// # define GET_UINT16(buff, i)					\
+// 	((*(buff + i) << 8) |						\
+// 	 (*(buff + i + 1)))
+
+void				print32(char *str, int df, unsigned char *buff, int linereturn)
 {
-	dprintf(df, "\tlive %%%d\n", GET_UINT32(buff, *i));
-	(*i) += 4;
+	int val;
+
+	if (str)
+		ft_putstr_fd(df, str);
+	val = (*buff << 24) | (buff[1] << 16) | (buff[2] << 8) | (buff[3]);
+	ft_putnbr_fd(df, val);
+	if (linereturn)
+		write(df, "\n", 1);
 }
 
-void	ld(unsigned char *buff, size_t *i, int df)
+void				print16(char *str, int df, unsigned char *buff, int linereturn)
 {
-	unsigned char f,s;
+	short val;
+
+	if (str)
+		ft_putstr_fd(df, str);
+	val = (buff[0] << 8) | (buff[1]);
+	ft_putnbr_fd(df, val);
+	if (linereturn)
+		write(df, "\n", 1);
+}
+
+void				print8(char *str, int df, int val)
+{
+	if (str)
+		ft_putstr_fd(df, str);
+	ft_putnbr_fd(df, val);
+}
+
+
+void				live(unsigned char *buff, size_t *i, int df)
+{
+	print32("\tlive %", df, buff + *i, 0);
+	(*i) += 4;
+	ft_putstr_fd(df, "\n");
+}
+
+void				ld(unsigned char *buff, size_t *i, int df)
+{
+	unsigned char	f;
+	unsigned char	s;
 
 	f = *(buff + *i) >> 6;
 	s = (*(buff + *i) >> 4) & 3;
 	(*i) += 1;
 	if (f == DIR_CODE)
 	{
-		dprintf(df, "\tld %%%d,", GET_UINT32(buff, *i));
+		print32("\tld %", df, buff + *i, 0);
 		(*i) += 4;
 	}
 	else
 	{
-		dprintf(df, "\tld %hd,", (short)GET_UINT16(buff, *i));
+		print16("\tld ", df, buff + *i, 0);
 		(*i) += 2;
 	}
-	dprintf(df, " r%u\n", *(buff + *i));
+	ft_putstr_fd(df, ", r");
+	ft_putnbr_fd(df, *(buff + *i));
+	ft_putchar_fd(df, '\n');
 	(*i) += 1;
 }
 
@@ -55,11 +93,12 @@ void	st(unsigned char *buff, size_t *i, int df)
 	f = *(buff + *i) >> 6;
 	s = (*(buff + *i) >> 4) & 3;
 	*i += 1;
+	ft_putstr_fd(df, ", r");
 	dprintf(df, "\tst r%d,", *(buff + *i));
 	*i += 1;
 	if (s == IND_CODE)
 	{
-		dprintf(df, " %d\n", GET_UINT16(buff, *i));
+		print16(" ", df, buff + *i, 0);
 		*i += 2;
 	}
 	else
@@ -67,7 +106,9 @@ void	st(unsigned char *buff, size_t *i, int df)
 		dprintf(df, " r%d\n", *(buff + *i));
 		*i += 1;
 	}
+	ft_putchar_fd(df, '\n');
 }
+
 void	add(unsigned char *buff, size_t *i, int df)
 {
 	*i += 1;
@@ -100,11 +141,13 @@ void	and(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%d", GET_UINT32(buff, *i));
+			print32("%", df, buff + *i, 0);
+			// dprintf(df, "%%%d", GET_UINT32(buff, *i));
 			*i += 4;
 			break ;
 		default:
@@ -134,11 +177,13 @@ void	or(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%d", GET_UINT32(buff, *i));
+			print32("%", df, buff + *i, 0);
+			// dprintf(df, "%%%d", GET_UINT32(buff, *i));
 			*i += 4;
 			break ;
 		default:
@@ -168,11 +213,13 @@ void	xor(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%d", GET_UINT32(buff, *i));
+			print32("%", df, buff + *i, 0);
+			// dprintf(df, "%%%d", GET_UINT32(buff, *i));
 			*i += 4;
 			break ;
 		default:
@@ -186,7 +233,8 @@ void	xor(unsigned char *buff, size_t *i, int df)
 
 void	zjump(unsigned char *buff, size_t *i, int df)
 {
-	dprintf(df, "\tzjmp %%%hd\n", (short)GET_UINT16(buff, *i));
+	print16("\tzjmp %", df, buff + *i, 0);
+	// dprintf(df, "\tzjmp %%%hd\n", (short)GET_UINT16(buff, *i));
 	*i += 2;
 }
 
@@ -208,11 +256,12 @@ void	ldi(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%hd", (short)GET_UINT16(buff, *i));
+			print16("%", df, buff + *i, 0);
 			*i += 2;
 			break ;
 		default:
@@ -238,15 +287,15 @@ void	sti(unsigned char *buff, size_t *i, int df)
 		switch (f[d])
 		{
 		case REG_CODE:
-			dprintf(df, "r%hhd", *(buff + *i));
+			print8("r", df, *(buff + *i));
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%hd", (short)GET_UINT16(buff, *i));
+			print16("%", df, buff + *i, 0);
 			*i += 2;
 			break ;
 		default:
@@ -260,7 +309,8 @@ void	sti(unsigned char *buff, size_t *i, int df)
 
 void	frk(unsigned char *buff, size_t *i, int df)
 {
-	dprintf(df, "\tfork %%%hd", (short)GET_UINT16(buff, *i));
+	// dprintf(df, "\tfork %%%hd", (short)GET_UINT16(buff, *i));
+	print16("\tfork %", df, buff + *i, 0);
 	*i += 2;
 	dprintf(df, "\n");
 }
@@ -283,11 +333,13 @@ void	lld(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%d", GET_UINT32(buff, *i));
+			print32("%", df, buff + *i, 0);
+			// dprintf(df, "%%%d", GET_UINT32(buff, *i));
 			*i += 4;
 			break ;
 		default:
@@ -317,11 +369,12 @@ void	lldi(unsigned char *buff, size_t *i, int df)
 			*i += 1;
 			break ;
 		case IND_CODE:
-			dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+			print16(NULL, df, buff + *i, 0);
+			// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 			*i += 2;
 			break ;
 		case DIR_CODE:
-			dprintf(df, "%%%d",(short)GET_UINT16(buff, *i));
+			print16("%", df, buff + *i, 0);
 			*i += 2;
 			break ;
 		default:
@@ -335,7 +388,8 @@ void	lldi(unsigned char *buff, size_t *i, int df)
 
 void	lfork(unsigned char *buff, size_t *i, int df)
 {
-	dprintf(df, "\tlfork %%%hd", (short)GET_UINT16(buff, *i));
+	print16("\tlfork %", df, buff + *i, 0);
+	// dprintf(df, "\tlfork %%%hd", (short)GET_UINT16(buff, *i));
 	*i += 2;
 	dprintf(df, "\n");
 }
@@ -356,11 +410,12 @@ void	aff(unsigned char *buff, size_t *i, int df)
 		*i += 1;
 		break ;
 	case IND_CODE:
-		dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
+		print16(NULL, df, buff + *i, 0);
+		// dprintf(df, "%hd", (short)GET_UINT16(buff, *i));
 		*i += 2;
 		break ;
 	case DIR_CODE:
-		dprintf(df, "%%%d",(short)GET_UINT16(buff, *i));
+		print16("%", df, buff + *i, 0);
 		*i += 2;
 		break ;
 	default:
