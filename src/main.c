@@ -6,16 +6,15 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:40:19 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 17:33:51 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/05 21:56:19 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <string.h>
 #include <errno.h>
+#include "stdio_.h"
 #include "mighty.h"
 
 int					open_output(char *name)
@@ -62,8 +61,8 @@ void				read_header(t_disassembly *dasm, unsigned char *buff)
 	__builtin_memcpy(dasm->prog_comment, buff + dasm->byte, 2048);
 	dasm->byte += 2052;
 	dasm->output_fd = open_output(dasm->prog_name);
-	dprintf(dasm->output_fd, ".name \"%s\"\n", dasm->prog_name);
-	dprintf(dasm->output_fd, ".comment \"%s\"\n\n", dasm->prog_comment);
+	ft_dprintf(dasm->output_fd, ".name \"%s\"\n", dasm->prog_name);
+	ft_dprintf(dasm->output_fd, ".comment \"%s\"\n\n", dasm->prog_comment);
 	free(dasm->prog_name);
 	free(dasm->prog_comment);
 }
@@ -79,7 +78,7 @@ void				show_instruction(t_disassembly *dasm, unsigned char *buff)
 	if (j < 16)
 		op_tab[j].f(buff, &dasm->byte, dasm->output_fd);
 	else
-		printf("shit, i didnt find the function to use for %x %lu %d!\n",
+		ft_printf("shit, i didnt find the function to use for %x %lu %d!\n",
 		buff[dasm->byte - 1], dasm->file_size - dasm->byte, j);
 }
 
@@ -91,23 +90,23 @@ int					main(int ac, char **av)
 
 	if (ac < 2)
 	{
-		printf("dasm: disassemble a compiled .cor file.\n");
-		printf("usage: %s [file ...]\n", av[0]);
+		ft_dprintf(2, "dasm: disassemble a compiled .cor file.\n");
+		ft_dprintf(2, "usage: %s [file ...]\n", av[0]);
 		return (1);
 	}
 	i = 0;
 	while (++i < ac)
 	{
-		printf("Reversing %s... \n", av[i]);
+		ft_printf("Reversing %s... \n", av[i]);
 		dasm.byte = 4;
 		buff = open_binary_get_buffer(&dasm, av[i]);
 		if (*(unsigned int *)buff != MAGIC)
 			ft_exit("Bad magic number");
 		read_header(&dasm, buff);
-		while (dasm.byte < dasm.file_size)
+		while (dasm.byte < (size_t)dasm.file_size)
 			show_instruction(&dasm, buff);
 		free(buff);
 	}
-	printf("Done !\n");
+	ft_printf("Done !\n");
 	return (0);
 }

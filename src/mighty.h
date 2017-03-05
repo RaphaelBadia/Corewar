@@ -6,7 +6,7 @@
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/03/05 17:19:15 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/05 21:53:48 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ void	lld(unsigned char *buff, size_t *i, int df);
 void	lldi(unsigned char *buff, size_t *i, int df);
 void	lfork(unsigned char *buff, size_t *i, int df);
 void	aff(unsigned char *buff, size_t *i, int df);
+int		get_uint32(unsigned char *buff, int i);
+short	get_uint16(unsigned char *buff, int i);
+int		get_code_value(int code, int is_32_bits_);
+void	ft_exit(char *msg);
 
 static t_op    op_tab[16] =
 {
