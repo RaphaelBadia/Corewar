@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 22:36:51 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/07 22:02:34 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	live(t_vm *vm, t_process *process)
 	{
 		if (vm->champ[i].id_player == id_player)
 		{
+			process->id_player = id_player;
 			vm->champ[i].last_live = vm->cycle;
 			vm->champ[i].live += 1;
 		}
@@ -85,6 +86,7 @@ void	st(t_vm *vm, t_process *process)
 	{
 		param = get_param(vm, pc, (int[3]){pc + 3, DIR_CODE, 1});
 		st_param(vm, pc + param, reg);
+		refresh_map(vm, pc + param, 4, process->id_player);
 	}
 	process->pc += offset;
 }
@@ -350,6 +352,7 @@ void	sti(t_vm *vm, t_process *process)
 		++i;
 	}
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
+	refresh_map(vm, PTR(pc[0] + ((r[1] + r[2]) % IDX_MOD)), 4, process->id_player);
 	/* if (debug) */
 	/* { */
 	/* 	printf("process->pc %u\n", process->pc); */

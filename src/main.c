@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 22:36:02 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/07 22:10:02 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <ncurses.h>
 #include "vm.h"
+#include "graphic.h"
+
 #define HEADER_SIZE (sizeof(t_header))
 #define DMP_FLAG "-dump"
 #define IDP_FLAG "-n"
@@ -193,9 +196,13 @@ void	set_map(t_vm *vm)
 	while (i < vm->nb_player)
 	{
 		memcpy(vm->map + offset, vm->champ[i].byte_code, vm->champ[i].size);
+		//  refresh la map avec la couleur du champion, à OFFSET
+		refresh_map(vm, offset, vm->champ[i].size, vm->champ[i].id_player);
 		offset += MEM_SIZE / vm->nb_player;
 		++i;
 	}
+	refresh();
+	sleep(1);
 }
 /*
 ** print format 64 bytes per line
@@ -205,7 +212,7 @@ void	print_map(unsigned char *map)
 {
 	int		t;
 	short	i;
-	
+
 	t = 0;
 	i = -1;
 	printf("         ");
@@ -249,6 +256,7 @@ t_process	*init_process__(unsigned int r1, unsigned int pc)
 	memset(new_p, 0, sizeof(t_process));
 	new_p->r[0] = r1;
 	new_p->pc = pc;
+	new_p->id_player = r1;
 	return (new_p);
 }
 
@@ -356,6 +364,7 @@ void	exec_opt(t_vm *vm, t_process *process)
 	unsigned char	byte_code;
 	unsigned int	octal_skip;
 
+	unlight(vm, process->pc, 1);
 	if (!(octal_skip = check_octal(vm, process)))
 	{
 		f[process->op_code](vm, process);
@@ -371,11 +380,14 @@ void	exec_opt(t_vm *vm, t_process *process)
 	{
 		process->op_code = byte_code;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
+		highlight(vm, process->pc, 1, -1);
 	}
 	else
 	{
+		unlight(vm, process->pc, 1);
 		if (++process->pc >= MEM_SIZE)
 			process->pc = process->pc % MEM_SIZE;
+		highlight(vm, process->pc, 1, -1);
 	}
 }
 
@@ -390,8 +402,9 @@ void	check_opt(t_vm *vm)
 	{
 		cp = process->data;
 		byte_code = vm->map[PTR(cp->pc)];
-		if (!cp->op_code && byte_code > 0 && byte_code <= 17)
+		if (!cp->op_code && byte_code > 0 && byte_code <= 16)
 		{
+			highlight(vm, cp->pc, 1, -1);
 			cp->op_code = byte_code;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		}
@@ -401,8 +414,10 @@ void	check_opt(t_vm *vm)
 		}
 		else if (!cp->op_code)
 		{
+			unlight(vm, cp->pc, 1);
 			if (++cp->pc > MEM_SIZE)
 				cp->pc = cp->pc % MEM_SIZE;
+			highlight(vm, cp->pc, 1, -1);
 		}
 		process = process->next;
 	}
@@ -426,6 +441,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 	{
 		if (!pro->last_live || (pro->last_live < last_check))
 		{
+			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
 		}
@@ -438,6 +454,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 		pro = cp->data;
 		if (!pro->last_live || (pro->last_live < last_check))
 		{
+			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
 		}
@@ -462,8 +479,11 @@ void	play(t_vm *vm)
 			purge_process(vm, last_check);
 			last_check = vm->cycle;
 		}
+		usleep(1000);
+		refresh();
 	}
-	printf("Game over cycle:%lu\n", vm->cycle);
+	getch();
+	// printf("Game over cycle:%lu\n", vm->cycle);
 }
 
 int		main(int ac, char **av)
@@ -484,9 +504,11 @@ int		main(int ac, char **av)
 	if ((vm.champ = init_champ__()) == NULL)
 		return (1);
 	vm.nb_player = set_champ(vm.champ, &arg);
+	init_ncurses(&vm);
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
-	print_map(vm.map);
+	endwin();
+	// print_map(vm.map);
 	return (0);
 }
