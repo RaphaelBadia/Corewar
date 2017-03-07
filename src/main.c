@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 22:55:47 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/07 23:04:31 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ void	set_champ_data(t_champ *champ, char *file)
 		if (ret == -1)
 			perror(ERROR);
 		else
-			printf("Incorrect header size");
+			dprintf(2, "Incorrect header size");
 		exit(errno);
 	}
 	if (((buff[0] << 24) | (buff[1] << 16) | ((buff[2] << 8) | (buff[3]))) != COREWAR_EXEC_MAGIC)
 	{
-		printf("Bad header\n");
-		exit(0);
+		dprintf(2, "Bad header\n");
+		exit(EXIT_FAILURE);
 	}
 	if (!champ->id_player)
 		champ->id_player = --id_player;
@@ -139,13 +139,13 @@ void	set_champ_data(t_champ *champ, char *file)
 	ret = read(fd, buff, HEADER_SIZE);
 	if (ret != champ->size)
 	{
-		printf("You can't fool me, you motherfucker\n");
-		exit(1);
+		dprintf(2, "You can't fool me, you motherfucker\n");
+		exit(EXIT_FAILURE);
 	}
 	else if (champ->size > CHAMP_MAX_SIZE)
 	{
-		printf("Gladiator size too fat, please consider doing a diet\n");
-		exit(1);
+		dprintf(2, "Gladiator size too fat, please consider doing a diet\n");
+		exit(EXIT_FAILURE);
 	}
 	champ->byte_code = malloc(champ->size);
 	memcpy(champ->byte_code, buff, champ->size);
@@ -175,8 +175,8 @@ int		set_champ(t_champ *champ, t_arg *arg)
 	}
 	if (arg->i < arg->ac)
 	{
-		printf("Too many gladiators\n");
-		exit(0);
+		dprintf(2, "Too many gladiators\n");
+		exit(EXIT_FAILURE);
 	}
 	return (j);
 }
@@ -273,7 +273,7 @@ t_lst	*init_process(t_vm *vm)
 	while (i < vm->nb_player)
 	{
 		if ((cp = init_process__(vm->champ[i].id_player, pc)) == NULL)
-			exit(1);
+			exit(EXIT_FAILURE);
 		push_lst__(&process, cp);
 		++i;
 		pc += MEM_SIZE / vm->nb_player;
@@ -475,6 +475,18 @@ void	play(t_vm *vm)
 		vm->cycle += 1;
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
+			int ch;
+			timeout(1);
+			ch = getch();
+			if (ch == 32)
+			{
+				while (42)
+				{
+					ch = getch();
+					if (ch == 32)
+						break ;
+				}
+			}
 			checks(vm);
 			purge_process(vm, last_check);
 			last_check = vm->cycle;
@@ -483,6 +495,7 @@ void	play(t_vm *vm)
 		refresh();
 		// usleep(1000);
 	}
+	timeout(-1);
 	getch();
 	dprintf(2, "Game over cycle:%lu\n", vm->cycle);
 }
@@ -498,7 +511,7 @@ int		main(int ac, char **av)
 	if (ac == 1)
 	{
 		// USAGE
-		exit(0);
+		exit(EXIT_FAILURE);
 	}
 	memset(&vm, 0, sizeof(t_vm));
 	set_flag(&vm, &arg);

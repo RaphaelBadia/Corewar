@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 22:14:29 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/07 23:02:54 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,7 +380,7 @@ void	frk(t_vm *vm, t_process *process)
 	if (!(new_p = malloc(sizeof(t_process))))
 	{
 		perror(ERROR);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	pc = process->pc;
 	target = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
@@ -469,7 +469,7 @@ void	lfork(t_vm *vm, t_process *process)
 	if (!(new_p = malloc(sizeof(t_process))))
 	{
 		perror(ERROR);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	pc = process->pc;
 	target = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
