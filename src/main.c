@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 22:10:02 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/07 22:55:47 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ void	set_map(t_vm *vm)
 		++i;
 	}
 	refresh();
-	sleep(1);
+	// sleep(1);
 }
 /*
 ** print format 64 bytes per line
@@ -479,11 +479,12 @@ void	play(t_vm *vm)
 			purge_process(vm, last_check);
 			last_check = vm->cycle;
 		}
-		usleep(1000);
+		info_curses(vm);
 		refresh();
+		// usleep(1000);
 	}
 	getch();
-	// printf("Game over cycle:%lu\n", vm->cycle);
+	dprintf(2, "Game over cycle:%lu\n", vm->cycle);
 }
 
 int		main(int ac, char **av)
@@ -505,9 +506,11 @@ int		main(int ac, char **av)
 		return (1);
 	vm.nb_player = set_champ(vm.champ, &arg);
 	init_ncurses(&vm);
+	hardcoded_shit(vm);
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
+	// info_curses(&vm);
 	endwin();
 	// print_map(vm.map);
 	return (0);

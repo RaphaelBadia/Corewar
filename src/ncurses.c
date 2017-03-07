@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 19:11:42 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/07 22:09:20 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/07 22:49:57 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_ncurses(t_vm *vm)
 	}
 	attroff(COLOR_PAIR(NEUTRAL));
 	refresh();
-	sleep(1);
+	// sleep(1);
 }
 
 void	refresh_map(t_vm *vm, unsigned int pc, int len, unsigned int id)

@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 22:02:34 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/07 22:14:29 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	live(t_vm *vm, t_process *process)
 			process->id_player = id_player;
 			vm->champ[i].last_live = vm->cycle;
 			vm->champ[i].live += 1;
+			refresh_map(vm, process->pc, 5, process->id_player);
 		}
 		++i;
 	}
