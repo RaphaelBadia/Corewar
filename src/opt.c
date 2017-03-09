@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 17:30:09 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 18:03:45 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	live(t_vm *vm, t_process *process)
 			process->id_player = id_player;
 			vm->champ[i].last_live = vm->cycle;
 			vm->champ[i].live += 1;
-			refresh_map(vm, process->pc, 5, process->id_player);
+			// refresh_map(vm, process->pc, 5, process->id_player);
 		}
 		++i;
 	}
@@ -87,7 +87,7 @@ void	st(t_vm *vm, t_process *process)
 	{
 		param = (short)get_param(vm, pc, (int[3]){pc + 3, DIR_CODE, 1});
 		st_param(vm, pc + (param % IDX_MOD), reg);
-		refresh_map(vm, pc + param, 4, process->id_player);
+		// refresh_map(vm, pc + param, 4, process->id_player);
 	}
 	process->pc += offset;
 }
@@ -346,7 +346,7 @@ void	sti(t_vm *vm, t_process *process)
 		++i;
 	}
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
-	refresh_map(vm, PTR(pc[0] + ((r[1] + r[2]) % IDX_MOD)), 4, process->id_player);
+	// refresh_map(vm, PTR(pc[0] + ((r[1] + r[2]) % IDX_MOD)), 4, process->id_player);
 	process->pc = pc[1];
 }
 

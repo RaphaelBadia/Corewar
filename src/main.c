@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 17:33:35 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 18:05:40 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,11 +197,11 @@ void	set_map(t_vm *vm)
 	{
 		memcpy(vm->map + offset, vm->champ[i].byte_code, vm->champ[i].size);
 		//  refresh la map avec la couleur du champion, à OFFSET
-		refresh_map(vm, offset, vm->champ[i].size, vm->champ[i].id_player);
+		// refresh_map(vm, offset, vm->champ[i].size, vm->champ[i].id_player);
 		offset += MEM_SIZE / vm->nb_player;
 		++i;
 	}
-	refresh();
+	// refresh();
 	// sleep(1);
 }
 /*
@@ -367,7 +367,7 @@ void	exec_opt(t_vm *vm, t_process *process)
 	unsigned char	byte_code;
 	unsigned int	octal_skip;
 
-	unlight(vm, process->pc, 1);
+	//unlight(vm, process->pc, 1);
 	if (!(octal_skip = check_octal(vm, process)))
 	{
 #ifdef DEBUG
@@ -442,14 +442,14 @@ void	exec_opt(t_vm *vm, t_process *process)
 	{
 		process->op_code = byte_code;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-		highlight(vm, process->pc, 1, -1);
+		//highlight(vm, process->pc, 1, -1);
 	}
 	else
 	{
-		unlight(vm, process->pc, 1);
+		//unlight(vm, process->pc, 1);
 		if (++process->pc >= MEM_SIZE)
 			process->pc = process->pc % MEM_SIZE;
-		highlight(vm, process->pc, 1, -1);
+		//highlight(vm, process->pc, 1, -1);
 	}
 }
 
@@ -466,7 +466,7 @@ void	check_opt(t_vm *vm)
 		byte_code = vm->map[PTR(cp->pc)];
 		if (!cp->op_code && byte_code > 0 && byte_code <= 16)
 		{
-			highlight(vm, cp->pc, 1, -1);
+			//highlight(vm, cp->pc, 1, -1);
 			cp->op_code = byte_code;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		}
@@ -476,10 +476,10 @@ void	check_opt(t_vm *vm)
 		}
 		else if (!cp->op_code)
 		{
-			unlight(vm, cp->pc, 1);
+			//unlight(vm, cp->pc, 1);
 			if (++cp->pc >= MEM_SIZE)
 				cp->pc = cp->pc % MEM_SIZE;
-			highlight(vm, cp->pc, 1, -1);
+			//highlight(vm, cp->pc, 1, -1);
 		}
 		process = process->next;
 	}
@@ -503,7 +503,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 	{
 		if (pro->last_live == 0 || (pro->last_live < last_check))
 		{
-			unlight(vm, pro->pc, 1);
+			//unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
 		}
@@ -516,7 +516,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 		pro = cp->data;
 		if (pro->last_live == 0 || (pro->last_live < last_check))
 		{
-			unlight(vm, pro->pc, 1);
+			//unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			pop_lst__(&cp, &free);
 		}
@@ -539,30 +539,30 @@ void	play(t_vm *vm)
 	{
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
-			int ch;
-			timeout(1);
-			ch = getch();
-			if (ch == 32)
-			{
-				while (42)
-				{
-					ch = getch();
-					if (ch == 32)
-						break ;
-				}
-			}
+			// int ch;
+			// timeout(1);
+			// ch = getch();
+			// if (ch == 32)
+			// {
+			// 	while (42)
+			// 	{
+			// 		ch = getch();
+			// 		if (ch == 32)
+			// 			break ;
+			// 	}
+			// }
 			checks(vm);
 			purge_process(vm, last_check);
 			debug = (last_check = vm->cycle);
 		}
-		info_curses(vm);
-		refresh();
+		// info_curses(vm);
+		// refresh();
 		check_opt(vm);
 		vm->cycle += 1;
-		usleep(1000);
+		// usleep(1000);
 	}
-	timeout(-1);
-	getch();
+	// timeout(-1);
+	// getch();
 	dprintf(2, "Game over cycle:%lu\n", vm->cycle);
 }
 
@@ -584,13 +584,13 @@ int		main(int ac, char **av)
 	if ((vm.champ = init_champ__()) == NULL)
 		return (1);
 	vm.nb_player = set_champ(vm.champ, &arg);
-	init_ncurses(&vm);
-	hardcoded_shit(vm);
+	// init_ncurses(&vm);
+	// hardcoded_shit(vm);
 	set_map(&vm);
 	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
 	// info_curses(&vm);
-	endwin();
-	// print_map(vm.map);
+	// endwin();
+	print_map(vm.map);
 	return (0);
 }
