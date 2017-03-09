@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 21:59:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 17:30:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_arg
 	int		i;
 	int		ac;
 }				t_arg;
+static unsigned int	id_track = 0;
 
 typedef struct	s_vm
 {
@@ -105,6 +106,7 @@ typedef struct	s_process
 	unsigned int	pc;
 	unsigned int	carry;
 	unsigned int	id_player;
+	unsigned int	id;
 }				t_process;
 
 /*

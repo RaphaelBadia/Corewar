@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/04 18:13:44 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/09 16:47:05 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
 	vm->map[PTR(pc + 1)] = (val >> 16) & 0xff;
 	vm->map[PTR(pc + 2)] = (val >> 8) & 0xff;
 	vm->map[PTR(pc + 3)] = val & 0xff;
-//	if (pc == 0x78)
-//	{
-//		fflush(stdout);
-//		printf("%#.8x\n", val);
-//	}
 }
 
 int				get_param(t_vm *vm, unsigned int pc, int data[3])
@@ -101,17 +96,17 @@ int				test_reg(t_vm *vm, unsigned char byte_code,
 	octal[0] = octal_code >> 6;
 	octal[1] = (octal_code >> 4) & 3;
 	octal[2] = (octal_code >> 2) & 3;
-	if (octal[0] != T_REG &&
-		octal[1] != T_REG &&
-		octal[2] != T_REG)
+	if (octal[0] != REG_CODE &&
+		octal[1] != REG_CODE &&
+		octal[2] != REG_CODE)
 		return (0);
 	offset = 2;
 	i = -1;
 	while (++i < g_op_tab[byte_code].argc)
 	{
-		if (octal[i] != T_REG)
+		if (octal[i] != REG_CODE)
 		{
-			if (octal[i] == T_DIR)
+			if (octal[i] == DIR_CODE)
 				offset += g_op_tab[byte_code].label_size ? 2 : 4;
 			else
 				offset += 2;

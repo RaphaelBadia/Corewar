@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/07 23:04:31 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 17:33:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ void	print_map(unsigned char *map)
 	i = -1;
 	printf("         ");
 	while (++i < 64)
-		printf("%.2d ", i);
+		printf("%.2x ", i);
 	printf("\n");
 	i = 0;
 	while (t < 64)
@@ -228,7 +228,7 @@ void	print_map(unsigned char *map)
 		{
 			printf("%.2hhx", map[i++]);
 			++z;
-			if (z < 64)
+			// if (z < 64)
 				printf(" ");
 		}
 		printf("\n");
@@ -257,6 +257,7 @@ t_process	*init_process__(unsigned int r1, unsigned int pc)
 	new_p->r[0] = r1;
 	new_p->pc = pc;
 	new_p->id_player = r1;
+	new_p->id = id_track++;
 	return (new_p);
 }
 
@@ -342,12 +343,11 @@ unsigned int	check_octal(t_vm *vm, t_process *process)
 	while (i < g_op_tab[byte_code].argc)
 	{
 		octal = (octal_code >> offset) & 3;
-		if (((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) ||
-			((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE) ||
-			((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE))
-			++i;
-		else
+		if (!((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) &&
+			!((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE) &&
+			!((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE))
 			return (nskip(byte_code, octal_code));
+		++i;
 		offset -= 2;
 	}
 	if (test_reg(vm, byte_code, octal_code, process->pc))
@@ -355,7 +355,10 @@ unsigned int	check_octal(t_vm *vm, t_process *process)
 	else
 		return (0);
 }
-
+#ifdef DEBUG
+#define STOP_CYCLE 11080
+#endif
+int debug;
 void	exec_opt(t_vm *vm, t_process *process)
 {
 	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
@@ -367,15 +370,74 @@ void	exec_opt(t_vm *vm, t_process *process)
 	unlight(vm, process->pc, 1);
 	if (!(octal_skip = check_octal(vm, process)))
 	{
+#ifdef DEBUG
+		if (vm->cycle > STOP_CYCLE)
+		{
+#endif
+#ifdef SHIT
+			printf("=======before======\n");
+			printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
+			printf("op_code %u %s\n", process->op_code,g_op_tab[process->op_code].name);
+			printf("exec_cycle %u, vm->cycle %u\n", process->exec_cycle, vm->cycle);
+#endif
+#ifdef DEBUG
+		}
+#endif
 		f[process->op_code](vm, process);
 	}
 	else
 	{
+#ifdef DEBUG
+		if (vm->cycle > STOP_CYCLE)
+		{
+#endif
+#ifdef SHIT
+			printf("=======before======\n");
+			printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
+			printf("op_code %u %s\n", process->op_code, NULL);
+#endif
+#ifdef DEBUG
+		}
+#endif
 		process->pc += octal_skip;
 	}
 	process->op_code = 0;
 	process->exec_cycle = 0;
 	byte_code = vm->map[PTR(process->pc)];
+#ifdef DEBUG
+	if (vm->cycle > STOP_CYCLE)
+	{
+#endif
+#ifdef SHIT
+		char c;
+		printf("=========after========\n");
+		printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
+		printf("vm->nb_process %-4u\n", vm->nb_process);
+		int i = 0;
+		while (i < vm->nb_player)
+		{
+			printf("name %-20s live %-5u ", vm->champ[i].name, vm->champ[i].live);
+			++i;
+		}
+		printf("\n");
+		i = 0;
+		while (i < vm->nb_player)
+		{
+			printf("last_live %-26u ", vm->champ[i].last_live);
+			++i;
+		}
+		printf("\n");
+		printf("vm->cycle %-15u", vm->cycle);
+		printf("vm->live %-5u cycle_to_die %-5u, checks %-5u last_check %u\n",vm->live, vm->cycle_to_die, vm->checks + 1, debug);
+		print_map(vm->map);
+		fflush(stdout);
+//		usleep(7500);
+		read(0, &c, 1);
+		printf("\e[2J");
+#endif
+#ifdef DEBUG
+	}
+#endif
 	if (byte_code > 0 && byte_code <= 16)
 	{
 		process->op_code = byte_code;
@@ -408,14 +470,14 @@ void	check_opt(t_vm *vm)
 			cp->op_code = byte_code;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		}
-		else if (cp->exec_cycle == vm->cycle)
+		else if (cp->op_code && cp->exec_cycle == vm->cycle)
 		{
 			exec_opt(vm, cp);
 		}
 		else if (!cp->op_code)
 		{
 			unlight(vm, cp->pc, 1);
-			if (++cp->pc > MEM_SIZE)
+			if (++cp->pc >= MEM_SIZE)
 				cp->pc = cp->pc % MEM_SIZE;
 			highlight(vm, cp->pc, 1, -1);
 		}
@@ -439,7 +501,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 	cp = vm->process;
 	while (cp && (pro = cp->data))
 	{
-		if (!pro->last_live || (pro->last_live < last_check))
+		if (pro->last_live == 0 || (pro->last_live < last_check))
 		{
 			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
@@ -452,7 +514,7 @@ void	purge_process(t_vm *vm, unsigned long last_check)
 	while (cp)
 	{
 		pro = cp->data;
-		if (!pro->last_live || (pro->last_live < last_check))
+		if (pro->last_live == 0 || (pro->last_live < last_check))
 		{
 			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
@@ -469,10 +531,12 @@ void	play(t_vm *vm)
 
 	vm->process = init_process(vm);
 	last_check = 0;
+#ifdef DUMP
+	while (vm->process && vm->cycle != vm->dump_cycle + 1)
+#else
 	while (vm->process)
+#endif
 	{
-		check_opt(vm);
-		vm->cycle += 1;
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
 			int ch;
@@ -489,11 +553,13 @@ void	play(t_vm *vm)
 			}
 			checks(vm);
 			purge_process(vm, last_check);
-			last_check = vm->cycle;
+			debug = (last_check = vm->cycle);
 		}
 		info_curses(vm);
 		refresh();
-		// usleep(1000);
+		check_opt(vm);
+		vm->cycle += 1;
+		usleep(1000);
 	}
 	timeout(-1);
 	getch();
