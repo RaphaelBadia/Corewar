@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 03:34:34 by root             ###   ########.fr       */
+/*   Updated: 2017/03/09 17:13:34 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,16 +285,16 @@ void	ldi(t_vm *vm, t_process *process)
 		{
 			r[i] = get_param(vm, pc[0], (int[3]){pc[1], REG_CODE, 0});
 			pc[1] += 1;
-			r[i] = process->r[r[i] - 1] % IDX_MOD;
+			r[i] = process->r[r[i] - 1];
 		}
 		else if (octal == DIR_CODE)
 		{
-			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1})) % IDX_MOD;
+			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1}));
 			pc[1] += 2;
 		}
 		else
 		{
-			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0}) % IDX_MOD;
+			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
 			pc[1] += 2;
 		}
 		offset -= 2;
@@ -327,16 +327,16 @@ void	sti(t_vm *vm, t_process *process)
 		{
 			r[i] = get_param(vm, pc[0], (int[3]){pc[1], REG_CODE, 0});
 			pc[1] += 1;
-			r[i] = process->r[r[i] - 1] % IDX_MOD;
+			r[i] = process->r[r[i] - 1];
 		}
 		else if (octal == DIR_CODE)
 		{
-			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1})) % IDX_MOD;
+			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1}));
 			pc[1] += 2;
 		}
 		else
 		{
-			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0}) % IDX_MOD;
+			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
 			pc[1] += 2;
 		}
 		offset -= 2;

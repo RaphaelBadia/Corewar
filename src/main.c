@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 03:37:46 by root             ###   ########.fr       */
+/*   Updated: 2017/03/09 17:06:47 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void	print_map(unsigned char *map)
 {
 	int		t;
 	short	i;
-	
+
 	t = 0;
 	i = -1;
 	printf("         ");
@@ -221,7 +221,7 @@ void	print_map(unsigned char *map)
 		{
 			printf("%.2hhx", map[i++]);
 			++z;
-			if (z < 64)
+			// if (z < 64)
 				printf(" ");
 		}
 		printf("\n");
@@ -348,7 +348,7 @@ unsigned int	check_octal(t_vm *vm, t_process *process)
 		return (0);
 }
 #ifdef DEBUG
-#define STOP_CYCLE 8000
+#define STOP_CYCLE 11080
 #endif
 int debug;
 void	exec_opt(t_vm *vm, t_process *process)
@@ -514,7 +514,11 @@ void	play(t_vm *vm)
 
 	vm->process = init_process(vm);
 	last_check = 0;
+#ifdef DUMP
+	while (vm->process && vm->cycle != vm->dump_cycle + 1)
+#else
 	while (vm->process)
+#endif
 	{
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
