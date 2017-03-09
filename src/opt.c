@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 22:36:51 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/09 03:34:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	st(t_vm *vm, t_process *process)
 	}
 	else
 	{
-		param = get_param(vm, pc, (int[3]){pc + 3, DIR_CODE, 1});
-		st_param(vm, pc + param, reg);
+		param = (short)get_param(vm, pc, (int[3]){pc + 3, DIR_CODE, 1});
+		st_param(vm, pc + (param % IDX_MOD), reg);
 	}
 	process->pc += offset;
 }
@@ -261,11 +261,9 @@ void	zjmp(t_vm *vm, t_process *process)
 	pc = process->pc;
 	jump = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
 	if (process->carry)
-		process->pc += jump;
+		process->pc += (jump % IDX_MOD);
 	else
 		process->pc += 3;
-//	if (process->pc = 0x1b1)
-//		printf("fuck man\n");
 }
 
 void	ldi(t_vm *vm, t_process *process)
@@ -273,7 +271,7 @@ void	ldi(t_vm *vm, t_process *process)
 	unsigned int	pc[2];
 	unsigned int	offset;
 	int				i;
-	unsigned int	r[3];
+	int				r[3];
 	unsigned char	octal;
 
 	pc[0] = process->pc;
@@ -287,16 +285,16 @@ void	ldi(t_vm *vm, t_process *process)
 		{
 			r[i] = get_param(vm, pc[0], (int[3]){pc[1], REG_CODE, 0});
 			pc[1] += 1;
-			r[i] = (short)process->r[r[i] - 1];
+			r[i] = process->r[r[i] - 1] % IDX_MOD;
 		}
 		else if (octal == DIR_CODE)
 		{
-			r[i] = (short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1});
+			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1})) % IDX_MOD;
 			pc[1] += 2;
 		}
 		else
 		{
-			r[i] = (short)get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
+			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0}) % IDX_MOD;
 			pc[1] += 2;
 		}
 		offset -= 2;
@@ -321,11 +319,6 @@ void	sti(t_vm *vm, t_process *process)
 	i = 1;
 	offset = 4;
 	r[0] = get_param(vm, pc[0], (int[3]){pc[0] + 2, REG_CODE, 0});
-	/* int debug = 0; */
-	/* if (process->pc == 151) */
-	/* { */
-	/* 	debug = 1; */
-	/* } */
 	r[0] = process->r[r[0] - 1];
 	while (i < 3)
 	{
@@ -334,34 +327,22 @@ void	sti(t_vm *vm, t_process *process)
 		{
 			r[i] = get_param(vm, pc[0], (int[3]){pc[1], REG_CODE, 0});
 			pc[1] += 1;
-			r[i] = (short)process->r[r[i] - 1];
+			r[i] = process->r[r[i] - 1] % IDX_MOD;
 		}
 		else if (octal == DIR_CODE)
 		{
-			r[i] = (short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1});
+			r[i] = ((short)get_param(vm, pc[0], (int[3]){pc[1], DIR_CODE, 1})) % IDX_MOD;
 			pc[1] += 2;
 		}
 		else
 		{
-			r[i] = (short)get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
+			r[i] = get_param(vm, pc[0], (int[3]){pc[1], IND_CODE, 0}) % IDX_MOD;
 			pc[1] += 2;
 		}
 		offset -= 2;
 		++i;
 	}
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
-	/* if (debug) */
-	/* { */
-	/* 	printf("process->pc %u\n", process->pc); */
-	/* 	printf("vm->nb_process %u\n", vm->nb_process); */
-	/* 	printf("vm->cycle %lu\n", vm->cycle); */
-	/* 	printf("r[0]%u r[1]%d r[2]%d\n", r[0], r[1], r[2]); */
-	/* 	printf("live check %x\n", get_param(vm, pc[0], (int[3]){pc[0] - 4, DIR_CODE, 0})); */
-	/* 	printf("pc[0] + ((r[1] + r[2]) % IDX_MOD) %u\n", pc[0] + ((r[1] + r[2]) % IDX_MOD)); */
-	/* 	print_map(vm->map); */
-	/* 	fflush(stdout); */
-	/* 	abort(); */
-	/* } */
 	process->pc = pc[1];
 }
 
@@ -387,6 +368,7 @@ void	frk(t_vm *vm, t_process *process)
 	bool_ = (byte_code > 0 && byte_code <= 16);
 	new_p->op_code = bool_ ? byte_code : 0;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
+	new_p->id = id_track++;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }
@@ -433,7 +415,7 @@ void	lldi(t_vm *vm, t_process *process)
 		{
 			r[i] = get_lparam(vm, pc[0], (int[3]){pc[1], REG_CODE, 0});
 			pc[1] += 1;
-			r[i] = (short)process->r[r[i] - 1];
+			r[i] = process->r[r[i] - 1];
 		}
 		else if (octal == DIR_CODE)
 		{
@@ -442,7 +424,7 @@ void	lldi(t_vm *vm, t_process *process)
 		}
 		else
 		{
-			r[i] = (short)get_lparam(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
+			r[i] = get_lparam(vm, pc[0], (int[3]){pc[1], IND_CODE, 0});
 			pc[1] += 2;
 		}
 		offset -= 2;
@@ -476,6 +458,7 @@ void	lfork(t_vm *vm, t_process *process)
 	bool_ = (byte_code > 0 && byte_code <= 16);
 	new_p->op_code = bool_ ? byte_code : 0;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
+	new_p->id = id_track++;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }

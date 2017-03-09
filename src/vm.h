@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 22:34:40 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/09 01:46:58 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_arg
 	int		i;
 	int		ac;
 }				t_arg;
+static unsigned int	id_track = 0;
 
 typedef struct	s_vm
 {
@@ -104,6 +105,7 @@ typedef struct	s_process
 	unsigned int	op_code;
 	unsigned int	pc;
 	unsigned int	carry;
+	unsigned int	id;
 }				t_process;
 
 /*
