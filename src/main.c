@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 17:06:47 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:57:49 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,189 +18,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "vm.h"
-#define HEADER_SIZE (sizeof(t_header))
-#define DMP_FLAG "-dump"
-#define IDP_FLAG "-n"
-#define VIS_FLAG "--visual"
-#define AFF_FLAG "-a"
-#define STOP_FLAG "-s"
 
-/************************************************************************************/
-/************************************************************************************/
-/************************* SET CHAMPION DATA ****************************************/
-/************************************************************************************/
-/************************************************************************************/
-
-t_champ	*init_champ__(void)
-{
-	t_champ	*new;
-
-	if ((new = malloc(sizeof(t_champ) * MAX_PLAYERS)) == NULL)
-		return (NULL);
-	memset(new, 0, sizeof(t_champ) * MAX_PLAYERS);
-	return (new);
-}
-
-int		reset_flag(t_vm *vm, unsigned int flag)
-{
-	if (flag == dump && (vm->flag |= flag))
-	{
-		if (vm->flag & visual)
-			vm->flag ^= visual;
-		if (vm->flag & stop)
-			vm->flag ^= stop;
-	}
-	else if (flag == stop && (vm->flag |= flag))
-	{
-		if (vm->flag & visual)
-			vm->flag ^= visual;
-		if (vm->flag & dump)
-			vm->flag ^= dump;
-	}
-	else if (flag == visual && (vm->flag |= flag))
-	{
-		if (vm->flag & dump)
-			vm->flag ^= dump;
-		if (vm->flag & stop)
-			vm->flag ^= stop;
-	}
-	return (1);
-}
-
-void	set_flag(t_vm *vm, t_arg *arg)
-{
-	while (++arg->i < arg->ac)
-		if (!strcmp(arg->av[arg->i], DMP_FLAG) && reset_flag(vm, dump))
-		{
-			if (arg->i + 1 > arg->ac)
-			{
-				//USAGE
-				exit(2);
-			}
-			else
-				vm->dump_cycle = atoi(arg->av[++arg->i]);
-		}
-		else if (!strcmp(arg->av[arg->i], VIS_FLAG))
-			reset_flag(vm, visual);
-		else if (!strcmp(arg->av[arg->i], AFF_FLAG))
-			vm->flag |= aff_flag;
-		else if (!strcmp(arg->av[arg->i], STOP_FLAG) && reset_flag(vm, stop))
-		{
-			if (arg->i + 1 > arg->ac)
-			{
-				//USAGE
-				exit(2);
-			}
-			else
-				vm->stop_cycle = atoi(arg->av[++arg->i]);
-		}
-		else
-			return ;
-}
-
-void	set_champ_data(t_champ *champ, char *file)
-{
-	int				fd;
-	static int		id_player = 0;
-	ssize_t			ret;
-	unsigned char	buff[HEADER_SIZE];
-
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		perror(ERROR);
-		exit(errno);
-	}
-	if ((ret = read(fd, buff, HEADER_SIZE)) < (long)HEADER_SIZE)
-	{
-		if (ret == -1)
-			perror(ERROR);
-		else
-			printf("Incorrect header size");
-		exit(errno);
-	}
-	if (((buff[0] << 24) | (buff[1] << 16) | ((buff[2] << 8) | (buff[3]))) != COREWAR_EXEC_MAGIC)
-	{
-		printf("Bad header\n");
-		exit(0);
-	}
-	if (!champ->id_player)
-		champ->id_player = --id_player;
-	champ->name = malloc(129);
-	champ->name[128] = 0;
-	champ->size = (buff[136] << 24) | (buff[137] << 16) | (buff[138] << 8) | buff[139];
-	memcpy(champ->name, buff + 4, 128);
-	champ->comment = malloc(2049);
-	champ->comment[2048] = 0;
-	memcpy(champ->comment, buff + 140, 2048);
-	ret = read(fd, buff, HEADER_SIZE);
-	if (ret != champ->size)
-	{
-		printf("You can't fool me, you motherfucker\n");
-		exit(1);
-	}
-	else if (champ->size > CHAMP_MAX_SIZE)
-	{
-		printf("Gladiator size too fat, please consider doing a diet\n");
-		exit(1);
-	}
-	champ->byte_code = malloc(champ->size);
-	memcpy(champ->byte_code, buff, champ->size);
-	close(fd);
-}
-
-int		set_champ(t_champ *champ, t_arg *arg)
-{
-	int		j;
-
-	j = 0;
-	while (j < MAX_PLAYERS && arg->i < arg->ac)
-	{
-		if (!strcmp(arg->av[arg->i], IDP_FLAG))
-		{
-			if (arg->i + 1 > arg->ac)
-			{
-				//USAGE
-				exit(2);
-			}
-			else
-				champ[j].id_player = atoi(arg->av[++arg->i]);
-		}
-		else
-			set_champ_data(&champ[j++], arg->av[arg->i]);
-		arg->i += 1;
-	}
-	if (arg->i < arg->ac)
-	{
-		printf("Too many gladiators\n");
-		exit(0);
-	}
-	return (j);
-}
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/***************************SET MAP**************************************************/
-void	set_map(t_vm *vm)
-{
-	unsigned int	i;
-	unsigned int	offset;
-
-	offset = 0;
-	i = 0;
-	while (i < vm->nb_player)
-	{
-		memcpy(vm->map + offset, vm->champ[i].byte_code, vm->champ[i].size);
-		offset += MEM_SIZE / vm->nb_player;
-		++i;
-	}
-}
-/*
-** print format 64 bytes per line
-** aka 64 / 64
-*/
 void	print_map(unsigned char *map)
 {
 	int		t;
@@ -221,315 +39,54 @@ void	print_map(unsigned char *map)
 		{
 			printf("%.2hhx", map[i++]);
 			++z;
-			// if (z < 64)
-				printf(" ");
+			printf(" ");
 		}
 		printf("\n");
 		++t;
  	}
 }
 
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-
-t_process	*init_process__(unsigned int r1, unsigned int pc)
+void	checks(t_vm *vm)
 {
-	t_process	*new_p;
-
-	if ((new_p = malloc(sizeof(t_process))) == NULL)
-		return (NULL);
-	memset(new_p, 0, sizeof(t_process));
-	new_p->r[0] = r1;
-	new_p->pc = pc;
-	new_p->id = id_track++;
-	return (new_p);
-}
-
-t_lst	*init_process(t_vm *vm)
-{
-	unsigned int	i;
-	unsigned int	pc;
-	t_lst			*process;
-	t_process		*cp;
+	int i;
 
 	i = 0;
-	process = NULL;
-	pc = 0;
-	while (i < vm->nb_player)
-	{
-		if ((cp = init_process__(vm->champ[i].id_player, pc)) == NULL)
-			exit(1);
-		push_lst__(&process, cp);
-		++i;
-		pc += MEM_SIZE / vm->nb_player;
-	}
-	vm->nb_process = vm->nb_player;
-	return (process);
-}
-
-void	reset_live(t_vm *vm)
-{
-	unsigned int	i;
-
-	i = 0;
+	if (vm->cycle == 0)
+		return ;
+	if (vm->live > 20 && !(vm->checks = 0))
+		vm->cycle_to_die -= CYCLE_DELTA;
+	else if (vm->checks == 9 && !(vm->checks = 0))
+		vm->cycle_to_die -= CYCLE_DELTA;
+	else
+		vm->checks += 1;
 	while (i < vm->nb_player)
 	{
 		vm->champ[i].live = 0;
 		++i;
 	}
-}
-
-void	checks(t_vm *vm)
-{
-	if (vm->cycle == 0)
-		return ;
-	if (vm->live > 20)
-	{
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->checks = 0;
-	}
-	else if (vm->checks == 9)
-	{
-		vm->cycle_to_die -= CYCLE_DELTA;
-		vm->checks = 0;
-	}
-	else
-		vm->checks += 1;
-	reset_live(vm);
 	vm->live = 0;
-}
-
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-/************************************************************************************/
-
-unsigned int	check_octal(t_vm *vm, t_process *process)
-{
-	int				i;
-	unsigned int	offset;
-	unsigned char	byte_code;
-	unsigned char	octal;
-	unsigned char	octal_code;
-
-	byte_code = process->op_code;
-	i = 0;
-	offset = 6;
-	if (!g_op_tab[byte_code].octal)
-		return (0);
-	octal_code = vm->map[PTR(process->pc + 1)];
-	while (i < g_op_tab[byte_code].argc)
-	{
-		octal = (octal_code >> offset) & 3;
-		if (!((g_op_tab[byte_code].argv[i] & T_DIR) && octal == DIR_CODE) &&
-			!((g_op_tab[byte_code].argv[i] & T_REG) && octal == REG_CODE) &&
-			!((g_op_tab[byte_code].argv[i] & T_IND) && octal == IND_CODE))
-			return (nskip(byte_code, octal_code));
-		++i;
-		offset -= 2;
-	}
-	if (test_reg(vm, byte_code, octal_code, process->pc))
-		return (nskip(byte_code, octal_code));
-	else
-		return (0);
-}
-#ifdef DEBUG
-#define STOP_CYCLE 11080
-#endif
-int debug;
-void	exec_opt(t_vm *vm, t_process *process)
-{
-	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
-								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
-								&lldi, &lfork};
-	unsigned char	byte_code;
-	unsigned int	octal_skip;
-
-	if (!(octal_skip = check_octal(vm, process)))
-	{
-#ifdef DEBUG
-		if (vm->cycle > STOP_CYCLE)
-		{
-#endif
-#ifdef SHIT
-			printf("=======before======\n");
-			printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
-			printf("op_code %u %s\n", process->op_code,g_op_tab[process->op_code].name);
-			printf("exec_cycle %u, vm->cycle %u\n", process->exec_cycle, vm->cycle);
-#endif
-#ifdef DEBUG
-		}
-#endif
-		f[process->op_code](vm, process);
-	}
-	else
-	{
-#ifdef DEBUG
-		if (vm->cycle > STOP_CYCLE)
-		{
-#endif
-#ifdef SHIT
-			printf("=======before======\n");
-			printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
-			printf("op_code %u %s\n", process->op_code, NULL);
-#endif
-#ifdef DEBUG
-		}
-#endif
-		process->pc += octal_skip;
-	}
-	process->op_code = 0;
-	process->exec_cycle = 0;
-	byte_code = vm->map[PTR(process->pc)];
-#ifdef DEBUG
-	if (vm->cycle > STOP_CYCLE)
-	{
-#endif
-#ifdef SHIT
-		char c;
-		printf("=========after========\n");
-		printf("id proc %-4u pc %-4x %-4x", process->id, process->pc - process->pc % 64, process->pc % 64);
-		printf("vm->nb_process %-4u\n", vm->nb_process);
-		int i = 0;
-		while (i < vm->nb_player)
-		{
-			printf("name %-20s live %-5u ", vm->champ[i].name, vm->champ[i].live);
-			++i;
-		}
-		printf("\n");
-		i = 0;
-		while (i < vm->nb_player)
-		{
-			printf("last_live %-26u ", vm->champ[i].last_live);
-			++i;
-		}
-		printf("\n");
-		printf("vm->cycle %-15u", vm->cycle);
-		printf("vm->live %-5u cycle_to_die %-5u, checks %-5u last_check %u\n",vm->live, vm->cycle_to_die, vm->checks + 1, debug);
-		print_map(vm->map);
-		fflush(stdout);
-//		usleep(7500);
-		read(0, &c, 1);
-		printf("\e[2J");
-#endif
-#ifdef DEBUG
-	}
-#endif
-	if (byte_code > 0 && byte_code <= 16)
-	{
-		process->op_code = byte_code;
-		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-	}
-	else
-	{
-		if (++process->pc >= MEM_SIZE)
-			process->pc = process->pc % MEM_SIZE;
-	}
-}
-
-void	check_opt(t_vm *vm)
-{
-	unsigned char	byte_code;
-	t_process		*cp;
-	t_lst			*process;
-
-	process = vm->process;
-	while (process)
-	{
-		cp = process->data;
-		byte_code = vm->map[PTR(cp->pc)];
-		if (!cp->op_code && byte_code > 0 && byte_code <= 16)
-		{
-			cp->op_code = byte_code;
-			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-		}
-		else if (cp->op_code && cp->exec_cycle == vm->cycle)
-		{
-			exec_opt(vm, cp);
-		}
-		else if (!cp->op_code)
-		{
-			if (++cp->pc >= MEM_SIZE)
-				cp->pc = cp->pc % MEM_SIZE;
-		}
-		process = process->next;
-	}
-}
-
-void	purge_process(t_vm *vm, unsigned long last_check)
-{
-	t_process	*pro;
-	t_lst		*cp;
-
-	if (vm->cycle == 0)
-		return ;
-	else if (vm->cycle_to_die & 0xf0000000)
-	{
-		while (vm->process)
-			pop_lst__(&vm->process, &free);
-		return ;
-	}
-	cp = vm->process;
-	while (cp && (pro = cp->data))
-	{
-		if (pro->last_live == 0 || (pro->last_live < last_check))
-		{
-			vm->nb_process -= 1;
-			pop_lst__(&cp, &free);
-		}
-		else
-			break ;
-	}
-	vm->process = cp;
-	while (cp)
-	{
-		pro = cp->data;
-		if (pro->last_live == 0 || (pro->last_live < last_check))
-		{
-			vm->nb_process -= 1;
-			pop_lst__(&cp, &free);
-		}
-		else
-			cp = cp->next;
-	}
 }
 
 void	play(t_vm *vm)
 {
 	unsigned long	last_check;
 
+	vm->id_track = 1;
 	vm->process = init_process(vm);
 	last_check = 0;
-#ifdef DUMP
-	while (vm->process && vm->cycle != vm->dump_cycle + 1)
-#else
+	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
-#endif
 	{
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
 			checks(vm);
 			purge_process(vm, last_check);
-			debug = (last_check = vm->cycle);
+			last_check = vm->cycle;
 		}
 		check_opt(vm);
 		vm->cycle += 1;
 	}
-	printf("Game over cycle:%lu\n", vm->cycle);
+	printf("%lu\n", vm->cycle);
 }
 
 int		main(int ac, char **av)
@@ -541,17 +98,13 @@ int		main(int ac, char **av)
 	arg.av = av;
 	arg.i = 0;
 	if (ac == 1)
-	{
-		// USAGE
-		exit(0);
-	}
+		usage(av[0]);
 	memset(&vm, 0, sizeof(t_vm));
 	set_flag(&vm, &arg);
 	if ((vm.champ = init_champ__()) == NULL)
-		return (1);
+		p_error();
 	vm.nb_player = set_champ(vm.champ, &arg);
 	set_map(&vm);
-	vm.cycle_to_die = CYCLE_TO_DIE;
 	play(&vm);
 	print_map(vm.map);
 	return (0);

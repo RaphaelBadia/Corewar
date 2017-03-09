@@ -6,16 +6,28 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 01:46:58 by root             ###   ########.fr       */
+/*   Updated: 2017/03/09 22:35:00 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VM_H
 # define VM_H
 # include "op.h"
+# include <errno.h>
 # define ERROR "Error"
+
 # define PTR(pc) ((pc) % MEM_SIZE)
 # define MOD_CHAR 256
+# define HEADER_SIZE (sizeof(t_header))
+
+# define DMP_FLAG "-dump"
+# define IDP_FLAG "-n"
+# define VIS_FLAG "-p"
+# define AFF_FLAG "-a"
+# define STOP_FLAG "-s"
+# define QUIET_FLAG "-q"
+# define VERB_FLAG "-v"
+
 /*
 ** The following flag should be added, -n -dump
 ** -n [number] player
@@ -73,7 +85,6 @@ typedef struct	s_arg
 	int		i;
 	int		ac;
 }				t_arg;
-static unsigned int	id_track = 0;
 
 typedef struct	s_vm
 {
@@ -82,16 +93,20 @@ typedef struct	s_vm
 		dump = 1,
 		visual = 2,
 		aff_flag = 4,
-		stop = 8
+		stop = 8,
+		quiet = 16,
+		verbose = 32
 	}				flag;
+	unsigned int	verbose_level;
 	unsigned int	dump_cycle;
 	unsigned int	stop_cycle;
 	unsigned int	nb_player;
 	unsigned int	cycle_to_die;
 	unsigned int	checks;
 	unsigned int	live;
+	unsigned int	id_track;
 	unsigned long	nb_process;
-	unsigned long	cycle; // current cycle;
+	unsigned long	cycle;
 	unsigned char	map[MEM_SIZE];
 	t_champ			*champ;
 	t_lst			*process;
@@ -109,9 +124,20 @@ typedef struct	s_process
 }				t_process;
 
 /*
-** OPT function
+** VM
 */
 
+void			set_flag(t_vm *vm, t_arg *arg);
+void			set_map(t_vm *vm);
+int				set_champ(t_champ *champ, t_arg *arg);
+t_champ			*init_champ__(void);
+t_lst			*init_process(t_vm *vm);
+void			check_opt(t_vm *vm);
+void			purge_process(t_vm *vm, unsigned long last_check);
+
+/*
+** OPT function
+*/
 
 void			live(t_vm *vm, t_process *process);
 void			ld(t_vm *vm, t_process *process);
@@ -129,15 +155,21 @@ void			lld(t_vm *vm, t_process *process);
 void			lldi(t_vm *vm, t_process *process);
 void			lfork(t_vm *vm, t_process *process);
 void			aff(t_vm *vm, t_process *process);
+/*
+** extra
+*/
 int				get_param(t_vm *vm, unsigned int pc, int data[3]);
 int				get_lparam(t_vm *vm, unsigned int pc, int data[3]);
 void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
-int				test_reg(t_vm *vm, unsigned char byte_code,
-						unsigned char octal_code, unsigned int pc);
+void			usage(char *p_name);
+void			p_error(void);
+void			vm_error(char *error_string);
+
 /*
 ** LST function
 */
+
 t_lst			*init_lst__(void *data);
 void			push_lst__(t_lst **node, void *data);
 void			pop_lst__(t_lst **node, void (*del)());

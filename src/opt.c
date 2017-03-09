@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 17:13:34 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/09 22:40:48 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void	add(t_vm *vm, t_process *process)
 		process->carry = 1;
 	else
 		process->carry = 0;
-//	if (r[2] == 9)
-//		printf("r[2] %x\n", process->r[r[2] - 1]);
 	process->pc += 5;
 }
 
@@ -355,10 +353,7 @@ void	frk(t_vm *vm, t_process *process)
 	unsigned char	byte_code;
 
 	if (!(new_p = malloc(sizeof(t_process))))
-	{
-		perror(ERROR);
-		exit(1);
-	}
+		p_error();
 	pc = process->pc;
 	target = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
@@ -368,7 +363,7 @@ void	frk(t_vm *vm, t_process *process)
 	bool_ = (byte_code > 0 && byte_code <= 16);
 	new_p->op_code = bool_ ? byte_code : 0;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
-	new_p->id = id_track++;
+	new_p->id = vm->id_track++;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }
@@ -445,10 +440,7 @@ void	lfork(t_vm *vm, t_process *process)
 	unsigned char	byte_code;
 
 	if (!(new_p = malloc(sizeof(t_process))))
-	{
-		perror(ERROR);
-		exit(1);
-	}
+		p_error();
 	pc = process->pc;
 	target = get_param(vm, pc, (int[3]){pc + 1, DIR_CODE, 1});
 	memcpy(new_p, process, sizeof(t_process));
@@ -458,7 +450,7 @@ void	lfork(t_vm *vm, t_process *process)
 	bool_ = (byte_code > 0 && byte_code <= 16);
 	new_p->op_code = bool_ ? byte_code : 0;
 	new_p->exec_cycle = bool_ ? g_op_tab[byte_code].cycles + vm->cycle : 0;
-	new_p->id = id_track++;
+	new_p->id = vm->id_track++;
 	push_lst__(&vm->process, new_p);
 	process->pc += 3;
 }
