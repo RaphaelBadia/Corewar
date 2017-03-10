@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 14:16:59 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/27 18:15:08 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/03/10 18:01:47 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static void	create_cor(char *source_file, t_asm data)
 	char	*cor_name;
 
 	n = ft_strlen(source_file);
+	if (data.buff_index == 2192)
+		ft_exit_err("no source code", &data);
 	if (!(cor_name = ft_strnew(n + 2)))
 		ft_exit_err("malloc error", &data);
 	ft_strcpy(cor_name, source_file);
