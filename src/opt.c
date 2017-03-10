@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/10 21:29:32 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/10 22:23:29 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	add(t_vm *vm, t_process *process)
 	r[2] = vm->map[PTR(pc + 4)];
 	r[0] = process->r[r[0] - 1];
 	r[1] = process->r[r[1] - 1];
-	if ((process->r[r[2] - 1] = r[0] - r[1]) == 0)
+	if ((process->r[r[2] - 1] = r[0] + r[1]) == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;
@@ -240,18 +240,20 @@ void	sti(t_vm *vm, t_process *process)
 	unsigned int	pc[2];
 	int				i;
 	int				r[3];
-	unsigned char	octal[3];
+	unsigned char	octal[2];
 
 	pc[0] = process->pc;
 	pc[1] = process->pc + 3;
 	i = 1;
-	r[0] = vm->map[PTR(pc[0] + 2)];
+
+	// r[0] = get_param(vm, pc[0], (int[3]){pc[0] + 2, REG_CODE, 0}); //lol
+	r[0] = vm->map[PTR(pc[0] + 2)]; //marche un peu mieux
 	r[0] = process->r[r[0] - 1];
-	octal[1] = vm->map[PTR(pc[0] + 1)] >> 4 & 3;
-	octal[2] = vm->map[PTR(pc[0] + 1)] >> 2 & 3;
+	octal[0] = (vm->map[PTR(pc[0] + 1)] >> 4) & 3;
+	octal[1] = (vm->map[PTR(pc[0] + 1)] >> 2) & 3;
 	while (i < 3)
 	{
-		r[i] = get_param(vm, process, pc, (int[3]){octal[i], 1, 1});
+		r[i] = get_param(vm, process, pc, (int[3]){octal[i - 1], 1, 1});
 		++i;
 	}
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
