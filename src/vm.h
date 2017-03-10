@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 22:35:00 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/10 20:16:41 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,11 @@ void			aff(t_vm *vm, t_process *process);
 /*
 ** extra
 */
-int				get_param(t_vm *vm, unsigned int pc, int data[3]);
-int				get_lparam(t_vm *vm, unsigned int pc, int data[3]);
+int				get_indir(t_vm *vm, unsigned int pc,
+							unsigned int i, unsigned int mod);
+int				get_dir(t_vm *vm, unsigned int pc, unsigned int label);
+int				get_param(t_vm *vm, t_process *process,
+							unsigned int *pc, int data[3]);
 void			st_param(t_vm *vm, unsigned int pc, unsigned int val);
 unsigned int	nskip(unsigned char byte_code, unsigned char octal_code);
 void			usage(char *p_name);
