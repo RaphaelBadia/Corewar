@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 22:57:49 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/11 17:31:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,15 @@ void	checks(t_vm *vm)
 	if (vm->cycle == 0)
 		return ;
 	if (vm->live > 20 && !(vm->checks = 0))
+	{
 		vm->cycle_to_die -= CYCLE_DELTA;
+		printf("Cycle to die is now %d\n", vm->cycle_to_die);
+	}
 	else if (vm->checks == 9 && !(vm->checks = 0))
+	{
 		vm->cycle_to_die -= CYCLE_DELTA;
+		printf("Cycle to die is now %d\n", vm->cycle_to_die);
+	}
 	else
 		vm->checks += 1;
 	while (i < vm->nb_player)
@@ -84,8 +90,10 @@ void	play(t_vm *vm)
 			last_check = vm->cycle;
 		}
 		check_opt(vm);
+		printf("It is now cycle %ld\n", vm->cycle);
 		vm->cycle += 1;
 	}
+	printf("Contestant X, \"ssssss\" has won !\n");
 	printf("%lu\n", vm->cycle);
 }
 

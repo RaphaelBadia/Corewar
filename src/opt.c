@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/10 22:23:29 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/11 17:38:57 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	live(t_vm *vm, t_process *process)
 	pc = process->pc;
 	id_player = get_dir(vm, pc + 1, 0);
 	i = 0;
+	printf("P %5d | live %d\n", process->id, (int)id_player);
 	while (i < vm->nb_player)
 	{
 		if (vm->champ[i].id_player == id_player)
 		{
+			printf("Player %d (%s) is said to be alive\n", -vm->champ[i].id_player, vm->champ[i].name);
 			vm->champ[i].last_live = vm->cycle;
 			vm->champ[i].live += 1;
 		}
@@ -248,6 +250,7 @@ void	sti(t_vm *vm, t_process *process)
 
 	// r[0] = get_param(vm, pc[0], (int[3]){pc[0] + 2, REG_CODE, 0}); //lol
 	r[0] = vm->map[PTR(pc[0] + 2)]; //marche un peu mieux
+	printf("P %5d | sti r%u ", r[0]);
 	r[0] = process->r[r[0] - 1];
 	octal[0] = (vm->map[PTR(pc[0] + 1)] >> 4) & 3;
 	octal[1] = (vm->map[PTR(pc[0] + 1)] >> 2) & 3;
@@ -256,6 +259,9 @@ void	sti(t_vm *vm, t_process *process)
 		r[i] = get_param(vm, process, pc, (int[3]){octal[i - 1], 1, 1});
 		++i;
 	}
+	printf("%d %d\n", r[1], r[2]);
+	printf("P       | -> store to %d + %d = %d ", r[1], r[2], (r[1] + r[2]));
+	printf("(with pc and mod %d)\n", pc[0] + ((r[1] + r[2]) % IDX_MOD));
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
 	process->pc = pc[1];
 }
