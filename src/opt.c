@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 21:59:57 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/11 22:15:30 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,8 @@ void	st(t_vm *vm, t_process *process)
 		printf("P %4d | st r%d ", process->id, reg);
 	offset = octal == REG_CODE ? 4 : 5;
 	reg = process->r[reg - 1];
-	if (octal == REG_CODE)
-	{
-		param = vm->map[PTR(pc + 3)];
+	if (octal == REG_CODE && (param = vm->map[PTR(pc + 3)]))
 		process->r[param - 1] = reg;
-	}
 	else
 	{
 		param = (short)get_dir(vm, pc + 3, 1);

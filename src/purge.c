@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 22:17:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 20:16:50 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/11 22:17:05 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	pop_next__(t_vm *vm, unsigned long last_check)
 		if ((pro->last_live <= last_check))
 		{
 			vm->nb_process -= 1;
-			printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 +last_check - pro->last_live,
+			if (vm->flag & verbose)
+				printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
 			vm->cycle_to_die + 50);
 			pop_lst__(&cp, &free);
 		}
@@ -45,7 +46,8 @@ void		purge_process(t_vm *vm, unsigned long last_check)
 	{
 		while (vm->process && (pro = vm->process->data))
 		{
-			printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 +last_check - pro->last_live,
+			if (vm->flag & verbose)
+				printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
 			vm->cycle_to_die + 50);
 			pop_lst__(&vm->process, &free);
 		}
@@ -57,7 +59,8 @@ void		purge_process(t_vm *vm, unsigned long last_check)
 		if ((pro->last_live <= last_check))
 		{
 			vm->nb_process -= 1;
-			printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
+			if (vm->flag & verbose)
+				printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
 			vm->cycle_to_die + 50);
 			pop_lst__(&cp, &free);
 		}

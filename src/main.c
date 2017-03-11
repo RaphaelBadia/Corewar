@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 22:09:19 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/11 22:16:00 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ void	checks(t_vm *vm)
 	if (vm->live > 20 && !(vm->checks = 0))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
-		printf ("Cycle to die is now %d\n", vm->cycle_to_die);
+		if (vm->flag & verbose)
+			printf("Cycle to die is now %d\n", vm->cycle_to_die);
 	}
 	else if (vm->checks == 9 && !(vm->checks = 0))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
-		printf ("Cycle to die is now %d\n", vm->cycle_to_die);
+		if (vm->flag & verbose)
+			printf("Cycle to die is now %d\n", vm->cycle_to_die);
 	}
 	else
 		vm->checks += 1;
@@ -76,19 +78,18 @@ void	checks(t_vm *vm)
 void	print_winner(t_vm *vm)
 {
 	int		i;
-	t_champ	*winnnnnnnnnnnnnnnnnnn;
+	t_champ	*win;
 
-	winnnnnnnnnnnnnnnnnnn = &vm->champ[0];
+	win= &vm->champ[0];
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		printf("last_live %u\n", vm->champ[i].last_live);
-		if (winnnnnnnnnnnnnnnnnnn->last_live < vm->champ[i].last_live)
-			winnnnnnnnnnnnnnnnnnn = &vm->champ[i];
+		if (win->last_live < vm->champ[i].last_live)
+			win= &vm->champ[i];
 		++i;
 	}
-	printf("PLAYER %s ID %d (\"%s\") HAS WON WOW.", winnnnnnnnnnnnnnnnnnn->name, winnnnnnnnnnnnnnnnnnn->id_player,
-	winnnnnnnnnnnnnnnnnnn->comment);
+	printf("PLAYER %s ID %d (\"%s\") HAS WON WOW.", win->name, win->id_player,
+	win->comment);
 }
 
 void	play(t_vm *vm)
@@ -97,11 +98,11 @@ void	play(t_vm *vm)
 
 	vm->id_track = 1;
 	vm->process = init_process(vm);
-	// last_check = 1;
-	// vm->cycle = 1;
+	last_check = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
 	{
+		vm->cycle += 1;
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
@@ -109,8 +110,8 @@ void	play(t_vm *vm)
 			purge_process(vm, last_check);
 			last_check = vm->cycle;
 		}
-		printf("It is now cycle %ld\n", vm->cycle);
-		vm->cycle += 1;
+		if (vm->flag & verbose)
+			printf("It is now cycle %ld\n", vm->cycle);
 	}
 	print_winner(vm);
 	printf("%lu\n", vm->cycle);
