@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:25:28 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 21:17:24 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/11 19:24:30 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ void			set_flag_arg(t_vm *vm, t_arg *arg)
 		vm->dump_cycle = atoi(arg->av[++arg->i]);
 	if (vm->flag & stop)
 		vm->stop_cycle = atoi(arg->av[++arg->i]);
-	if (vm->flag & verbose)
-		vm->verbose_level = atoi(arg->av[++arg->i]);
 }
 
 void			set_flag(t_vm *vm, t_arg *arg)
@@ -64,7 +62,7 @@ void			set_flag(t_vm *vm, t_arg *arg)
 		else if (!strcmp(arg->av[arg->i], STOP_FLAG) && reset_flag(vm, stop))
 			set_flag_arg(vm, arg);
 		else if (!strcmp(arg->av[arg->i], VERB_FLAG))
-			set_flag_arg(vm, arg);
+			vm->flag |= verbose;
 		else
 			return ;
 }

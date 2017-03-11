@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:29:47 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 22:27:52 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/11 19:23:43 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,5 @@ void	usage(char *p_name)
 			"\t-v");
 	printf(" (default is 0).\n");
 	printf("%10s Silence VM output (cancels verbose mode).\n", "\t-q");
-	printf("############## VERBOSE LEVEL ##############\n");
-	printf("\t1 Print the current cycle\n");
-	printf("\t2 Print process operation\n");
-	printf("\t4 Print process movements (PC -> PC)\n");
-	printf("\t8 Watch process savagely being killed by VM\n");
-	printf("\t16 Print addtional information for the current operation\n");
 	exit(EXIT_FAILURE);
 }

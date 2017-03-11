@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/10 20:16:41 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/11 19:23:52 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ typedef struct	s_vm
 		quiet = 16,
 		verbose = 32
 	}				flag;
-	unsigned int	verbose_level;
 	unsigned int	dump_cycle;
 	unsigned int	stop_cycle;
 	unsigned int	nb_player;
