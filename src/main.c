@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 21:23:57 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/11 22:09:19 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ void	play(t_vm *vm)
 
 	vm->id_track = 1;
 	vm->process = init_process(vm);
-	last_check = 1;
-	vm->cycle = 1;
+	// last_check = 1;
+	// vm->cycle = 1;
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
 	{
