@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:37:22 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 21:58:13 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/12 17:58:30 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_process	*init_process__(t_vm *vm, unsigned int r1, unsigned int pc)
 	memset(new_p, 0, sizeof(t_process));
 	new_p->r[0] = r1;
 	new_p->pc = pc;
+	new_p->id_player = r1;
 	new_p->id = vm->id_track++;
 	return (new_p);
 }

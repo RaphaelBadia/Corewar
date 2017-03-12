@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 22:15:30 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:01:32 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	st(t_vm *vm, t_process *process)
 	{
 		param = (short)get_dir(vm, pc + 3, 1);
 		st_param(vm, pc + (param % IDX_MOD), reg);
+		refresh_map(vm, pc + (param % IDX_MOD), 4, process->id_player);
 	}
 	if (vm->flag & verbose)
 		printf("%d\n", param);
@@ -296,6 +297,7 @@ void	sti(t_vm *vm, t_process *process)
 	if (vm->flag & verbose)
 		print_sti(vm, pc, r);
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
+	refresh_map(vm, PTR(pc[0] + ((r[1] + r[2]) % IDX_MOD)), 4, process->id_player);
 	process->pc = pc[1];
 }
 

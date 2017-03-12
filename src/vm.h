@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 19:23:52 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 17:57:14 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ typedef struct	s_process
 	unsigned int	pc;
 	unsigned int	carry;
 	unsigned int	id;
+	unsigned int	id_player;
 }				t_process;
 
 /*

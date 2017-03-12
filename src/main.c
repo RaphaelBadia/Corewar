@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 14:45:24 by root             ###   ########.fr       */
+/*   Updated: 2017/03/12 19:09:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "vm.h"
+#include <ncurses.h>
+#include "graphic.h"
 
 void	print_map(unsigned char *map)
 {
@@ -112,6 +113,8 @@ void	play(t_vm *vm)
 		vm->cycle += 1;
 		if (vm->flag & verbose)
 			printf("It is now cycle %ld\n", vm->cycle);
+		refresh();
+		usleep(1000);
 	}
 	print_winner(vm);
 	printf("%lu\n", vm->cycle);
@@ -132,8 +135,15 @@ int		main(int ac, char **av)
 	if ((vm.champ = init_champ__()) == NULL)
 		p_error();
 	vm.nb_player = set_champ(vm.champ, &arg);
+	if (vm.flag & visual)
+	{
+		init_ncurses(&vm);
+	}
 	set_map(&vm);
 	play(&vm);
-	print_map(vm.map);
+	if (vm.flag & visual)
+		endwin();
+	else
+		print_map(vm.map);
 	return (0);
 }

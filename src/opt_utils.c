@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:48:30 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 14:42:45 by root             ###   ########.fr       */
+/*   Updated: 2017/03/12 19:08:57 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static void			exec_opt(t_vm *vm, t_process *process)
 	unsigned char	byte_code;
 	unsigned int	octal_skip;
 
+	unlight(vm, process->pc, 1);
 	if (!(octal_skip = check_octal(vm, process)))
 		f[process->op_code](vm, process);
 	else
@@ -92,11 +93,14 @@ static void			exec_opt(t_vm *vm, t_process *process)
 	{
 		process->op_code = byte_code;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
+		highlight(vm, process->pc, 1, -1);
 	}
 	else if (!octal_skip)
 	{
+		unlight(vm, process->pc, 1);
 		if (++process->pc >= MEM_SIZE)
 			process->pc = process->pc % MEM_SIZE;
+		highlight(vm, process->pc, 1, -1);
 	}
 }
 
@@ -113,6 +117,7 @@ void				check_opt(t_vm *vm)
 		byte_code = vm->map[PTR(cp->pc)];
 		if (!cp->op_code && byte_code > 0 && byte_code <= 16)
 		{
+			highlight(vm, cp->pc, 1, -1);
 			cp->op_code = byte_code;
 			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 		}
@@ -122,8 +127,10 @@ void				check_opt(t_vm *vm)
 		}
 		else if (!cp->op_code)
 		{
+			unlight(vm, cp->pc, 1);
 			if (++cp->pc >= MEM_SIZE)
 				cp->pc = cp->pc % MEM_SIZE;
+			highlight(vm, cp->pc, 1, -1);
 		}
 		process = process->next;
 	}
