@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 22:17:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 22:17:05 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 17:50:45 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	pop_next__(t_vm *vm, unsigned long last_check)
 		pro = cp->data;
 		if ((pro->last_live <= last_check))
 		{
+			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			if (vm->flag & verbose)
 				printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
@@ -58,6 +59,7 @@ void		purge_process(t_vm *vm, unsigned long last_check)
 	{
 		if ((pro->last_live <= last_check))
 		{
+			unlight(vm, pro->pc, 1);
 			vm->nb_process -= 1;
 			if (vm->flag & verbose)
 				printf("Process %d hasn't lived for %d cycles (CTD %d)\n", pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
