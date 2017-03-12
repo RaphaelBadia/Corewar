@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 17:58:43 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:08:07 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int		main(int ac, char **av)
 		init_ncurses(&vm);
 	}
 	set_map(&vm);
+	// refresh();
 	play(&vm);
 	if (vm.flag & visual)
 		endwin();

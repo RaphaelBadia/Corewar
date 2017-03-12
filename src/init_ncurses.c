@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:28:46 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/12 19:02:05 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:07:49 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,4 @@ void		init_ncurses(t_vm *vm)
 	display_border(vm);
 	display_infos_border(vm);
 	refresh();
-	sleep(2);
 }

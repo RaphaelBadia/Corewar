@@ -6,12 +6,12 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:02:03 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 17:57:27 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:07:09 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include "vm.h"
+#include "graphic.h"
 
 void	set_map(t_vm *vm)
 {
