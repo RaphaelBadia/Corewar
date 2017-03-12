@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:48:30 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 21:57:00 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 14:42:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,6 @@ static void			exec_opt(t_vm *vm, t_process *process)
 		f[process->op_code](vm, process);
 	else
 		process->pc += octal_skip;
-	// if (process->id == 27)
-	// {
-	// 	//printf("pro->op_code: %d %2d %10x %10x %10lu\n",process->id, process->op_code, process->pc - (process->pc % 64), process->pc % 64, vm->cycle);
-	// 	if (vm->cycle >= 11091)
-	// 	{
-	// 		print_map(vm->map);
-	// 		exit(1);
-	// 	}
-	// }
 	process->op_code = 0;
 	process->exec_cycle = 0;
 	byte_code = vm->map[PTR(process->pc)];
@@ -102,7 +93,7 @@ static void			exec_opt(t_vm *vm, t_process *process)
 		process->op_code = byte_code;
 		process->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
 	}
-	else
+	else if (!octal_skip)
 	{
 		if (++process->pc >= MEM_SIZE)
 			process->pc = process->pc % MEM_SIZE;
