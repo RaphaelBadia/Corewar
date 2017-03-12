@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 19:08:07 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:14:04 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	play(t_vm *vm)
 	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
 	{
-		vm->cycle += 1;
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
@@ -111,6 +110,7 @@ void	play(t_vm *vm)
 			purge_process(vm, last_check);
 			last_check = vm->cycle;
 		}
+		vm->cycle += 1;
 		if (vm->flag & verbose)
 			printf("It is now cycle %ld\n", vm->cycle);
 		refresh();
