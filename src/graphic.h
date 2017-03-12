@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:31:05 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/12 19:05:38 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:29:05 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ void	highlight(t_vm *vm, unsigned int pc, int len, unsigned int id);
 void	unlight(t_vm *vm, unsigned int pc, int len);
 // void	info_curses(t_vm *vm);
 
-static	unsigned int nisuu_id[4];
+extern unsigned int nisuu_id[4];
 #endif
