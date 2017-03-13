@@ -6,13 +6,13 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:48:30 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 19:08:57 by root             ###   ########.fr       */
+/*   Updated: 2017/03/13 14:11:27 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
 #include <stdlib.h>
 #include <string.h>
+#include "graphic.h"
 
 static int			test_reg(t_vm *vm, unsigned char byte_code,
 						unsigned char octal_code, unsigned int pc)

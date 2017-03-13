@@ -6,12 +6,12 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 22:17:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 17:50:45 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:11:43 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
 #include <stdlib.h>
+#include "graphic.h"
 
 static void	pop_next__(t_vm *vm, unsigned long last_check)
 {

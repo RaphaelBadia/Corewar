@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 19:32:35 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:11:08 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
-#include "vm.h"
+#include "graphic.h"
 
 void	live(t_vm *vm, t_process *process)
 {
