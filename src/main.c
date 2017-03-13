@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 13:56:31 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 17:46:25 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,13 @@ void	print_map(unsigned char *map)
 {
 	int		t;
 	short	i;
+	int		z;
 
 	t = 0;
-	i = -1;
-	printf("         ");
-	while (++i < 64)
-		printf("%.2x ", i);
-	printf("\n");
 	i = 0;
 	while (t < 64)
 	{
-		int z = 0;
+		z = 0;
 		printf("0x%.4hx : ", i);
 		while (z < 64)
 		{
@@ -44,7 +40,7 @@ void	print_map(unsigned char *map)
 		}
 		printf("\n");
 		++t;
- 	}
+	}
 }
 
 void	checks(t_vm *vm)
@@ -81,15 +77,15 @@ void	print_winner(t_vm *vm)
 	int		i;
 	t_champ	*win;
 
-	win= &vm->champ[0];
+	win = &vm->champ[0];
 	i = 0;
 	while (i < vm->nb_player)
 	{
 		if (win->last_live < vm->champ[i].last_live)
-			win= &vm->champ[i];
+			win = &vm->champ[i];
 		++i;
 	}
-	printf("PLAYER %s ID %d (\"%s\") HAS WON WOW.", win->name, win->id_player,
+	printf("PLAYER %s ID %d (\"%s\") HAS WON WOW.\n", win->name, win->id_player,
 	win->comment);
 }
 
