@@ -3,45 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 17:57:03 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/11 19:08:15 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2016/11/08 16:24:29 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-static void		ft_itoa_rec(long int nbr, char *s, int *index)
+static int	h_szint(int z)
 {
-	if (nbr > 9)
-		ft_itoa_rec(nbr / 10, s, index);
-	s[(*index)++] = '0' + nbr % 10;
+	int n;
+
+	n = 1;
+	if (z < 0)
+		while (z < -9)
+		{
+			z /= 10;
+			n++;
+		}
+	else
+		while (z > 9)
+		{
+			z /= 10;
+			n++;
+		}
+	return (n);
 }
 
-char			*ft_itoa(int n)
+static char	*h_cpy(char *fresh, int z, int n)
 {
-	char		*str;
-	char		*clean_str;
-	int			index;
-	long int	nbr;
+	char	*t;
 
-	str = ft_strnew(12);
-	if (str == NULL)
-		return (NULL);
-	index = 0;
-	nbr = (long int)n;
-	if (nbr < 0)
+	if (z < 0)
 	{
-		str[index] = '-';
-		index++;
+		t = fresh + n + 1;
+		while (t != fresh)
+		{
+			*--t = 0x30 - (z % 10);
+			z = z / 10;
+		}
+		*t = '-';
 	}
-	ft_itoa_rec(ABS(nbr), str, &index);
-	str[index] = '\0';
-	clean_str = ft_strdup(str);
-	if (clean_str == NULL)
-		return (NULL);
-	free(str);
-	return (clean_str);
+	else
+	{
+		t = fresh + n;
+		while (t >= fresh)
+		{
+			*--t = 0x30 + (z % 10);
+			z = z / 10;
+		}
+	}
+	return (fresh);
+}
+
+char		*ft_itoa(int z)
+{
+	int		n;
+	char	*fresh;
+
+	n = h_szint(z);
+	if (z < 0)
+	{
+		if ((fresh = ft_strnew(n + 1)) == NULL)
+			return (NULL);
+		fresh = h_cpy(fresh, z, n);
+	}
+	else
+	{
+		if ((fresh = ft_strnew(n)) == NULL)
+			return (NULL);
+		fresh = h_cpy(fresh, z, n);
+	}
+	return (fresh);
 }

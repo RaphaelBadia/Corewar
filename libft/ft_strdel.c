@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 14:42:07 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/10 15:46:27 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2016/11/07 14:35:53 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_strdel(char **as)
+void	ft_strdel(char **p)
 {
-	if (PROTECT_PARAMS && (as == NULL || *as == NULL))
+	if (!p)
 		return ;
-	free(*as);
-	*as = NULL;
+	if (*p)
+	{
+		free(*p);
+		*p = NULL;
+	}
 }

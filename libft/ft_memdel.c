@@ -3,20 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 14:34:33 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/10 16:43:42 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2016/11/07 14:35:46 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_memdel(void **ap)
+void	ft_memdel(void **p)
 {
-	if (PROTECT_PARAMS && (ap == NULL || *ap == NULL))
+	if (!p)
 		return ;
-	free(*ap);
-	*ap = NULL;
+	if (*p)
+	{
+		free(*p);
+		*p = NULL;
+	}
 }

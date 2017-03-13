@@ -3,28 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 16:34:02 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/12 10:59:22 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/04 16:57:12 by jye               #+#    #+#             */
+/*   Updated: 2016/12/10 22:40:44 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+static unsigned long long	init__(unsigned long long **magic, void *cp,
+									const unsigned char c)
 {
-	const t_byte	*ptr;
-	size_t			i;
+	unsigned long long mask;
 
-	ptr = s;
-	i = 0;
-	while (n > 0 && ptr[i] != (t_byte)c)
-	{
-		i++;
-		n--;
-	}
-	if (n > 0)
-		return ((void *)&ptr[i]);
+	mask = c;
+	mask = (mask << 8) | mask;
+	mask = (mask << 16) | mask;
+	mask = ((mask << 16) << 16) | mask;
+	*magic = (unsigned long long *)cp;
+	return (mask);
+}
+
+static void					*test__(void *mem, const unsigned char c)
+{
+	unsigned char *cp;
+
+	cp = (unsigned char *)mem;
+	if (*cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
+	if (*++cp == c)
+		return ((void *)cp);
 	return (NULL);
+}
+
+static void					*last_bytes__(unsigned char *cp, void *magic,
+							const unsigned char c, size_t n)
+{
+	if (magic)
+		cp = (unsigned char *)magic;
+	while (n--)
+	{
+		if (*cp == c)
+			return ((void *)cp);
+		else
+			++cp;
+	}
+	return (NULL);
+}
+
+void						*ft_memchr(const void *mem, const unsigned char c,
+										size_t n)
+{
+	unsigned long long	mask;
+	unsigned long long	*magic;
+	unsigned char		*cp;
+
+	cp = (unsigned char *)mem;
+	magic = NULL;
+	while (((sizeof(unsigned long long) - 1) & (unsigned long)cp) && n)
+	{
+		if (*cp++ == c)
+			return (cp - 1);
+		--n;
+	}
+	if (n >= 8)
+	{
+		mask = init__(&magic, cp, c);
+		while (n >= 8)
+		{
+			if ((((*magic ^ mask) - LBITS) & HBITS))
+				if ((cp = (unsigned char *)test__(magic, c)))
+					return ((void *)cp);
+			++magic;
+			n -= 8;
+		}
+	}
+	return (last_bytes__(cp, magic, c, n));
 }

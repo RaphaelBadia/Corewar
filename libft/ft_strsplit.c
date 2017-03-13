@@ -3,87 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 17:38:16 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/11 19:06:44 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2016/11/11 19:51:11 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
-static int	count_words(char const *str, char c)
+static int		h_count(const char *s, char c)
 {
-	size_t	i;
-	int		count;
+	int		n;
 
-	i = 0;
-	count = 0;
-	while (str[i])
+	n = 0;
+	if (!s)
+		return (-1);
+	while (*s)
 	{
-		while (str[i] && str[i] == c)
-			i++;
-		if (str[i] == '\0')
-			return (count);
-		count++;
-		while (str[i] && str[i] != c)
-			i++;
+		while (*s && *s == c)
+			++s;
+		if (*s != 0x00)
+			++n;
+		while (*s && *s != c)
+			++s;
 	}
-	return (count);
+	return (n);
 }
 
-static char	*dup(char const *str, char c)
+static size_t	h_len(const char *s, char c)
 {
-	char	*ret;
-	size_t	i;
+	size_t n;
 
-	i = 0;
-	while (str[i] && str[i] != c)
-		i++;
-	if ((ret = malloc(sizeof(char) * (i + 1))) == NULL)
-		return (NULL);
-	i = 0;
-	while (str[i] && str[i] != c)
+	n = 0;
+	while (*s && *s != c)
 	{
-		ret[i] = str[i];
-		i++;
+		++s;
+		++n;
 	}
-	ret[i] = '\0';
-	return (ret);
+	return (n);
 }
 
-static char	**ft_strsplit2(char const *str, char c)
+static void		h_abort(char ***s, size_t n)
 {
-	char	**ret;
-	size_t	i;
-	size_t	str_i;
-	size_t	wordcount;
+	char **todel;
 
-	i = 0;
-	str_i = 0;
-	wordcount = count_words(str, c);
-	if ((ret = malloc(sizeof(char *) * (wordcount + 1))) == NULL)
-		return (NULL);
-	while (str[str_i])
+	todel = *s;
+	while (*todel && n--)
 	{
-		while (str[str_i] && (str[str_i] == c))
-			str_i++;
-		if (str[str_i] != '\0')
-		{
-			if ((ret[i++] = dup(&str[str_i], c)) == NULL)
-				return (NULL);
-		}
-		while (str[str_i] && str[str_i] != c)
-			str_i++;
+		free(*todel++);
 	}
-	ret[i] = NULL;
-	return (ret);
+	free(*s);
+	*s = NULL;
 }
 
-char		**ft_strsplit(char const *str, char c)
+char			**ft_strsplit(const char *s, char c)
 {
-	if (PROTECT_PARAMS && str == NULL)
+	char	**fresh;
+	char	**start;
+	int		n;
+	size_t	wlen;
+	size_t	abort;
+
+	if ((n = h_count(s, c)) == -1)
 		return (NULL);
-	return (ft_strsplit2(str, c));
+	wlen = 0;
+	if (!(fresh = (char **)malloc(sizeof(char *) * n + 1)))
+		return (NULL);
+	fresh[n] = NULL;
+	start = fresh;
+	abort = n;
+	while (start && n-- && (s += wlen))
+	{
+		while (*s && *s == c)
+			++s;
+		wlen = h_len(s, c);
+		if (!(*fresh = ft_strnew(wlen + 1)))
+			h_abort(&start, abort - n);
+		if (start)
+			ft_strncpy(*fresh++, s, wlen);
+	}
+	return (start);
 }

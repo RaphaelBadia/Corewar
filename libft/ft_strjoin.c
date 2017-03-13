@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 16:06:23 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/10 15:26:50 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/06 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2016/11/07 15:08:49 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	char	*joinstr;
+	char	*fresh;
 
-	if (PROTECT_PARAMS && (s1 == NULL || s2 == NULL))
-		return (0);
-	joinstr = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
-	if (joinstr == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	return (ft_strcat(ft_strcat(joinstr, s1), s2));
+	if (!(fresh = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
+		return (NULL);
+	ft_strcpy(fresh, s1);
+	ft_strcat(fresh, s2);
+	return (fresh);
 }

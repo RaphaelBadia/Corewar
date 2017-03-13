@@ -3,21 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 17:21:18 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/11 19:00:52 by rbadia           ###   ########.fr       */
+/*   Created: 2016/12/05 00:00:00 by jye               #+#    #+#             */
+/*   Updated: 2017/01/01 19:19:59 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static char	*test__(unsigned long long *magic)
+{
+	char *cp;
+
+	cp = (char *)magic;
+	if (*cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	if (*++cp == 0)
+		return (cp);
+	return (NULL);
+}
+
 size_t		ft_strlen(const char *str)
 {
-	size_t	i;
+	unsigned long long	*magic;
+	char				*cp;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	cp = (char *)str;
+	while ((unsigned long long)cp & (sizeof(*magic) - 1))
+	{
+		if (*cp == 0)
+			return (cp - str);
+		++cp;
+	}
+	magic = (unsigned long long *)cp;
+	while (1)
+	{
+		if ((*magic - LBITS) & HBITS)
+			if ((cp = test__(magic)))
+				return (cp - str);
+		++magic;
+	}
 }

@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strncat.c                                          :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 17:53:50 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/04 14:16:54 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/05 14:22:09 by jye               #+#    #+#             */
+/*   Updated: 2016/11/06 14:51:00 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strncat(char *dest, const char *src, size_t n)
+char	*ft_strncat(char *dst, const char *src, size_t n)
 {
-	size_t	i;
-	char	*tmp;
+	size_t dlen;
+	size_t slen;
+	size_t clen;
 
-	tmp = dest + ft_strlen(dest);
-	i = 0;
-	while (src[i] && i < n)
-	{
-		tmp[i] = src[i];
-		i++;
-	}
-	tmp[i] = '\0';
-	return (dest);
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	clen = slen < n ? slen : n;
+	ft_memcpy(dst + dlen, src, clen);
+	dst[dlen + clen] = '\0';
+	return (dst);
 }

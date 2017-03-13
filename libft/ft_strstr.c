@@ -3,32 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 18:34:32 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/11 18:42:35 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/05 14:22:09 by jye               #+#    #+#             */
+/*   Updated: 2016/11/06 15:38:12 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *big, const char *little)
+char	*ft_strstr(const char *hay, const char *ndl)
 {
-	size_t	idx;
-	size_t	find_idx;
+	size_t	nlen;
 
-	idx = 0;
-	if (little[0] == '\0')
-		return ((char *)big);
-	while (big[idx])
+	nlen = ft_strlen(ndl);
+	if (*ndl)
 	{
-		find_idx = 0;
-		while (big[idx + find_idx] && little[find_idx]
-				&& big[idx + find_idx] == little[find_idx])
-			find_idx++;
-		if (little[find_idx] == '\0')
-			return ((char *)&big[idx]);
-		idx++;
+		while (ft_strncmp(hay, ndl, nlen))
+			if (!(*hay++))
+				return (NULL);
 	}
-	return (NULL);
+	return ((char *)hay);
 }

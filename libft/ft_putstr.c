@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 18:06:10 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/10 15:49:15 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/03 20:15:12 by jye               #+#    #+#             */
+/*   Updated: 2016/11/08 16:07:13 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putstr(char const *str)
+void	ft_putstr(const char *str)
 {
-	if (PROTECT_PARAMS && str == NULL)
+	if (!str)
 		return ;
-	write(1, str, ft_strlen(str));
+	while (*str)
+		ft_putchar(*str++);
 }

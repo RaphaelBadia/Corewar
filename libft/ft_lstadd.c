@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:49:18 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/10 16:49:56 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/08 18:39:42 by jye               #+#    #+#             */
+/*   Updated: 2016/11/08 18:44:33 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 void	ft_lstadd(t_list **alst, t_list *new)
 {
-	if (PROTECT_PARAMS && (alst == NULL || new == NULL))
+	t_list	*last;
+
+	if (new == NULL)
 		return ;
-	new->next = *alst;
+	last = new;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = *alst;
 	*alst = new;
 }

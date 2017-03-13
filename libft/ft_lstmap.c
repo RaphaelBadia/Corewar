@@ -3,26 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/09 11:13:09 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/11 17:30:59 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/08 17:47:09 by jye               #+#    #+#             */
+/*   Updated: 2016/11/08 18:33:41 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
+#include <stdlib.h>
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*newlst;
+	t_list *new;
+	t_list *cur;
+	t_list *ret;
 
-	if (PROTECT_PARAMS && (lst == NULL || f == NULL))
+	if (lst == NULL || !f)
 		return (NULL);
-	newlst = (t_list *)malloc(sizeof(f(lst)));
-	if (newlst == NULL)
+	ret = f(lst);
+	if ((new = ft_lstnew(ret->content, ret->content_size)) == NULL)
 		return (NULL);
-	newlst = f(lst);
-	newlst->next = ft_lstmap(lst->next, f);
-	return (newlst);
+	lst = lst->next;
+	cur = new;
+	while (lst != NULL)
+	{
+		ret = f(lst);
+		if ((cur->next = ft_lstnew(ret->content, ret->content_size)) == NULL)
+			return (NULL);
+		cur = cur->next;
+		lst = lst->next;
+	}
+	return (new);
 }

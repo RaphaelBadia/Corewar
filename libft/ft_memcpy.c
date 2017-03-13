@@ -3,29 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 14:01:21 by rbadia            #+#    #+#             */
-/*   Updated: 2016/11/12 10:59:32 by rbadia           ###   ########.fr       */
+/*   Created: 2016/11/04 14:26:05 by jye               #+#    #+#             */
+/*   Updated: 2016/12/10 22:11:09 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_byte			*dest_ptr;
-	const t_byte	*src_ptr;
-	size_t			i;
+	unsigned long long	*ldst;
+	unsigned long long	*lsrc;
+	unsigned char		*cdst;
+	unsigned char		*csrc;
 
-	i = 0;
-	dest_ptr = dest;
-	src_ptr = src;
-	while (n > 0)
+	cdst = (unsigned char *)dst;
+	csrc = (unsigned char *)src;
+	ldst = NULL;
+	while (((unsigned long)cdst & (sizeof(unsigned long long) - 1)) && n)
 	{
-		dest_ptr[i] = src_ptr[i];
-		i++;
-		n--;
+		*cdst++ = *csrc++;
+		--n;
 	}
-	return (dest_ptr);
+	if (n >= 8)
+	{
+		ldst = (unsigned long long *)cdst;
+		lsrc = (unsigned long long *)csrc;
+		while (n >= 8 && (*ldst++ = *lsrc++))
+			n -= 8;
+	}
+	csrc = ldst != NULL ? (unsigned char *)lsrc : csrc;
+	cdst = ldst != NULL ? (unsigned char *)ldst : cdst;
+	while (n-- > 0)
+		*cdst++ = *csrc++;
+	return (dst);
 }
