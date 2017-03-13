@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:25:28 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 19:24:30 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 18:36:41 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,17 @@
 static int		reset_flag(t_vm *vm, unsigned int flag)
 {
 	if (flag == dump && (vm->flag |= flag))
-	{
-		if (vm->flag & visual)
-			vm->flag ^= visual;
-		if (vm->flag & stop)
-			vm->flag ^= stop;
-	}
+		vm->flag &= (0xffff ^ (visual | stop));
 	else if (flag == stop && (vm->flag |= flag))
-	{
-		if (vm->flag & visual)
-			vm->flag ^= visual;
-		if (vm->flag & dump)
-			vm->flag ^= dump;
-	}
+		vm->flag &= (0xffff ^ (visual | dump));
 	else if (flag == visual && (vm->flag |= flag))
-	{
-		if (vm->flag & dump)
-			vm->flag ^= dump;
-		if (vm->flag & stop)
-			vm->flag ^= stop;
-	}
+		vm->flag &= (0xffff ^ (dump | stop | verbose | aff_flag));
 	return (1);
 }
 
 void			set_flag_arg(t_vm *vm, t_arg *arg)
 {
-	if (arg->i + 1 > arg->ac)
+	if (arg->i + 1 > arg->ac - 1)
 		usage(arg->av[0]);
 	if (vm->flag & dump)
 		vm->dump_cycle = atoi(arg->av[++arg->i]);
