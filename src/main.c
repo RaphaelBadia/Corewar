@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 18:48:44 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 18:52:53 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <ncurses.h>
 #include "graphic.h"
 
-void	print_map(unsigned char *map)
+void	print_map64(unsigned char *map)
 {
 	int		t;
 	short	i;
@@ -33,6 +33,28 @@ void	print_map(unsigned char *map)
 		z = 0;
 		printf("0x%.4hx : ", i);
 		while (z < 64)
+		{
+			printf("%.2hhx", map[i++]);
+			++z;
+			printf(" ");
+		}
+		printf("\n");
+		++t;
+	}
+}
+
+void	print_map32(unsigned char *map)
+{
+	int		t;
+	short	i;
+	int		z;
+
+	t = 0;
+	i = 0;
+	while (t < 128)
+	{
+		z = 0;
+		while (z < 32)
 		{
 			printf("%.2hhx", map[i++]);
 			++z;
@@ -186,7 +208,6 @@ void	stop_play(t_vm *vm)
 	}
 	print_winner(vm);
 }
-}
 
 int		main(int ac, char **av)
 {
@@ -210,6 +231,6 @@ int		main(int ac, char **av)
 	if (vm.flag & visual)
 		endwin();
 	else
-		print_map(vm.map);
+		print_map32(vm.map);
 	return (0);
 }
