@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 22:00:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 19:01:32 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/12 19:32:35 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ void	live(t_vm *vm, t_process *process)
 		if (vm->champ[i].id_player == id_player)
 		{
 			if (vm->flag & verbose)
-				printf("Player %d (%s) is said to be alive\n", -vm->champ[i].id_player, vm->champ[i].name);
+				printf("Player %d (%s) is said to be alive\n",
+				-vm->champ[i].id_player, vm->champ[i].name);
 			vm->champ[i].last_live = vm->cycle;
 			vm->champ[i].live += 1;
+			refresh_map(vm, process->pc, 5, process->id_player);
 		}
 		++i;
 	}

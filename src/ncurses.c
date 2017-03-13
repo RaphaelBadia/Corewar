@@ -6,82 +6,105 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:51:07 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/12 17:56:04 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:08:50 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "graphic.h"
 
-void	highlight(t_vm *vm, unsigned int pc, int len, unsigned int id)
+static int	get_player_color(t_vm *vm, int id)
 {
-	int				it;
-	unsigned int	i;
+	int		i;
 
-	// i = 4095
-	i = pc;
-	it = 0;
-	while (it < vm->nb_player)
+	i = 0;
+	while (i < vm->nb_player)
 	{
-		if (nisuu_id[it] == id)
+		if (vm->players_order[i] == id)
 		{
 			break ;
 		}
-		++it;
+		++i;
 	}
+	return (i + 1);
+}
+
+void		highlight(t_vm *vm, unsigned int pc, int len, unsigned int id)
+{
+	unsigned int	i;
+
+	if (!(vm->flag & visual))
+		return ;
+	i = pc;
 	if (id == -1)
-		id = mvinch(HEIGHT_PAD + (PTR(pc) / 64), WIDTH_PAD + ((pc % 64) * 3)) & A_COLOR;
+		id = mvinch(HEIGHT_PAD + (PTR(pc) / 64), WIDTH_PAD + ((pc % 64) * 3))
+		& A_COLOR;
 	else
-		id = COLOR_PAIR(it + 1);
+		id = COLOR_PAIR(get_player_color(vm, id));
 	while (i < pc + len)
 	{
 		attron(id | A_REVERSE);
-		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3), "%.2hhx", vm->map[PTR(i)]);
+		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3), "%.2hhx",
+															vm->map[PTR(i)]);
 		attroff(id | A_REVERSE);
 		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3) + 2, " ");
 		i = i + 1;
 	}
 }
 
-void	unlight(t_vm *vm, unsigned int pc, int len)
+void		unlight(t_vm *vm, unsigned int pc, int len)
 {
-	unsigned int		i;
-	int		current_color;
+	unsigned int	i;
+	int				current_color;
 
+	if (!(vm->flag & visual))
+		return ;
 	i = pc;
 	while (i < pc + len)
 	{
-		current_color = mvinch(HEIGHT_PAD + (PTR(pc) / 64), WIDTH_PAD + ((pc % 64) * 3)) & A_COLOR;
+		current_color = mvinch(HEIGHT_PAD + (PTR(pc) / 64),
+		WIDTH_PAD + ((pc % 64) * 3)) & A_COLOR;
 		attron(current_color);
 		attroff(A_REVERSE);
-		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3), "%.2hhx", vm->map[PTR(i)]);
+		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3), "%.2hhx",
+															vm->map[PTR(i)]);
 		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3) + 2, " ");
 		i = i + 1;
 	}
 }
 
-void	refresh_map(t_vm *vm, unsigned int pc, int len, unsigned int id)
+void		refresh_map(t_vm *vm, unsigned int pc, int len, unsigned int id)
 {
-	int		it;
-	unsigned int		i;
+	unsigned int	i;
 
+	if (!(vm->flag & visual))
+		return ;
 	i = pc;
-	it = 0;
-	while (it < vm->nb_player)
-	{
-		if (nisuu_id[it] == id)
-		{
-			break ;
-		}
-		++it;
-	}
-	id = COLOR_PAIR(it + 1);
+	id = COLOR_PAIR(get_player_color(vm, id));
 	while (i < (pc + len))
 	{
 		attron(id);
-		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3), "%.2hhx", vm->map[PTR(i)]);
+		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3),
+		"%.2hhx", vm->map[PTR(i)]);
 		attroff(id);
 		mvprintw(HEIGHT_PAD + PTR(i) / 64, WIDTH_PAD + ((i % 64) * 3) + 2, " ");
 		i = i + 1;
 	}
+}
+
+void		info_curses(t_vm *vm)
+{
+	attron(NEUTRAL);
+	mvprintw(69, 3, "cycle: %lu", vm->cycle);
+	mvprintw(70, 3, "%20s", "");
+	mvprintw(70, 3, "nb_process: %u", vm->nb_process);
+	mvprintw(71, 3, "%20s", "");
+	mvprintw(71, 3, "cycle_to_die: %u", vm->cycle_to_die);
+	mvprintw(72, 3, "%30s", "");
+	mvprintw(72, 3, "total_live_check: %u", vm->live);
+	mvprintw(73, 3, "%20s", "");
+	mvprintw(73, 3, "max_checks: %u", MAX_CHECKS);
+	mvprintw(74, 3, "%20s", "");
+	mvprintw(74, 3, "winner: ");
+	attroff(NEUTRAL);
 }

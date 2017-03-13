@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 17:57:14 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:08:12 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ typedef struct	s_vm
 	unsigned long	nb_process;
 	unsigned long	cycle;
 	unsigned char	map[MEM_SIZE];
+	unsigned int	players_order[4];
 	t_champ			*champ;
 	t_lst			*process;
 }				t_vm;

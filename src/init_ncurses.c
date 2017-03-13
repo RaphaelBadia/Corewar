@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:28:46 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/12 19:30:40 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:08:58 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void		init_ncurses(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		nisuu_id[i] = vm->champ[i].id_player;
+		vm->players_order[i] = vm->champ[i].id_player;
 		++i;
 	}
 	initscr();

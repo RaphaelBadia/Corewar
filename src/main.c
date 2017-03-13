@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 19:14:04 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 13:56:31 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,12 @@ void	play(t_vm *vm)
 		vm->cycle += 1;
 		if (vm->flag & verbose)
 			printf("It is now cycle %ld\n", vm->cycle);
-		refresh();
-		usleep(1000);
+		if (vm->flag & visual)
+		{
+			info_curses(vm);
+			refresh();
+			usleep(1000);
+		}
 	}
 	print_winner(vm);
 	printf("%lu\n", vm->cycle);
