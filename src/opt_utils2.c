@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 21:23:36 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 14:17:14 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 /*
 ** data[0] = to_get index, data[1] = octal, data[2] = label
 */
-unsigned int	nskip(unsigned char byte_code, unsigned char octal_code)
+
+unsigned int		nskip(unsigned char byte_code, unsigned char octal_code)
 {
 	int				i;
 	unsigned int	skip;
