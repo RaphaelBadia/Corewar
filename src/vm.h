@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 14:08:12 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 18:31:00 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,7 @@ typedef struct	s_vm
 		visual = 2,
 		aff_flag = 4,
 		stop = 8,
-		quiet = 16,
-		verbose = 32
+		verbose = 16
 	}				flag;
 	unsigned int	dump_cycle;
 	unsigned int	stop_cycle;
