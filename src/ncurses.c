@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:51:07 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 14:08:50 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 20:54:28 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ static int	get_player_color(t_vm *vm, int id)
 	while (i < vm->nb_player)
 	{
 		if (vm->players_order[i] == id)
-		{
 			break ;
-		}
 		++i;
 	}
 	return (i + 1);
@@ -94,6 +92,10 @@ void		refresh_map(t_vm *vm, unsigned int pc, int len, unsigned int id)
 
 void		info_curses(t_vm *vm)
 {
+	attroff(COLOR_PAIR(1));
+	attroff(COLOR_PAIR(2));
+	attroff(COLOR_PAIR(3));
+	attroff(COLOR_PAIR(4));
 	attron(NEUTRAL);
 	mvprintw(69, 3, "cycle: %lu", vm->cycle);
 	mvprintw(70, 3, "%20s", "");
@@ -105,6 +107,5 @@ void		info_curses(t_vm *vm)
 	mvprintw(73, 3, "%20s", "");
 	mvprintw(73, 3, "max_checks: %u", MAX_CHECKS);
 	mvprintw(74, 3, "%20s", "");
-	mvprintw(74, 3, "winner: ");
 	attroff(NEUTRAL);
 }

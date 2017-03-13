@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:29:47 by jye               #+#    #+#             */
-/*   Updated: 2017/03/11 19:23:43 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 19:10:00 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ void	usage(char *p_name)
 	printf("%10s Print information about what the fuck the vm is doing",
 			"\t-v");
 	printf(" (default is 0).\n");
-	printf("%10s Silence VM output (cancels verbose mode).\n", "\t-q");
 	exit(EXIT_FAILURE);
 }

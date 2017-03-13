@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 18:52:53 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/13 21:10:36 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,11 @@ void	print_winner(t_vm *vm)
 			win->id_player, win->comment);
 }
 
-void	play(t_vm *vm)
+void	play__(t_vm *vm)
 {
 	unsigned long	last_check;
 
-	vm->id_track = 1;
-	vm->process = init_process(vm);
 	last_check = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
 	{
 		check_opt(vm);
@@ -135,16 +132,53 @@ void	play(t_vm *vm)
 	print_winner(vm);
 }
 
+void	visual_print_win(t_vm *vm)
+{
+	int		i;
+	t_champ	*win;
+
+	win = &vm->champ[0];
+	i = 0;
+	while (i < vm->nb_player)
+	{
+		if (win->last_live < vm->champ[i].last_live)
+			win = &vm->champ[i];
+		++i;
+	}
+	mvprintw(74, 3, "winner: %s", win->name);
+}
+
+void	npause(void)
+{
+	char c;
+
+	if ((c = getch()) == 32)
+	{
+		while (42)
+			if ((c = getch()) == 32)
+				return ;
+			else if (c == 27)
+			{
+				endwin();
+				exit(EXIT_SUCCESS);
+			}
+	}
+	else if (c == 27)
+	{
+		endwin();
+		exit(EXIT_SUCCESS);
+	}
+}
+
 void	visual_play(t_vm *vm)
 {
 	unsigned long	last_check;
 
-	vm->id_track = 1;
-	vm->process = init_process(vm);
 	last_check = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
+	timeout(1);
 	while (vm->process)
 	{
+		npause();
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
@@ -157,17 +191,19 @@ void	visual_play(t_vm *vm)
 		refresh();
 		usleep(1000);
 	}
+	visual_print_win(vm);
+	mvprintw(75, 3, "press watever u wan u dick");
+	timeout(-1);
+	getch();
+	endwin();
 }
 
 void	dump_play(t_vm *vm)
 {
 	unsigned long	last_check;
 
-	vm->id_track = 1;
-	vm->process = init_process(vm);
 	last_check = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
-	while (vm->process && vm->dump_cycle)
+	while (vm->process && vm->dump_cycle != vm->cycle)
 	{
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
@@ -180,17 +216,17 @@ void	dump_play(t_vm *vm)
 		if (vm->flag & verbose)
 			printf("It is now cycle %ld\n", vm->cycle);
 	}
-	print_winner(vm);
+	if (vm->process)
+		print_map32(vm->map);
+	else
+		print_winner(vm);
 }
 
 void	stop_play(t_vm *vm)
 {
 	unsigned long	last_check;
 
-	vm->id_track = 1;
-	vm->process = init_process(vm);
 	last_check = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
 	while (vm->process)
 	{
 		if ((vm->cycle % vm->stop_cycle) == 0)
@@ -209,6 +245,24 @@ void	stop_play(t_vm *vm)
 	print_winner(vm);
 }
 
+void	play(t_vm *vm)
+{
+	if (vm->flag & visual)
+		init_ncurses(vm);
+	set_map(vm);
+	vm->id_track = 1;
+	vm->process = init_process(vm);
+	vm->cycle_to_die = CYCLE_TO_DIE;
+	if (vm->flag & dump)
+		dump_play(vm);
+	else if (vm->flag & stop)
+		stop_play(vm);
+	else if (vm->flag & visual)
+		visual_play(vm);
+	else
+		play__(vm);
+}
+
 int		main(int ac, char **av)
 {
 	t_vm	vm;
@@ -224,13 +278,6 @@ int		main(int ac, char **av)
 	if ((vm.champ = init_champ__()) == NULL)
 		p_error();
 	vm.nb_player = set_champ(vm.champ, &arg);
-	if (vm.flag & visual)
-		init_ncurses(&vm);
-	set_map(&vm);
 	play(&vm);
-	if (vm.flag & visual)
-		endwin();
-	else
-		print_map32(vm.map);
 	return (0);
 }

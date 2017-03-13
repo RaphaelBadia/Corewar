@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 18:31:00 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/13 19:09:51 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define VIS_FLAG "-p"
 # define AFF_FLAG "-a"
 # define STOP_FLAG "-s"
-# define QUIET_FLAG "-q"
 # define VERB_FLAG "-v"
 
 /*
