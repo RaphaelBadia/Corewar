@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <stdlib.h>
 #include "ft_printf.h"
 

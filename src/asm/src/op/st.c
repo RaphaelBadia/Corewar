@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <stdlib.h>
 
 void		op_st(t_asm *data, char **args)

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <stdlib.h>
 
 void		op_lldi(t_asm *data, char **args)

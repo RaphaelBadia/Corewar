@@ -6,11 +6,12 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:10:12 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/27 18:10:16 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/03/14 19:16:36 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <stdlib.h>
 
 void		op_add(t_asm *data, char **args)

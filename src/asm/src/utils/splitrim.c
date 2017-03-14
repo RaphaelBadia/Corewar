@@ -12,7 +12,8 @@
 
 #include <stdlib.h>
 #include <libft.h>
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 
 /*
 ** fonction qui splitte par ',' et qui vire les espaces au debut et a la fin

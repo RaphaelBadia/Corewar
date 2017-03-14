@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/25 21:46:54 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/14 21:59:18 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include "libft.h"
 
 static void		fill_name(t_asm *data, char *name)

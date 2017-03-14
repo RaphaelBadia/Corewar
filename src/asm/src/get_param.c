@@ -6,13 +6,14 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:14:52 by vcombey           #+#    #+#             */
-/*   Updated: 2017/03/02 23:08:39 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/14 19:15:56 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <ft_printf.h>
 
 static int	is_nb(char c)

@@ -13,7 +13,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include "ft_printf.h"
 
 void	ft_exit_err(char *msg, t_asm *data)

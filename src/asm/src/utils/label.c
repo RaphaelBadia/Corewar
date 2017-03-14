@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 20:21:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/25 19:01:04 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/14 19:18:08 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <libft.h>
 #include <ft_printf.h>
 #include <op.h>
+#include <asm.h>
 
 void			ft_addlabel(t_label **lst, char *name, int index, int index_op)
 {

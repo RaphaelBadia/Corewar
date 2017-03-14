@@ -6,12 +6,13 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/27 18:34:50 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/03/14 19:16:06 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include "ft_printf.h"
 
 int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i)

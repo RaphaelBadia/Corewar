@@ -6,13 +6,14 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/27 18:31:13 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/03/14 21:55:08 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
-#include "op.h"
+#include <op.h>
+#include <asm.h>
 #include <ft_printf.h>
 
 void		check_type(t_instruction *ins, int type, int type_argi, t_asm *data)
@@ -25,14 +26,33 @@ void		check_type(t_instruction *ins, int type, int type_argi, t_asm *data)
 		ins->op_buff[1] |= (type_argi << (6 - 2 * ins->args_i));
 }
 
+int			exec_opt(t_asm *data, char *line, int instruction_size)
+{
+	int			j;
+	static void	(*f[])() = {NULL, &op_live, &op_ld, &op_st, &op_add, &op_sub,
+		&op_and, &op_or, &op_xor, &op_zjmp, &op_ldi, &op_sti, &op_fork,
+		&op_lld, &op_lldi, &op_lfork, &op_aff};
+
+	j = 1;
+	while (j < 17)
+	{
+		if (ft_strnequ(g_op_tab[j].name, line, instruction_size))
+		{
+			data->column += ft_strlen(g_op_tab[j].name);
+			f[j](data, splitrim(line + instruction_size, data));
+			return (1);
+		}
+		j++;
+	}
+	return (0);
+}
+
 void		get_instruction(t_asm *data, char *line)
 {
 	int		i;
-	int		j;
 	int		instruction_size;
 
 	i = 0;
-	j = 0;
 	while (is_one_of(line[i], " \t"))
 		i++;
 	instruction_size = 0;
@@ -42,17 +62,8 @@ void		get_instruction(t_asm *data, char *line)
 	if (instruction_size == 0)
 		return ;
 	data->column += i;
-	while (j < 16)
-	{
-		if (ft_strnequ(g_ops[j].name, line + i, instruction_size))
-		{
-			data->column += ft_strlen(g_ops[j].name);
-			g_ops[j].op(data, splitrim(line + i + instruction_size, data));
-			return ;
-		}
-		j++;
-	}
-	ft_exit_err("unkown command", data);
+	if (!exec_opt(data, line + i, instruction_size))
+		ft_exit_err("unkown command", data);
 }
 
 void		read_program(t_asm *data, int fd)

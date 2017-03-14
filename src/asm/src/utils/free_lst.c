@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vcombey <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:30:27 by vcombey           #+#    #+#             */
-/*   Updated: 2017/02/27 16:31:11 by vcombey          ###   ########.fr       */
+/*   Updated: 2017/03/14 19:18:42 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <op.h>
+#include <asm.h>
 
 void		free_lst(t_label *lst)
 {
