@@ -3,7 +3,9 @@
 *.ko
 *.obj
 *.elf
-*.cor
+*.dmp
+
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -32,5 +34,12 @@
 *.dSYM/
 *.su
 
-#bin
-/asm/asm
+
+*.cor
+*.s
+*~
+*.*~
+.*#
+#*#
+*.out
+a.*
