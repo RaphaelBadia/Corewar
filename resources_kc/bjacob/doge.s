@@ -1,5 +1,5 @@
 .name "Candy"
-.comment ""
+.comment "d"
 
 	st		r1, r12
 	ld      %0 , r14
