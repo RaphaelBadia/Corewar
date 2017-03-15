@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/15 15:03:44 by raphael          ###   ########.fr       */
+/*   Updated: 2017/03/15 21:18:42 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ char			*get_label(t_asm *data, char *line)
 	if (line[i + label_size] != ':')
 		return (line + i);
 	label_name = ft_strndup(line + i, (size_t)label_size);
-	ft_addlabel(&data->knowns, label_name, data->buff_index, 0);
+	if (!ft_find_label_in_lst(label_name, data->knowns))
+		ft_addlabel(&data->knowns, label_name, data->buff_index, 0);
 	data->column += label_size + 1;
 	return (line + i + label_size + 1);
 }

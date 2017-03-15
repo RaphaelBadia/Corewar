@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 19:30:10 by vcombey           #+#    #+#             */
-/*   Updated: 2017/03/14 21:59:18 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/15 22:13:49 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		fill_name(t_asm *data, char *name)
 	i++;
 	if (name[i] == '\0')
 		ft_exit_err("unexpected EOL", data);
-	if ((name_len = ft_strchri(name + i, 042)) == -1)
+	if ((name_len = ft_strchri(name + i, '\"')) == -1)
 		ft_exit_err("wrong syntax missing a \"", data);
 	if ((name_len == 0) || name_len > 128)
 		ft_exit_err("name cannot be empty or > 128", data);
@@ -55,7 +55,7 @@ static void		fill_comment(t_asm *data, char *comment)
 	i++;
 	if (comment[i] == '\0')
 		ft_exit_err("unexpected EOL", data);
-	if ((comment_len = ft_strchri(comment + i, 042)) == -1)
+	if ((comment_len = ft_strchri(comment + i, '\"')) == -1)
 		ft_exit_err("wrong syntax missing a \"", data);
 	if ((comment_len == 0) || comment_len > 2048)
 		ft_exit_err("comment cannot be empty or > 2048", data);
@@ -79,7 +79,7 @@ void			read_name_comment(int fd, t_asm *data)
 	{
 		data->line++;
 		data->column = 1;
-		if (!empty(remove_comment(line)))
+		if (!empty(remove_comment_header(line)))
 			break ;
 		ft_strdel(&line);
 	}

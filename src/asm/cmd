@@ -1,1 +1,1 @@
-gcc *.c */*.c -I../../includes -L../../ft_printf/ -lftprintf -L../../libft -lft
+gcc *.c */*.c -I../../includes -L../../ft_printf/ -lftprintf -L../../libft -lft -o asm && ./asm marchepas2.s && xxd marchepas2.cor > me && /sgoinfre/goinfre/corewar/asm marchepas2.s && xxd marchepas2.cor > zaz && diff me zaz

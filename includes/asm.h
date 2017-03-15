@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/15 11:54:32 by raphael          ###   ########.fr       */
+/*   Updated: 2017/03/15 21:50:32 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void							op_nothing(t_asm *data, char **args);
 */
 
 char							*remove_comment(char *str);
+char							*remove_comment_header(char *str);
 size_t							ft_strstrlen(char **str);
 int								empty(char *str);
 void							ft_exit_err(char *msg, t_asm *data);
