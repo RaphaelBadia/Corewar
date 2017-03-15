@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/15 15:02:07 by raphael          ###   ########.fr       */
+/*   Updated: 2017/03/15 15:03:44 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ int				fill_label_2(char *name, t_label *to_fill, t_asm *data)
 		data->buffer[to_fill->index + 2] = diff >> 8 & 0xff;
 		data->buffer[to_fill->index + 3] = diff & 0xff;
 	}
-	else
-		ft_printf("mashalled %s\n", know->label_name);
 	return (1);
 }
 
