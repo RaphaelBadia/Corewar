@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 17:44:25 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/14 21:55:08 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/15 11:55:10 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int			exec_opt(t_asm *data, char *line, int instruction_size)
 	{
 		if (ft_strnequ(g_op_tab[j].name, line, instruction_size))
 		{
+			data->actual_label_size = g_op_tab[j].label_size;
 			data->column += ft_strlen(g_op_tab[j].name);
 			f[j](data, splitrim(line + instruction_size, data));
 			return (1);

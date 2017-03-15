@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/09 22:14:51 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/15 11:53:36 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ static const t_op		g_op_tab[17] =
 {
 	{0, 0, {0}, 0, 0, 0, 0},
 	{"live", 1, {T_DIR},
-		1, 10, 0, 0},
+		1, 10, 0, 4},
 	{"ld", 2, {T_DIR | T_IND, T_REG},
-		2, 5, 1, 0},
+		2, 5, 1, 4},
 	{"st", 2, {T_REG, T_IND | T_REG},
 		3, 5, 1, 0},
 	{"add", 3, {T_REG, T_REG, T_REG},
@@ -95,25 +95,25 @@ static const t_op		g_op_tab[17] =
 	{"sub", 3, {T_REG, T_REG, T_REG},
 		5, 10, 1, 0},
 	{"and", 3, {T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG},
-		6, 6, 1, 0},
+		6, 6, 1, 4},
 	{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		7, 6, 1, 0},
+		7, 6, 1, 4},
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
-		8, 6, 1, 0},
+		8, 6, 1, 4},
 	{"zjmp", 1, {T_DIR},
-		9, 20, 0, 1},
+		9, 20, 0, 2},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		10, 25, 1, 1},
+		10, 25, 1, 2},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG},
-		11, 25, 1, 1},
+		11, 25, 1, 2},
 	{"fork", 1, {T_DIR},
-		12, 800, 0, 1},
+		12, 800, 0, 2},
 	{"lld", 2, {T_DIR | T_IND, T_REG},
-		13, 10, 1, 0},
+		13, 10, 1, 4},
 	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
-		14, 50, 1, 1},
+		14, 50, 1, 2},
 	{"lfork", 1, {T_DIR},
-		15, 1000, 0, 1},
+		15, 1000, 0, 2},
 	{"aff", 1, {T_REG},
 		16, 2, 1, 0},
 };

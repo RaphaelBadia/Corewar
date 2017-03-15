@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/14 22:55:25 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/15 11:55:29 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,20 @@ int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i)
 	if ((find = ft_find_label_in_lst(name, data->knowns)) == NULL)
 		return (0);
 	diff = find->index - data->buff_index;
-	op_buff[*op_i] = diff >> 8 & 0xff;
-	op_buff[*op_i + 1] = diff & 0xff;
-	*op_i += 2;
+	if (data->actual_label_size == 2)
+	{
+		op_buff[*op_i] = diff >> 8 & 0xff;
+		op_buff[*op_i + 1] = diff & 0xff;
+		*op_i += 2;
+	}
+	if (data->actual_label_size == 4)
+	{
+		op_buff[*op_i] = diff >> 24 & 0xff;
+		op_buff[*op_i + 1] = diff >> 16 & 0xff;
+		op_buff[*op_i + 2] = diff >> 8 & 0xff;
+		op_buff[*op_i + 3] = diff & 0xff;
+		*op_i += 4;
+	}
 	free(name);
 	return (1);
 }

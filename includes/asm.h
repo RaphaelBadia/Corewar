@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 16:33:37 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/14 22:55:51 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/15 11:54:32 by raphael          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct					s_asm
 	unsigned char				*buffer;
 	unsigned int				buff_index;
 	unsigned int				buff_len;
+	int							actual_label_size;
 }								t_asm;
 
 typedef struct					s_instruction

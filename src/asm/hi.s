@@ -1,7 +1,6 @@
-#lkkldsfajkl;dfs;jklsdf
-.name "asd"#jkdfskjsdafkjl;dsafjkl;dfsa
-#asdkldsflkjsdfkljsdfkljsdlkj;spreadsheets#sdklfdkjldflkj;fdklj;
-.comment "sisi"#jdfkljfdslkj;fsdkjl;dfsa
+
+.name "asd"
+.comment "sisi"
 
 live %1
 label:
