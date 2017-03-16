@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 18:04:32 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/15 21:18:42 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 19:27:47 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int				fill_label(char *name, t_asm *data, char *op_buff, int *op_i)
 	if ((find = ft_find_label_in_lst(name, data->knowns)) == NULL)
 		return (0);
 	diff = find->index - data->buff_index;
-	if (data->actual_label_size == 2)
+	if (data->actual_label_size == 2 || data->is_indir == 1)
 	{
 		op_buff[*op_i] = diff >> 8 & 0xff;
 		op_buff[*op_i + 1] = diff & 0xff;
 		*op_i += 2;
 	}
-	if (data->actual_label_size == 4)
+	else if (data->actual_label_size == 4)
 	{
 		op_buff[*op_i] = diff >> 24 & 0xff;
 		op_buff[*op_i + 1] = diff >> 16 & 0xff;
@@ -49,12 +49,12 @@ int				fill_label_2(char *name, t_label *to_fill, t_asm *data)
 	if ((know = ft_find_label_in_lst(name, data->knowns)) == NULL)
 		return (0);
 	diff = know->index - to_fill->index_op;
-	if (to_fill->label_size == 2)
+	if (to_fill->label_size == 2 || data->is_indir == 1)
 	{
 		data->buffer[to_fill->index] = diff >> 8 & 0xff;
 		data->buffer[to_fill->index + 1] = diff & 0xff;
 	}
-	if (to_fill->label_size == 4)
+	else if (to_fill->label_size == 4)
 	{
 		data->buffer[to_fill->index] = diff >> 24 & 0xff;
 		data->buffer[to_fill->index + 1] = diff >> 16 & 0xff;

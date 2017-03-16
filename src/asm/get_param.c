@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:14:52 by vcombey           #+#    #+#             */
-/*   Updated: 2017/03/16 18:13:53 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 19:39:41 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			get_param_indir(t_instruction *ins, char *param, t_asm *data)
 {
 	int		dir;
 
-	data->actual_label_size = 2;
+	data->is_indir = 1;
 	if (param[0] == ':')
 	{
 		data->column += 1;
@@ -80,6 +80,7 @@ int			get_param(t_instruction *ins, char *param, t_asm *data,
 {
 	int		reg;
 
+	data->is_indir = 0;
 	if (param[0] == 'r')
 	{
 		data->column += 1;

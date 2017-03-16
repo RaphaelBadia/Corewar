@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 20:21:34 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/15 14:57:52 by raphael          ###   ########.fr       */
+/*   Updated: 2017/03/16 19:33:38 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void			ft_addlabelline(t_label *label, t_asm *data)
 	label->line = data->line;
 	label->column = data->column;
 	label->label_size = data->actual_label_size;
+	if (data->is_indir)
+		label->label_size = 2;
 }
 
 void			display_labels(t_label *lst)
