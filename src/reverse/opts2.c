@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 21:47:22 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/05 22:03:43 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 17:43:54 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mighty.h"
-#include "stdio_.h"
+#include <ft_printf.h>
+#include <mighty.h>
 
 void				and(unsigned char *buff, size_t *i, int df)
 {

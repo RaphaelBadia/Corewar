@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/05 21:46:16 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/05 21:48:48 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 17:43:50 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mighty.h"
-#include "stdio_.h"
+#include <ft_printf.h>
+#include <mighty.h>
 
 void				live(unsigned char *buff, size_t *i, int df)
 {

@@ -6,13 +6,13 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 20:12:20 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 21:54:00 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 17:44:02 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "mighty.h"
-#include "stdio_.h"
+#include <ft_printf.h>
+#include <mighty.h>
 
 int					get_uint32(unsigned char *buff, int i)
 {

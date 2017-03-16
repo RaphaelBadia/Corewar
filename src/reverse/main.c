@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:40:19 by jye               #+#    #+#             */
-/*   Updated: 2017/03/05 21:56:19 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 17:43:42 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "stdio_.h"
-#include "mighty.h"
+#include <ft_printf.h>
+#include <mighty.h>
 
 int					open_output(char *name)
 {
