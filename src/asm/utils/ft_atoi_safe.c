@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 11:45:00 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 20:19:18 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/16 17:55:15 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	set_result(int *result)
 {
 	*result = -2147483648;
-	return (0);
+	return (1);
 }
 
 int			ft_atoi_safe(const char *str, int *result)
