@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <ft_printf.h>
-#include <mighty.h>
+#include <reverse.h>
 
 void				sti(unsigned char *buff, size_t *i, int df)
 {

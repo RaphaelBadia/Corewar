@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mighty.h                                           :+:      :+:    :+:   */
+/*   reverse.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/03/05 21:53:48 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/17 14:38:57 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,11 @@
 # define BUFF 4096
 # define MAGIC 0xf383ea00
 # define EXT ".dmp"
-# define REG_CODE 1 //->0b01
-# define DIR_CODE 2 //->0b10
-# define IND_CODE 3 //->0b11
-# define PERROR									\
-	do											\
-	{											\
-		perror("can't handle ur shit sorry");	\
-		exit(1);								\
-	}while(0)
 
 typedef struct	s_disassembly
 {
-	char 			*prog_name;
-	char 			*prog_comment;
+	char			*prog_name;
+	char			*prog_comment;
 	size_t			prog_size;
 	int				binary_fd;
 	int				output_fd;
@@ -37,15 +28,6 @@ typedef struct	s_disassembly
 	ssize_t			file_size;
 }				t_disassembly;
 
-typedef struct	s_op
-{
-	char	*op_name;
-	int		param;
-	int		op_code;
-	int		octal;
-	int		label;
-	void	(*f)();
-}				t_op;
 /*
 ** LABEL = 1 -> 2
 ** LABEL = 0 -> 4
@@ -71,23 +53,4 @@ short	get_uint16(unsigned char *buff, int i);
 int		get_code_value(int code, int is_32_bits_);
 void	ft_exit(char *msg);
 
-static t_op    op_tab[16] =
-{
-    {"live", 1,  1,   0,  0, &live},
-    {"ld",   2,  2,   1,  0, &ld},
-    {"st",   2,  3,   1,  0, &st},
-    {"add",  3,  4,   1,  0, &add},
-    {"sub",  3,  5,   1,  0, &sub},
-    {"and",  3,  6,   1,  0, &and},
-    {"or",   3,  7,   1,  0, &or},
-    {"xor",  3,  8,   1,  0, &xor},
-    {"zjmp", 1,  9,   0,  1, &zjump},
-    {"ldi",  3,  10,  1,  1, &ldi},
-    {"sti",  3,  11,  1,  1, &sti},
-    {"fork", 1,  12,  0,  1, &frk},
-    {"lld",  2,  13,  1,  0, &lld},
-    {"lldi", 3,  14,  1,  1, &lldi},
-    {"lfork",1,  15,  0,  1, &lfork},
-    {"aff",  1,  16,  1,  0, &aff},
-};
 #endif

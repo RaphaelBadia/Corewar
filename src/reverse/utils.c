@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <ft_printf.h>
-#include <mighty.h>
+#include <reverse.h>
 
 int					get_uint32(unsigned char *buff, int i)
 {

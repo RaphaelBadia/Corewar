@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/20 17:40:19 by jye               #+#    #+#             */
-/*   Updated: 2017/03/16 17:43:42 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/17 14:38:47 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <ft_printf.h>
-#include <mighty.h>
+#include <reverse.h>
+#include <op.h>
 
 int					open_output(char *name)
 {
@@ -48,7 +49,8 @@ unsigned char		*open_binary_get_buffer(t_disassembly *dasm, char *name)
 	return (ret);
 }
 
-void				read_header(t_disassembly *dasm, unsigned char *buff)
+void				read_header(t_disassembly *dasm, unsigned char *buff,
+																	char *pname)
 {
 	if (!(dasm->prog_name = malloc(129)))
 		ft_exit(strerror(errno));
@@ -60,7 +62,7 @@ void				read_header(t_disassembly *dasm, unsigned char *buff)
 	dasm->prog_comment = malloc(2049);
 	__builtin_memcpy(dasm->prog_comment, buff + dasm->byte, 2048);
 	dasm->byte += 2052;
-	dasm->output_fd = open_output(dasm->prog_name);
+	dasm->output_fd = open_output(pname);
 	ft_dprintf(dasm->output_fd, ".name \"%s\"\n", dasm->prog_name);
 	ft_dprintf(dasm->output_fd, ".comment \"%s\"\n\n", dasm->prog_comment);
 	free(dasm->prog_name);
@@ -70,13 +72,16 @@ void				read_header(t_disassembly *dasm, unsigned char *buff)
 void				show_instruction(t_disassembly *dasm, unsigned char *buff)
 {
 	int				j;
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
+								&or, &xor, &zjump, &ldi, &sti, &frk, &lld,
+								&lldi, &lfork, &aff};
 
 	j = 0;
-	while (j < 16 && op_tab[j].op_code != buff[dasm->byte])
+	while (j < 16 && g_op_tab[j].opcode != buff[dasm->byte])
 		j++;
 	dasm->byte += 1;
 	if (j < 16)
-		op_tab[j].f(buff, &dasm->byte, dasm->output_fd);
+		f[j](buff, &dasm->byte, dasm->output_fd);
 	else
 		ft_printf("shit, i didnt find the function to use for %x %lu %d!\n",
 		buff[dasm->byte - 1], dasm->file_size - dasm->byte, j);
@@ -102,7 +107,7 @@ int					main(int ac, char **av)
 		buff = open_binary_get_buffer(&dasm, av[i]);
 		if (*(unsigned int *)buff != MAGIC)
 			ft_exit("Bad magic number");
-		read_header(&dasm, buff);
+		read_header(&dasm, buff, av[i]);
 		while (dasm.byte < (size_t)dasm.file_size)
 			show_instruction(&dasm, buff);
 		free(buff);
