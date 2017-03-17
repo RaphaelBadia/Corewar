@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <zaz@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2017/03/17 14:38:57 by rbadia           ###   ########.fr       */
+/*   Created: 2017/03/17 14:59:12 by rbadia            #+#    #+#             */
+/*   Updated: 2017/03/17 15:01:57 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define BUFF 4096
 # define MAGIC 0xf383ea00
 # define EXT ".dmp"
+
+# define REG_CODE 1
+# define DIR_CODE 2
+# define IND_CODE 3
 
 typedef struct	s_disassembly
 {
