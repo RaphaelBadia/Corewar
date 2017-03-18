@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:40:33 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:52:32 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 19:12:24 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	live(t_vm *vm, t_process *process)
 {
 	unsigned int	pc;
 	unsigned int	id_player;
-	int				i;
+	unsigned int	i;
 
 	pc = process->pc;
 	id_player = get_dir(vm, pc + 1, 0);

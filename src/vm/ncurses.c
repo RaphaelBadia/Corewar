@@ -6,16 +6,16 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:51:07 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/18 17:22:56 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 19:11:30 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "graphic.h"
 
-static int	get_player_color(t_vm *vm, int id)
+static int	get_player_color(t_vm *vm, unsigned int id)
 {
-	int		i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < vm->nb_player)
@@ -34,7 +34,7 @@ void		highlight(t_vm *vm, unsigned int pc, int len, unsigned int id)
 	if (!(vm->flag & visual))
 		return ;
 	i = pc;
-	if (id == -1)
+	if (id == -1U)
 		id = mvinch(HEIGHT_PAD + (PTR(pc) / 64), WIDTH_PAD + ((pc % 64) * 3))
 		& A_COLOR;
 	else

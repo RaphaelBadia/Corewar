@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 14:59:12 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/17 15:01:57 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 18:41:30 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __MIGHTY_H__
-# define __MIGHTY_H__
+#ifndef MIGHTY_H
+# define MIGHTY_H
 # include <string.h>
 # define BUFF 4096
 # define MAGIC 0xf383ea00

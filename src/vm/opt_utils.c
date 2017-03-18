@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:48:30 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 14:11:27 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 22:17:31 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,11 @@ static unsigned int	check_octal(t_vm *vm, t_process *process)
 	return (0);
 }
 
-static void			exec_opt(t_vm *vm, t_process *process)
+static void			get_opt(t_vm *vm, t_process *process,
+							unsigned char byte_code, unsigned int octal_skip)
 {
-	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
-								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
-								&lldi, &lfork, &aff};
-	unsigned char	byte_code;
-	unsigned int	octal_skip;
-
-	unlight(vm, process->pc, 1);
-	if (!(octal_skip = check_octal(vm, process)))
-		f[process->op_code](vm, process);
-	else
-		process->pc += octal_skip;
-	process->op_code = 0;
-	process->exec_cycle = 0;
-	byte_code = vm->map[PTR(process->pc)];
+	if (process->op_code)
+		return ;
 	if (byte_code > 0 && byte_code <= 16)
 	{
 		process->op_code = byte_code;
@@ -100,8 +89,27 @@ static void			exec_opt(t_vm *vm, t_process *process)
 		unlight(vm, process->pc, 1);
 		if (++process->pc >= MEM_SIZE)
 			process->pc = process->pc % MEM_SIZE;
+		byte_code = vm->map[PTR(process->pc)];
 		highlight(vm, process->pc, 1, -1);
 	}
+}
+
+static void			exec_opt(t_vm *vm, t_process *process)
+{
+	static void		(*f[])() = {NULL, &live, &ld, &st, &add, &sub, &and,
+								&or, &xor, &zjmp, &ldi, &sti, &frk, &lld,
+								&lldi, &lfork, &aff};
+	unsigned int	octal_skip;
+	unsigned char	byte_code;
+
+	unlight(vm, process->pc, 1);
+	if (!(octal_skip = check_octal(vm, process)))
+		f[process->op_code](vm, process);
+	else
+		process->pc += octal_skip;
+	process->op_code = 0;
+	byte_code = vm->map[PTR(process->pc)];
+	get_opt(vm, process, byte_code, octal_skip);
 }
 
 void				check_opt(t_vm *vm)
@@ -115,23 +123,9 @@ void				check_opt(t_vm *vm)
 	{
 		cp = process->data;
 		byte_code = vm->map[PTR(cp->pc)];
-		if (!cp->op_code && byte_code > 0 && byte_code <= 16)
-		{
-			highlight(vm, cp->pc, 1, -1);
-			cp->op_code = byte_code;
-			cp->exec_cycle = g_op_tab[byte_code].cycles + vm->cycle;
-		}
-		else if (cp->op_code && cp->exec_cycle == vm->cycle)
-		{
+		get_opt(vm, cp, byte_code, 0);
+		if (cp->op_code && cp->exec_cycle == vm->cycle)
 			exec_opt(vm, cp);
-		}
-		else if (!cp->op_code)
-		{
-			unlight(vm, cp->pc, 1);
-			if (++cp->pc >= MEM_SIZE)
-				cp->pc = cp->pc % MEM_SIZE;
-			highlight(vm, cp->pc, 1, -1);
-		}
 		process = process->next;
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:28:46 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/18 17:23:49 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 19:08:06 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include "graphic.h"
 
-void		display_infos_border(t_vm *vm)
+static void	display_infos_border()
 {
 	int	i;
 
@@ -76,6 +76,6 @@ void		init_ncurses(t_vm *vm)
 	init_pair(3, COLOR_RED, COLOR_BLACK);
 	init_pair(4, COLOR_CYAN, COLOR_BLACK);
 	display_border(vm);
-	display_infos_border(vm);
+	display_infos_border();
 	refresh();
 }

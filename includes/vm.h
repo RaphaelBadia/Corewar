@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 17:26:11 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 19:15:17 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,11 @@ void			set_map(t_vm *vm);
 int				set_champ(t_champ *champ, t_arg *arg);
 t_lst			*init_process(t_vm *vm);
 void			check_opt(t_vm *vm);
+void			checks(t_vm *vm);
 void			purge_process(t_vm *vm, unsigned long last_check);
+void			introduce(t_vm *vm);
+void			play(t_vm *vm);
+void			print_winner(t_vm *vm);
 
 /*
 ** OPT function

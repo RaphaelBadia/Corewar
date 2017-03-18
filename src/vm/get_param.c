@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 16:59:06 by jye               #+#    #+#             */
-/*   Updated: 2017/03/10 21:35:03 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 18:46:08 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
 }
 
 int			get_indir(t_vm *vm, unsigned int pc,
-						 unsigned int i, unsigned int mod)
+						unsigned int i, unsigned int mod)
 {
 	int		param;
 	short	indir;
@@ -32,7 +32,7 @@ int			get_indir(t_vm *vm, unsigned int pc,
 		param = (vm->map[PTR(pc + (indir % IDX_MOD))] << 24) |
 			(vm->map[PTR(pc + 1 + (indir % IDX_MOD))] << 16) |
 			(vm->map[PTR(pc + 2 + (indir % IDX_MOD))] << 8) |
-			(vm->map[PTR(pc + 3 + (indir % IDX_MOD))]);	
+			(vm->map[PTR(pc + 3 + (indir % IDX_MOD))]);
 	else
 		param = (vm->map[PTR(pc + (indir))] << 24) |
 			(vm->map[PTR(pc + 1 + (indir))] << 16) |
@@ -41,7 +41,7 @@ int			get_indir(t_vm *vm, unsigned int pc,
 	return (param);
 }
 
-int		get_dir(t_vm *vm, unsigned int pc, unsigned int label)
+int			get_dir(t_vm *vm, unsigned int pc, unsigned int label)
 {
 	int		param;
 
@@ -55,7 +55,7 @@ int		get_dir(t_vm *vm, unsigned int pc, unsigned int label)
 	return (param);
 }
 
-int		get_param(t_vm *vm, t_process *process, unsigned int *pc, int data[3])
+int			get_param(t_vm *vm, t_process *process, unsigned int *pc, int data[3])
 {
 	int r;
 

@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:43:51 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:49:38 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 19:06:39 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "graphic.h"
 
 
-static void		print_sti(t_vm *vm, unsigned int pc[2], int r[3])
+static void		print_sti(unsigned int pc[2], int r[3])
 {
 	printf("%d %d\n", r[1], r[2]);
 	printf("       | -> store to %d + %d = %d ", r[1], r[2], (r[1] + r[2]));
 	printf("(with pc and mod %d)\n", pc[0] + ((r[1] + r[2]) % IDX_MOD));
 }
 
-void	sti(t_vm *vm, t_process *process)
+void			sti(t_vm *vm, t_process *process)
 {
 	unsigned int	pc[2];
 	int				i;
@@ -43,9 +43,9 @@ void	sti(t_vm *vm, t_process *process)
 		++i;
 	}
 	if (vm->flag & verbose)
-		print_sti(vm, pc, r);
+		print_sti(pc, r);
 	st_param(vm, pc[0] + ((r[1] + r[2]) % IDX_MOD), r[0]);
 	refresh_map(vm, PTR(pc[0] + ((r[1] + r[2]) % IDX_MOD)), 4,
-															process->id_player);
+				process->id_player);
 	process->pc = pc[1];
 }

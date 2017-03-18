@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 17:18:26 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 14:17:14 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 19:12:07 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 #include <errno.h>
 #include <unistd.h>
 #include "vm.h"
-
-/*
-** data[0] = to_get index, data[1] = octal, data[2] = label
-*/
 
 unsigned int		nskip(unsigned char byte_code, unsigned char octal_code)
 {
@@ -47,4 +43,33 @@ unsigned int		nskip(unsigned char byte_code, unsigned char octal_code)
 		++i;
 	}
 	return (skip);
+}
+
+void				checks(t_vm *vm)
+{
+	unsigned int i;
+
+	i = 0;
+	if (vm->cycle == 0)
+		return ;
+	if (vm->live > 20 && !(vm->checks = 0))
+	{
+		vm->cycle_to_die -= CYCLE_DELTA;
+		if (vm->flag & verbose)
+			printf("Cycle to die is now %d\n", vm->cycle_to_die);
+	}
+	else if (vm->checks == 9 && !(vm->checks = 0))
+	{
+		vm->cycle_to_die -= CYCLE_DELTA;
+		if (vm->flag & verbose)
+			printf("Cycle to die is now %d\n", vm->cycle_to_die);
+	}
+	else
+		vm->checks += 1;
+	while (i < vm->nb_player)
+	{
+		vm->champ[i].live = 0;
+		++i;
+	}
+	vm->live = 0;
 }

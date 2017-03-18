@@ -6,13 +6,13 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/03/16 17:45:31 by rbadia           ###   ########.fr        #
+#    Updated: 2017/03/18 19:05:47 by jye              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra #-Werror
+CFLAGS	=	-Wall -Wextra #-Weverything #-Werror
 LIB_FLAG =	 -Lft_printf -lftprintf -Llibft -lft
 # Directories
 INC_PATH	= includes
@@ -52,7 +52,11 @@ VM_SRC_FILE	=	champ.c			\
 				process.c		\
 				purge.c			\
 				usage.c			\
-				utils.c
+				utils.c			\
+				basic.c			\
+				visual.c		\
+				dump.c			\
+				stop.c
 ASM_SRC_FILE	=	get_param.c					\
 					label.c						\
 					main.c						\
