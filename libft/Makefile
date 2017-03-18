@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/03 19:36:45 by jye               #+#    #+#              #
-#    Updated: 2017/03/14 22:44:37 by rbadia           ###   ########.fr        #
+#    Updated: 2017/03/18 23:00:21 by vcombey          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,8 @@ SRC	=	ft_putchar.c \
 		ft_lstadd.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		get_next_line.c
+		get_next_line.c \
+		ft_strcut.c
 OBJ	=	$(SRC:.c=.o)
 NAME=	libft.a
 LIBF=	ar -rcs

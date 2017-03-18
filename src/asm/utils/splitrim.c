@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/22 18:57:52 by rbadia            #+#    #+#             */
-/*   Updated: 2017/02/22 19:01:08 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 23:16:26 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ char	**splitrim(char *str, t_asm *data)
 	char	*trimmed;
 	int		i;
 
-	if (!(split = ft_strsplit(str, ',')))
-		ft_exit_err("Hum, caca.", data);
+	if (!(split = ft_strcut(str, ',')))
+		ft_exit_err("malloc error", data);
 	i = 0;
 	while (split[i])
 	{
 		if (!(trimmed = ft_strtrim(split[i])))
-			ft_exit_err("42", data);
+			ft_exit_err("malloc error", data);
 		if (!ft_strequ(split[i], trimmed))
 		{
 			free(split[i]);

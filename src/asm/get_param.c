@@ -6,7 +6,7 @@
 /*   By: vcombey <vcombey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 18:14:52 by vcombey           #+#    #+#             */
-/*   Updated: 2017/03/16 19:39:41 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 23:14:57 by vcombey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int			get_param_indir(t_instruction *ins, char *param, t_asm *data)
 	else
 	{
 		if (!ft_atoi_safe(param, &dir))
-			ft_exit_err("indir must be a nb or a :label\n", data);
+			ft_exit_err("indir must be a nb or a :label", data);
 		dir <<= 16;
 		dir = swap_bits(dir);
 		ft_memcpy(ins->op_buff + ins->op_i, &dir, 2);
