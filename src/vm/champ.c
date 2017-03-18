@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 20:58:33 by jye               #+#    #+#             */
-/*   Updated: 2017/03/09 22:26:41 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 17:28:36 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			set_champ(t_champ *champ, t_arg *arg)
 	{
 		if (!strcmp(arg->av[arg->i], IDP_FLAG))
 		{
-			if (arg->i + 1 > arg->ac)
+			if (arg->i + 1 > arg->ac - 1)
 				usage(arg->av[0]);
 			else
 				champ[j].id_player = atoi(arg->av[++arg->i]);
@@ -82,15 +82,7 @@ int			set_champ(t_champ *champ, t_arg *arg)
 	}
 	if (arg->i < arg->ac)
 		vm_error("Too many gladiators\n");
+	else if (j == 0)
+		usage(arg->av[0]);
 	return (j);
-}
-
-t_champ		*init_champ__(void)
-{
-	t_champ	*new;
-
-	if ((new = malloc(sizeof(t_champ) * MAX_PLAYERS)) == NULL)
-		return (NULL);
-	memset(new, 0, sizeof(t_champ) * MAX_PLAYERS);
-	return (new);
 }

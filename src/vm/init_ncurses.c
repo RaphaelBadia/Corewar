@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:28:46 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 14:16:21 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/18 17:23:49 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,6 @@ static void	display_border(t_vm *vm)
 
 void		init_ncurses(t_vm *vm)
 {
-	int		i;
-
-	i = 0;
-	while (i < vm->nb_player)
-	{
-		vm->players_order[i] = vm->champ[i].id_player;
-		++i;
-	}
 	initscr();
 	noecho();
 	curs_set(FALSE);

@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 19:09:51 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 17:26:11 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,7 @@ typedef struct	s_vm
 	unsigned long	nb_process;
 	unsigned long	cycle;
 	unsigned char	map[MEM_SIZE];
-	unsigned int	players_order[4];
-	t_champ			*champ;
+	t_champ			champ[MAX_PLAYERS];
 	t_lst			*process;
 }				t_vm;
 
@@ -129,7 +128,6 @@ typedef struct	s_process
 void			set_flag(t_vm *vm, t_arg *arg);
 void			set_map(t_vm *vm);
 int				set_champ(t_champ *champ, t_arg *arg);
-t_champ			*init_champ__(void);
 t_lst			*init_process(t_vm *vm);
 void			check_opt(t_vm *vm);
 void			purge_process(t_vm *vm, unsigned long last_check);

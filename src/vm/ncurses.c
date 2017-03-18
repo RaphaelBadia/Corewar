@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:51:07 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 20:54:28 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 17:22:56 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	get_player_color(t_vm *vm, int id)
 	i = 0;
 	while (i < vm->nb_player)
 	{
-		if (vm->players_order[i] == id)
+		if (vm->champ[i].id_player == id)
 			break ;
 		++i;
 	}

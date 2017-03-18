@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/13 21:10:36 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/18 18:10:39 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	play__(t_vm *vm)
 	unsigned long	last_check;
 
 	last_check = 0;
+	introduce(vm);
 	while (vm->process)
 	{
 		check_opt(vm);
@@ -203,6 +204,7 @@ void	dump_play(t_vm *vm)
 	unsigned long	last_check;
 
 	last_check = 0;
+	introduce(vm);
 	while (vm->process && vm->dump_cycle != vm->cycle)
 	{
 		check_opt(vm);
@@ -227,6 +229,7 @@ void	stop_play(t_vm *vm)
 	unsigned long	last_check;
 
 	last_check = 0;
+	introduce(vm);
 	while (vm->process)
 	{
 		if ((vm->cycle % vm->stop_cycle) == 0)
@@ -275,8 +278,6 @@ int		main(int ac, char **av)
 		usage(av[0]);
 	memset(&vm, 0, sizeof(t_vm));
 	set_flag(&vm, &arg);
-	if ((vm.champ = init_champ__()) == NULL)
-		p_error();
 	vm.nb_player = set_champ(vm.champ, &arg);
 	play(&vm);
 	return (0);
