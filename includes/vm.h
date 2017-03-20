@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:09:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 19:15:17 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 19:13:34 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 ** *******
 ** game is over when all process are dead
 ** *******
-** Player X (champion_name) won where X is the player’s number and
+** Player X (champion_name) won where X is the player's number and
 ** champion_name is its name.
 ** *******
 ** A process shows that player X (champion_name) is alive
@@ -135,6 +135,9 @@ void			purge_process(t_vm *vm, unsigned long last_check);
 void			introduce(t_vm *vm);
 void			play(t_vm *vm);
 void			print_winner(t_vm *vm);
+void			dump_play(t_vm *vm);
+void			stop_play(t_vm *vm);
+void			visual_play(t_vm *vm);
 
 /*
 ** OPT function

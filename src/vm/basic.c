@@ -6,11 +6,13 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:24:06 by jye               #+#    #+#             */
-/*   Updated: 2017/03/20 17:21:37 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <graphic.h>
+#include <ft_printf.h>
+#include <vm.h>
 
 static void	play__(t_vm *vm)
 {
@@ -29,7 +31,7 @@ static void	play__(t_vm *vm)
 		}
 		vm->cycle += 1;
 		if (vm->flag & verbose)
-			printf("It is now cycle %ld\n", vm->cycle);
+			ft_printf("It is now cycle %ld\n", vm->cycle);
 	}
 	print_winner(vm);
 }
@@ -39,10 +41,11 @@ void		introduce(t_vm *vm)
 	unsigned int	i;
 
 	i = 0;
-	printf("Introducing constestants...\n");
+	ft_printf("Introducing constestants...\n");
 	while (i < vm->nb_player)
 	{
-		printf(" * Player %d ID %d \"%s\" (\"%s\") weighting %u bytes\n", i + 1,
+		ft_printf(" * Player %d ID %d \"%s\" (\"%s\") weighting %u bytes\n",
+				i + 1,
 				vm->champ[i].id_player,
 				vm->champ[i].name,
 				vm->champ[i].comment,
@@ -53,8 +56,8 @@ void		introduce(t_vm *vm)
 
 void		print_winner(t_vm *vm)
 {
-	int		i;
-	t_champ	*win;
+	unsigned int	i;
+	t_champ			*win;
 
 	win = &vm->champ[0];
 	i = 0;
@@ -64,7 +67,7 @@ void		print_winner(t_vm *vm)
 			win = &vm->champ[i];
 		++i;
 	}
-	printf("Contestant %d, \"%s\", has won !\n", win->id_player, win->name);
+	ft_printf("Contestant %d, \"%s\", has won !\n", win->id_player, win->name);
 }
 
 void		play(t_vm *vm)

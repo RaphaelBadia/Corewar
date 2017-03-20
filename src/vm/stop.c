@@ -6,11 +6,12 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:18:13 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 18:23:12 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
+#include <ft_printf.h>
 
 static void	print_map64(unsigned char *map)
 {
@@ -23,14 +24,14 @@ static void	print_map64(unsigned char *map)
 	while (t < 64)
 	{
 		z = 0;
-		printf("0x%.4hx : ", i);
+		ft_printf("0x%.4hx : ", i);
 		while (z < 64)
 		{
-			printf("%.2hhx", map[i++]);
+			ft_printf("%.2hhx", map[i++]);
 			++z;
-			printf(" ");
+			ft_printf(" ");
 		}
-		printf("\n");
+		ft_printf("\n");
 		++t;
 	}
 }
@@ -54,7 +55,7 @@ void		stop_play(t_vm *vm)
 		}
 		vm->cycle += 1;
 		if (vm->flag & verbose)
-			printf("It is now cycle %ld\n", vm->cycle);
+			ft_printf("It is now cycle %ld\n", vm->cycle);
 	}
 	print_winner(vm);
 }

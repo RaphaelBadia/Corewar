@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <ft_printf.h>
 #include <errno.h>
 #include <unistd.h>
-#include "vm.h"
+#include <vm.h>
 
 unsigned int		nskip(unsigned char byte_code, unsigned char octal_code)
 {
@@ -56,13 +56,13 @@ void				checks(t_vm *vm)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		if (vm->flag & verbose)
-			printf("Cycle to die is now %d\n", vm->cycle_to_die);
+			ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
 	}
 	else if (vm->checks == 9 && !(vm->checks = 0))
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		if (vm->flag & verbose)
-			printf("Cycle to die is now %d\n", vm->cycle_to_die);
+			ft_printf("Cycle to die is now %d\n", vm->cycle_to_die);
 	}
 	else
 		vm->checks += 1;

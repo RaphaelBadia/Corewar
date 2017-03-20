@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
-#include "graphic.h"
+#include <vm.h>
+#include <graphic.h>
 #include <stdlib.h>
 #include <ncurses.h>
 #include <unistd.h>

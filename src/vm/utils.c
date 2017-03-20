@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 #include <stdlib.h>
 
 t_lst	*init_lst__(void *data)

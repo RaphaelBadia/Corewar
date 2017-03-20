@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	zjmp(t_vm *vm, t_process *process)
 {
@@ -21,17 +21,17 @@ void	zjmp(t_vm *vm, t_process *process)
 	pc = process->pc;
 	jump = (short)get_dir(vm, pc + 1, 1);
 	if (vm->flag & verbose)
-		printf("P %4d | zjmp %hd ", process->id, jump);
+		ft_printf("P %4d | zjmp %hd ", process->id, jump);
 	if (process->carry)
 	{
 		if (vm->flag & verbose)
-			printf("OK\n");
+			ft_printf("OK\n");
 		process->pc += (jump % IDX_MOD);
 	}
 	else
 	{
 		if (vm->flag & verbose)
-			printf("FAILED\n");
+			ft_printf("FAILED\n");
 		process->pc += 3;
 	}
 }

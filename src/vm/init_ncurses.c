@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <ncurses.h>
-#include "graphic.h"
+#include <graphic.h>
 
 static void	display_infos_border()
 {

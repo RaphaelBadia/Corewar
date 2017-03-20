@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	xor(t_vm *vm, t_process *process)
 {
@@ -32,7 +32,7 @@ void	xor(t_vm *vm, t_process *process)
 	}
 	r[2] = vm->map[PTR(pc[1])];
 	if (vm->flag & verbose)
-		printf("P %4d | xor %d %d r%d\n", process->id, r[0], r[1], r[2]);
+		ft_printf("P %4d | xor %d %d r%d\n", process->id, r[0], r[1], r[2]);
 	if ((process->r[r[2] - 1] = r[0] ^ r[1]) == 0)
 		process->carry = 1;
 	else

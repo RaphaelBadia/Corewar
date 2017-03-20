@@ -6,14 +6,14 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:44:53 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:54:18 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 18:57:22 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <string.h>
-# include <stdio.h>
-#include "vm.h"
+#include <stdlib.h>
+#include <vm.h>
+#include <ft_printf.h>
+#include <libft.h>
 
 void	frk(t_vm *vm, t_process *process)
 {
@@ -28,9 +28,9 @@ void	frk(t_vm *vm, t_process *process)
 	pc = process->pc;
 	target = get_dir(vm, pc + 1, 1);
 	if (vm->flag & verbose)
-		printf("P %4d | fork %hd (%d)\n",
+		ft_printf("P %4d | fork %hd (%d)\n",
 		process->id, target, pc + (target % IDX_MOD));
-	memcpy(new_p, process, sizeof(t_process));
+	ft_memcpy(new_p, process, sizeof(t_process));
 	new_p->pc += (target % IDX_MOD);
 	byte_code = vm->map[PTR(new_p->pc)];
 	vm->nb_process += 1;

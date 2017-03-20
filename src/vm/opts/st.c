@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:41:11 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/20 18:18:27 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 19:15:53 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "graphic.h"
+#include <ft_printf.h>
+#include <graphic.h>
 
 void	st(t_vm *vm, t_process *process)
 {
@@ -25,7 +25,7 @@ void	st(t_vm *vm, t_process *process)
 	octal = (vm->map[PTR(pc + 1)] >> 4) & 3;
 	reg = vm->map[PTR(pc + 2)];
 	if (vm->flag & verbose)
-		printf("P %4d | st r%d ", process->id, reg);
+		ft_printf("P %4d | st r%d ", process->id, reg);
 	offset = octal == REG_CODE ? 4 : 5;
 	reg = process->r[reg - 1];
 	if (octal == REG_CODE && (param = vm->map[PTR(pc + 3)]))
@@ -37,6 +37,6 @@ void	st(t_vm *vm, t_process *process)
 		refresh_map(vm, PTR(pc + (param % IDX_MOD)), 4, process->id_player);
 	}
 	if (vm->flag & verbose)
-		printf("%d\n", param);
+		ft_printf("%d\n", param);
 	process->pc += offset;
 }

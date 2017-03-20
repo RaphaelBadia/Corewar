@@ -13,7 +13,7 @@
 #include <op.h>
 #include <asm.h>
 #include <stdlib.h>
-#include "ft_printf.h"
+#include <ft_printf.h>
 
 void		op_nothing(t_asm *data, char **args)
 {

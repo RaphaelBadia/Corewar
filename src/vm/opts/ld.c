@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:40:52 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:53:41 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 18:57:18 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <vm.h>
+#include <ft_printf.h>
 
 void	ld(t_vm *vm, t_process *process)
 {
@@ -30,7 +30,7 @@ void	ld(t_vm *vm, t_process *process)
 	offset = octal == DIR_CODE ? 6 : 4;
 	reg = vm->map[PTR(pc + offset)];
 	if (vm->flag & verbose)
-		printf("P %4d | ld %d r%d\n", process->id, param, reg);
+		ft_printf("P %4d | ld %d r%d\n", process->id, param, reg);
 	if (!(process->r[reg - 1] = param))
 		process->carry = 1;
 	else

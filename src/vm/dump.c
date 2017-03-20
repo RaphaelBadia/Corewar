@@ -6,11 +6,12 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:19:00 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 18:23:11 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 static void	print_map32(unsigned char *map)
 {
@@ -25,11 +26,11 @@ static void	print_map32(unsigned char *map)
 		z = 0;
 		while (z < 32)
 		{
-			printf("%.2hhx", map[i++]);
+			ft_printf("%.2hhx", map[i++]);
 			++z;
-			printf(" ");
+			ft_printf(" ");
 		}
-		printf("\n");
+		ft_printf("\n");
 		++t;
 	}
 }
@@ -51,7 +52,7 @@ void		dump_play(t_vm *vm)
 		}
 		vm->cycle += 1;
 		if (vm->flag & verbose)
-			printf("It is now cycle %ld\n", vm->cycle);
+			ft_printf("It is now cycle %ld\n", vm->cycle);
 	}
 	if (vm->process)
 		print_map32(vm->map);

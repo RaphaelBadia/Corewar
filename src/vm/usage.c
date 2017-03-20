@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	usage(char *p_name)
 {
-	printf("%s: [-dump N] [-n N gladiator.cor...]\n", p_name);
-	printf("########### HELP OUTPUT MODE ##############\n");
-	printf("%10s Dumps the map in hexadecimal at N cycle.\n", "\t-dump N");
-	printf("%10s Print the map every N cycle.\n", "\t-s N");
-	printf("%10s Turn on the aff instruction (default is off).\n", "\t-a");
-	printf("%10s Print information about what the fuck the vm is doing",
+	ft_printf("%s: [-dump N] [-n N gladiator.cor...]\n", p_name);
+	ft_printf("########### HELP OUTPUT MODE ##############\n");
+	ft_printf("%10s Dumps the map in hexadecimal at N cycle.\n", "\t-dump N");
+	ft_printf("%10s Print the map every N cycle.\n", "\t-s N");
+	ft_printf("%10s Turn on the aff instruction (default is off).\n", "\t-a");
+	ft_printf("%10s Print information about what the fuck the vm is doing",
 			"\t-v");
-	printf(" (default is 0).\n");
+	ft_printf(" (default is 0).\n");
 	exit(EXIT_FAILURE);
 }

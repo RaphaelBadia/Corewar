@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	lldi(t_vm *vm, t_process *process)
 {
@@ -32,7 +32,7 @@ void	lldi(t_vm *vm, t_process *process)
 	}
 	r[2] = vm->map[PTR(pc[1])];
 	if (vm->flag & verbose)
-		printf("P %4d | lldi %d %d r%d\n", process->id, r[0], r[1], r[2]);
+		ft_printf("P %4d | lldi %d %d r%d\n", process->id, r[0], r[1], r[2]);
 	process->r[r[2] - 1] = get_dir(vm, pc[0] + ((r[0] + r[1])), 0);
 	process->pc = pc[1] + 1;
 }

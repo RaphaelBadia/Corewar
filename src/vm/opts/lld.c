@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	lld(t_vm *vm, t_process *process)
 {
@@ -30,7 +30,7 @@ void	lld(t_vm *vm, t_process *process)
 	offset = octal == DIR_CODE ? 6 : 4;
 	reg = vm->map[PTR(pc + offset)];
 	if (vm->flag & verbose)
-		printf("P %4d | lld %d r%d\n", process->id, param, reg);
+		ft_printf("P %4d | lld %d r%d\n", process->id, param, reg);
 	if (!(process->r[reg - 1] = param))
 		process->carry = 1;
 	else

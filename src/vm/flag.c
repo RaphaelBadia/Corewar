@@ -12,7 +12,7 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "vm.h"
+#include <vm.h>
 
 static int		reset_flag(t_vm *vm, unsigned int flag)
 {

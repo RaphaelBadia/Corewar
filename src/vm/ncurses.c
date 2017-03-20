@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:51:07 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/18 19:11:30 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 19:15:53 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
-#include "graphic.h"
+#include <graphic.h>
 
 static int	get_player_color(t_vm *vm, unsigned int id)
 {

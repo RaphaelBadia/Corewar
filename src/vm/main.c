@@ -14,11 +14,11 @@
 #include <limits.h>
 #include <string.h>
 #include <errno.h>
-#include <stdio.h>
+#include <ft_printf.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <ncurses.h>
-#include "graphic.h"
+#include <graphic.h>
 
 int		main(int ac, char **av)
 {

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <string.h>
-#include "graphic.h"
+#include <graphic.h>
 
 void	set_map(t_vm *vm)
 {

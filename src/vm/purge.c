@@ -6,12 +6,13 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 22:17:01 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 19:14:16 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 19:11:21 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "graphic.h"
+#include <ft_printf.h>
+#include <graphic.h>
 
 static void	kill_process(t_vm *vm, t_lst **node_to_kill,
 							t_process *pro, unsigned long last_check)
@@ -19,9 +20,9 @@ static void	kill_process(t_vm *vm, t_lst **node_to_kill,
 	unlight(vm, pro->pc, 1);
 	vm->nb_process -= 1;
 	if (vm->flag & verbose)
-		printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
-			   pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
-			   vm->cycle_to_die + 50);
+		ft_printf("Process %d hasn't lived for %d cycles (CTD %d)\n",
+				pro->id, vm->cycle_to_die + 50 + last_check - pro->last_live,
+				vm->cycle_to_die + 50);
 	pop_lst__(node_to_kill, &free);
 }
 

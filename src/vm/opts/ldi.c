@@ -6,12 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:43:13 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:52:56 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 18:57:37 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <vm.h>
+#include <ft_printf.h>
 
 void	ldi(t_vm *vm, t_process *process)
 {
@@ -32,7 +32,7 @@ void	ldi(t_vm *vm, t_process *process)
 	}
 	r[2] = vm->map[PTR(pc[1])];
 	if (vm->flag & verbose)
-		printf("P %4d | ldi %d %d r%d\n", process->id, r[0], r[1], r[2]);
+		ft_printf("P %4d | ldi %d %d r%d\n", process->id, r[0], r[1], r[2]);
 	process->r[r[2] - 1] = get_dir(vm, pc[0] + ((r[0] + r[1]) % IDX_MOD), 0);
 	process->pc = pc[1] + 1;
 }

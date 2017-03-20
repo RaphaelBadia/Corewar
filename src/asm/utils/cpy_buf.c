@@ -13,7 +13,7 @@
 #include <op.h>
 #include <asm.h>
 #include <stdlib.h>
-#include "libft.h"
+#include <libft.h>
 
 void	ft_realoc(t_asm *data, size_t n)
 {

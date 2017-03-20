@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "graphic.h"
+#include <graphic.h>
 
 static int			test_reg(t_vm *vm, unsigned char byte_code,
 						unsigned char octal_code, unsigned int pc)

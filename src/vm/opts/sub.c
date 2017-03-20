@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
-#include "vm.h"
+#include <ft_printf.h>
+#include <vm.h>
 
 void	sub(t_vm *vm, t_process *process)
 {
@@ -23,7 +23,7 @@ void	sub(t_vm *vm, t_process *process)
 	r[1] = vm->map[PTR(pc + 3)];
 	r[2] = vm->map[PTR(pc + 4)];
 	if (vm->flag & verbose)
-		printf("P %4d | sub r%d r%d r%d\n", process->id, r[0], r[1], r[2]);
+		ft_printf("P %4d | sub r%d r%d r%d\n", process->id, r[0], r[1], r[2]);
 	r[0] = process->r[r[0] - 1];
 	r[1] = process->r[r[1] - 1];
 	if ((process->r[r[2] - 1] = r[0] - r[1]) == 0)

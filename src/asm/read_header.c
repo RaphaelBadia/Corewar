@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include <errno.h>
-#include <stdio.h>
+#include <ft_printf.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <op.h>
 #include <asm.h>
-#include "libft.h"
+#include <libft.h>
 
 static void		fill_name(t_asm *data, char *name)
 {

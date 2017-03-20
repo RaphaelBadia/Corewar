@@ -9,9 +9,9 @@ int debug;
 		{
 #endif
 #ifdef SHIT
-			printf("=======before======\n");
-			printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
-			printf("op_code %u %s\n", process->op_code, NULL);
+			ft_printf("=======before======\n");
+			ft_printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
+			ft_printf("op_code %u %s\n", process->op_code, NULL);
 #endif
 #ifdef DEBUG
 		}
@@ -23,9 +23,9 @@ int debug;
 		{
 #endif
 #ifdef SHIT
-			printf("=======before======\n");
-			printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
-			printf("op_code %u %s\n", process->op_code, NULL);
+			ft_printf("=======before======\n");
+			ft_printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
+			ft_printf("op_code %u %s\n", process->op_code, NULL);
 #endif
 #ifdef DEBUG
 		}
@@ -38,30 +38,30 @@ int debug;
 #endif
 #ifdef SHIT
 		char c;
-		printf("=========after========\n");
-		printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
-		printf("vm->nb_process %-4u\n", vm->nb_process);
+		ft_printf("=========after========\n");
+		ft_printf("id proc %-4u pc %-4x", process->id, process->pc /* - process->pc % 64, process->pc % 64 */);
+		ft_printf("vm->nb_process %-4u\n", vm->nb_process);
 		int i = 0;
 		while (i < vm->nb_player)
 		{
-			printf("name %-20s live %-5u ", vm->champ[i].name, vm->champ[i].live);
+			ft_printf("name %-20s live %-5u ", vm->champ[i].name, vm->champ[i].live);
 			++i;
 		}
-		printf("\n");
+		ft_printf("\n");
 		i = 0;
 		while (i < vm->nb_player)
 		{
-			printf("last_live %-26u ", vm->champ[i].last_live);
+			ft_printf("last_live %-26u ", vm->champ[i].last_live);
 			++i;
 		}
-		printf("\n");
-		printf("vm->cycle %-15u", vm->cycle);
-		printf("vm->live %-5u cycle_to_die %-5u, checks %-5u last_check %u\n",vm->live, vm->cycle_to_die, vm->checks + 1, debug);
+		ft_printf("\n");
+		ft_printf("vm->cycle %-15u", vm->cycle);
+		ft_printf("vm->live %-5u cycle_to_die %-5u, checks %-5u last_check %u\n",vm->live, vm->cycle_to_die, vm->checks + 1, debug);
 		print_map(vm->map);
 		fflush(stdout);
 //		usleep(7500);
 		read(0, &c, 1);
-		printf("\e[2J");
+		ft_printf("\e[2J");
 #endif
 #ifdef DEBUG
 	}

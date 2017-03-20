@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include <vm.h>
 
 void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
 {
