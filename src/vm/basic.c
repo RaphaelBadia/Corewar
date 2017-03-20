@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:24:06 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 19:29:37 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/20 17:21:37 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void		print_winner(t_vm *vm)
 			win = &vm->champ[i];
 		++i;
 	}
-	printf("PLAYER \"%s\" ID %d (\"%s\") HAS WON WOW.\n", win->name,
-			win->id_player, win->comment);
+	printf("Contestant %d, \"%s\", has won !\n", win->id_player, win->name);
 }
 
 void		play(t_vm *vm)

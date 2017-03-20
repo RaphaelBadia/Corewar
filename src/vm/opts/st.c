@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:41:11 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 15:49:53 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 18:18:27 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	st(t_vm *vm, t_process *process)
 	{
 		param = (short)get_dir(vm, pc + 3, 1);
 		st_param(vm, pc + (param % IDX_MOD), reg);
-		refresh_map(vm, pc + (param % IDX_MOD), 4, process->id_player);
+		refresh_map(vm, PTR(pc + (param % IDX_MOD)), 4, process->id_player);
 	}
 	if (vm->flag & verbose)
 		printf("%d\n", param);

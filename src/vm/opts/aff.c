@@ -6,7 +6,7 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:46:02 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/13 16:24:11 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/20 18:05:21 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,5 @@ void			aff(t_vm *vm, t_process *process)
 	r = process->r[r - 1] % 256;
 	if (vm->flag & aff_flag)
 		write(r, &r, 1);
+	process->pc += 3;
 }
