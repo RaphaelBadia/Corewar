@@ -6,13 +6,12 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 15:43:51 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/18 19:06:39 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:03:54 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 #include <graphic.h>
-
 
 static void		print_sti(unsigned int pc[2], int r[3])
 {

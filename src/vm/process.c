@@ -6,14 +6,13 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 21:37:22 by jye               #+#    #+#             */
-/*   Updated: 2017/03/12 17:58:30 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/21 22:04:40 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <vm.h>
 #include <stdlib.h>
-//
-#include <string.h>
+#include <libft.h>
 
 static t_process	*init_process__(t_vm *vm, unsigned int r1, unsigned int pc)
 {
@@ -21,7 +20,7 @@ static t_process	*init_process__(t_vm *vm, unsigned int r1, unsigned int pc)
 
 	if ((new_p = malloc(sizeof(t_process))) == NULL)
 		return (NULL);
-	memset(new_p, 0, sizeof(t_process));
+	ft_memset(new_p, 0, sizeof(t_process));
 	new_p->r[0] = r1;
 	new_p->pc = pc;
 	new_p->id_player = r1;

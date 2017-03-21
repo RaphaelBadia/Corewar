@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jye <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 14:26:05 by jye               #+#    #+#             */
-/*   Updated: 2017/03/20 20:55:16 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:00:39 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	go_fast(unsigned char **cdst, unsigned char **csrc, size_t *n)
 	*cdst = (unsigned char *)ldst;
 }
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void		*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	unsigned char	*cdst;
 	unsigned char	*csrc;

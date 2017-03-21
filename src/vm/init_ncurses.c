@@ -6,14 +6,14 @@
 /*   By: rbadia <rbadia@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/12 17:28:46 by rbadia            #+#    #+#             */
-/*   Updated: 2017/03/18 19:08:06 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:03:19 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ncurses.h>
 #include <graphic.h>
 
-static void	display_infos_border()
+static void	display_infos_border(void)
 {
 	int	i;
 

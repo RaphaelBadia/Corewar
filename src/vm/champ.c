@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 20:58:33 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 17:28:36 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:02:15 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-//
-#include <string.h>
+#include <libft.h>
 
 static void	set_data__(t_champ *champ, unsigned char *buff)
 {
 	if ((champ->name = malloc(PROG_NAME_LENGTH + 1)) == NULL)
 		p_error();
 	champ->name[PROG_NAME_LENGTH] = 0;
-	memcpy(champ->name, buff + sizeof(int), PROG_NAME_LENGTH);
+	ft_memcpy(champ->name, buff + sizeof(int), PROG_NAME_LENGTH);
 	champ->size = ((buff[136] << 24) |
 					(buff[137] << 16) |
 					(buff[138] << 8) |
@@ -30,7 +29,7 @@ static void	set_data__(t_champ *champ, unsigned char *buff)
 	if ((champ->comment = malloc(COMMENT_LENGTH + 1)) == NULL)
 		p_error();
 	champ->comment[COMMENT_LENGTH] = 0;
-	memcpy(champ->comment, buff + 140, COMMENT_LENGTH);
+	ft_memcpy(champ->comment, buff + 140, COMMENT_LENGTH);
 }
 
 static void	set_data(t_champ *champ, char *file_name)
@@ -58,7 +57,7 @@ static void	set_data(t_champ *champ, char *file_name)
 	else if (champ->size > CHAMP_MAX_SIZE)
 		vm_error("Gladiator size too fat, please consider doing a diet.\n");
 	champ->byte_code = malloc(champ->size);
-	memcpy(champ->byte_code, buff, champ->size);
+	ft_memcpy(champ->byte_code, buff, champ->size);
 	close(fd);
 }
 

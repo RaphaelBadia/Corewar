@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 20:39:35 by jye               #+#    #+#             */
-/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/21 21:54:32 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	p_error(void)
 
 void	vm_error(char *error_string)
 {
-	ft_printf("%s", error_string);
+	ft_dprintf(2, "%s", error_string);
 	exit(EXIT_FAILURE);
 }

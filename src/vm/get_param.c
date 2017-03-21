@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 16:59:06 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 18:46:08 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:03:11 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void			st_param(t_vm *vm, unsigned int pc, unsigned int val)
 	vm->map[PTR(pc + 3)] = val & 0xff;
 }
 
-int			get_indir(t_vm *vm, unsigned int pc,
+int				get_indir(t_vm *vm, unsigned int pc,
 						unsigned int i, unsigned int mod)
 {
 	int		param;
@@ -41,7 +41,7 @@ int			get_indir(t_vm *vm, unsigned int pc,
 	return (param);
 }
 
-int			get_dir(t_vm *vm, unsigned int pc, unsigned int label)
+int				get_dir(t_vm *vm, unsigned int pc, unsigned int label)
 {
 	int		param;
 
@@ -55,7 +55,8 @@ int			get_dir(t_vm *vm, unsigned int pc, unsigned int label)
 	return (param);
 }
 
-int			get_param(t_vm *vm, t_process *process, unsigned int *pc, int data[3])
+int				get_param(t_vm *vm, t_process *process, unsigned int *pc,
+							int data[3])
 {
 	int r;
 
