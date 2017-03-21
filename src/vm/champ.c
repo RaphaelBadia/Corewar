@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 20:58:33 by jye               #+#    #+#             */
-/*   Updated: 2017/03/21 22:02:15 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/21 22:54:57 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int			set_champ(t_champ *champ, t_arg *arg)
 	j = 0;
 	while (j < MAX_PLAYERS && arg->i < arg->ac)
 	{
-		if (!strcmp(arg->av[arg->i], IDP_FLAG))
+		if (!ft_strcmp(arg->av[arg->i], IDP_FLAG))
 		{
 			if (arg->i + 1 > arg->ac - 1)
 				usage(arg->av[0]);
 			else
-				champ[j].id_player = atoi(arg->av[++arg->i]);
+				champ[j].id_player = ft_atoi(arg->av[++arg->i]);
 		}
 		else
 			set_data(&champ[j++], arg->av[arg->i]);

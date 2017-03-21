@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/21 18:08:24 by jye               #+#    #+#             */
-/*   Updated: 2017/03/18 18:24:25 by jye              ###   ########.fr       */
+/*   Updated: 2017/03/21 22:53:55 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		main(int ac, char **av)
 	arg.i = 0;
 	if (ac == 1)
 		usage(av[0]);
-	memset(&vm, 0, sizeof(t_vm));
+	ft_memset(&vm, 0, sizeof(t_vm));
 	set_flag(&vm, &arg);
 	vm.nb_player = set_champ(vm.champ, &arg);
 	play(&vm);
