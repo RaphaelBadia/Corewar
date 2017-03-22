@@ -1,0 +1,877 @@
+sam_2.0,doge,Rainbow_dash,youforkmytralala|S.A.M.
+sam_2.0,doge,Rainbow_dash,big_feet|top defense plus plus
+sam_2.0,doge,Rainbow_dash,loose|loose
+sam_2.0,doge,Rainbow_dash,mandragore|S.A.M.
+sam_2.0,doge,Rainbow_dash,gedeon|Gédéon le Cochon
+sam_2.0,doge,Rainbow_dash,terminator|S.A.M.
+sam_2.0,doge,Rainbow_dash,ultimate-surrender|S.A.M.
+sam_2.0,doge,Rainbow_dash,_|Underscore
+sam_2.0,doge,Rainbow_dash,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,Rainbow_dash,Machine-gun|Machine-gun
+sam_2.0,doge,Rainbow_dash,corelol|laugh
+sam_2.0,doge,Rainbow_dash,MarineKing|MKP
+sam_2.0,doge,Rainbow_dash,Kappa|Kappa
+sam_2.0,doge,Rainbow_dash,Wall|Wall
+sam_2.0,doge,Rainbow_dash,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,Rainbow_dash,Varimathras|Varimathras
+sam_2.0,doge,Rainbow_dash,justin_bee|Candy
+sam_2.0,doge,Rainbow_dash,_honeybadger|S.A.M.
+sam_2.0,doge,Rainbow_dash,skynet|skynet
+sam_2.0,doge,Rainbow_dash,live|S.A.M.
+sam_2.0,doge,Rainbow_dash,meowluigi|Meow Luigi
+sam_2.0,doge,Rainbow_dash,dubo|dubo
+sam_2.0,doge,Rainbow_dash,jinx|S.A.M.
+sam_2.0,doge,Rainbow_dash,THUNDER|thunder
+sam_2.0,doge,Rainbow_dash,Asombra|King Sombra
+sam_2.0,doge,Rainbow_dash,littlepuppy|Little Puppy
+sam_2.0,doge,Rainbow_dash,champ|S.A.M.
+sam_2.0,doge,Rainbow_dash,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,Rainbow_dash,casimir|CASIMIR
+sam_2.0,doge,youforkmytralala,big_feet|top defense plus plus
+sam_2.0,doge,youforkmytralala,loose|loose
+sam_2.0,doge,youforkmytralala,mandragore|S.A.M.
+sam_2.0,doge,youforkmytralala,gedeon|Gédéon le Cochon
+sam_2.0,doge,youforkmytralala,terminator|S.A.M.
+sam_2.0,doge,youforkmytralala,ultimate-surrender|S.A.M.
+sam_2.0,doge,youforkmytralala,_|Underscore
+sam_2.0,doge,youforkmytralala,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,youforkmytralala,Machine-gun|Machine-gun
+sam_2.0,doge,youforkmytralala,corelol|Oh, You Fork my TRALALA ...
+sam_2.0,doge,youforkmytralala,MarineKing|MKP
+sam_2.0,doge,youforkmytralala,Kappa|Oh, You Fork my TRALALA ...
+sam_2.0,doge,youforkmytralala,Wall|Wall
+sam_2.0,doge,youforkmytralala,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,youforkmytralala,Varimathras|Varimathras
+sam_2.0,doge,youforkmytralala,justin_bee|Oh, You Fork my TRALALA ...
+sam_2.0,doge,youforkmytralala,_honeybadger|S.A.M.
+sam_2.0,doge,youforkmytralala,skynet|skynet
+sam_2.0,doge,youforkmytralala,live|S.A.M.
+sam_2.0,doge,youforkmytralala,meowluigi|Oh, You Fork my TRALALA ...
+sam_2.0,doge,youforkmytralala,dubo|dubo
+sam_2.0,doge,youforkmytralala,jinx|Jinx
+sam_2.0,doge,youforkmytralala,THUNDER|thunder
+sam_2.0,doge,youforkmytralala,Asombra|King Sombra
+sam_2.0,doge,youforkmytralala,littlepuppy|Little Puppy
+sam_2.0,doge,youforkmytralala,champ|lazer
+sam_2.0,doge,youforkmytralala,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,youforkmytralala,casimir|Oh, You Fork my TRALALA ...
+sam_2.0,doge,big_feet,loose|top defense plus plus
+sam_2.0,doge,big_feet,mandragore|S.A.M.
+sam_2.0,doge,big_feet,gedeon|Gédéon le Cochon
+sam_2.0,doge,big_feet,terminator|top defense plus plus
+sam_2.0,doge,big_feet,ultimate-surrender|top defense plus plus
+sam_2.0,doge,big_feet,_|Underscore
+sam_2.0,doge,big_feet,salamahenagalabadoun|top defense plus plus
+sam_2.0,doge,big_feet,Machine-gun|top defense plus plus
+sam_2.0,doge,big_feet,corelol|laugh
+sam_2.0,doge,big_feet,MarineKing|MKP
+sam_2.0,doge,big_feet,Kappa|Kappa
+sam_2.0,doge,big_feet,Wall|Wall
+sam_2.0,doge,big_feet,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,big_feet,Varimathras|top defense plus plus
+sam_2.0,doge,big_feet,justin_bee|top defense plus plus
+sam_2.0,doge,big_feet,_honeybadger|top defense plus plus
+sam_2.0,doge,big_feet,skynet|top defense plus plus
+sam_2.0,doge,big_feet,live|top defense plus plus
+sam_2.0,doge,big_feet,meowluigi|top defense plus plus
+sam_2.0,doge,big_feet,dubo|top defense plus plus
+sam_2.0,doge,big_feet,jinx|Jinx
+sam_2.0,doge,big_feet,THUNDER|top defense plus plus
+sam_2.0,doge,big_feet,Asombra|King Sombra
+sam_2.0,doge,big_feet,littlepuppy|top defense plus plus
+sam_2.0,doge,big_feet,champ|top defense plus plus
+sam_2.0,doge,big_feet,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,big_feet,casimir|top defense plus plus
+sam_2.0,doge,loose,mandragore|loose
+sam_2.0,doge,loose,gedeon|Gédéon le Cochon
+sam_2.0,doge,loose,terminator|loose
+sam_2.0,doge,loose,ultimate-surrender|loose
+sam_2.0,doge,loose,_|loose
+sam_2.0,doge,loose,salamahenagalabadoun|loose
+sam_2.0,doge,loose,Machine-gun|Machine-gun
+sam_2.0,doge,loose,corelol|loose
+sam_2.0,doge,loose,MarineKing|MKP
+sam_2.0,doge,loose,Kappa|Kappa
+sam_2.0,doge,loose,Wall|Wall
+sam_2.0,doge,loose,Misaka_Mikoto|loose
+sam_2.0,doge,loose,Varimathras|loose
+sam_2.0,doge,loose,justin_bee|L'arene des abeilles
+sam_2.0,doge,loose,_honeybadger|loose
+sam_2.0,doge,loose,skynet|skynet
+sam_2.0,doge,loose,live|loose
+sam_2.0,doge,loose,meowluigi|loose
+sam_2.0,doge,loose,dubo|dubo
+sam_2.0,doge,loose,jinx|Jinx
+sam_2.0,doge,loose,THUNDER|thunder
+sam_2.0,doge,loose,Asombra|loose
+sam_2.0,doge,loose,littlepuppy|loose
+sam_2.0,doge,loose,champ|loose
+sam_2.0,doge,loose,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,loose,casimir|CASIMIR
+sam_2.0,doge,mandragore,gedeon|Gédéon le Cochon
+sam_2.0,doge,mandragore,terminator|S.A.M.
+sam_2.0,doge,mandragore,ultimate-surrender|S.A.M.
+sam_2.0,doge,mandragore,_|Underscore
+sam_2.0,doge,mandragore,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,mandragore,Machine-gun|Machine-gun
+sam_2.0,doge,mandragore,corelol|mandragore
+sam_2.0,doge,mandragore,MarineKing|MKP
+sam_2.0,doge,mandragore,Kappa|mandragore
+sam_2.0,doge,mandragore,Wall|Wall
+sam_2.0,doge,mandragore,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,mandragore,Varimathras|Varimathras
+sam_2.0,doge,mandragore,justin_bee|mandragore
+sam_2.0,doge,mandragore,_honeybadger|S.A.M.
+sam_2.0,doge,mandragore,skynet|skynet
+sam_2.0,doge,mandragore,live|S.A.M.
+sam_2.0,doge,mandragore,meowluigi|mandragore
+sam_2.0,doge,mandragore,dubo|dubo
+sam_2.0,doge,mandragore,jinx|Jinx
+sam_2.0,doge,mandragore,THUNDER|thunder
+sam_2.0,doge,mandragore,Asombra|King Sombra
+sam_2.0,doge,mandragore,littlepuppy|Little Puppy
+sam_2.0,doge,mandragore,champ|lazer
+sam_2.0,doge,mandragore,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,mandragore,casimir|mandragore
+sam_2.0,doge,gedeon,terminator|S.A.M.
+sam_2.0,doge,gedeon,ultimate-surrender|Gédéon le Cochon
+sam_2.0,doge,gedeon,_|S.A.M.
+sam_2.0,doge,gedeon,salamahenagalabadoun|Gédéon le Cochon
+sam_2.0,doge,gedeon,Machine-gun|Gédéon le Cochon
+sam_2.0,doge,gedeon,corelol|Gédéon le Cochon
+sam_2.0,doge,gedeon,MarineKing|Gédéon le Cochon
+sam_2.0,doge,gedeon,Kappa|Kappa
+sam_2.0,doge,gedeon,Wall|Wall
+sam_2.0,doge,gedeon,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,gedeon,Varimathras|Gédéon le Cochon
+sam_2.0,doge,gedeon,justin_bee|Gédéon le Cochon
+sam_2.0,doge,gedeon,_honeybadger|Gédéon le Cochon
+sam_2.0,doge,gedeon,skynet|skynet
+sam_2.0,doge,gedeon,live|Gédéon le Cochon
+sam_2.0,doge,gedeon,meowluigi|Gédéon le Cochon
+sam_2.0,doge,gedeon,dubo|Gédéon le Cochon
+sam_2.0,doge,gedeon,jinx|Jinx
+sam_2.0,doge,gedeon,THUNDER|Gédéon le Cochon
+sam_2.0,doge,gedeon,Asombra|King Sombra
+sam_2.0,doge,gedeon,littlepuppy|Gédéon le Cochon
+sam_2.0,doge,gedeon,champ|Gédéon le Cochon
+sam_2.0,doge,gedeon,darksasuke|Gédéon le Cochon
+sam_2.0,doge,gedeon,casimir|Gédéon le Cochon
+sam_2.0,doge,terminator,ultimate-surrender|S.A.M.
+sam_2.0,doge,terminator,_|Underscore
+sam_2.0,doge,terminator,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,terminator,Machine-gun|Machine-gun
+sam_2.0,doge,terminator,corelol|S.A.M.
+sam_2.0,doge,terminator,MarineKing|MKP
+sam_2.0,doge,terminator,Kappa|S.A.M.
+sam_2.0,doge,terminator,Wall|Wall
+sam_2.0,doge,terminator,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,terminator,Varimathras|Varimathras
+sam_2.0,doge,terminator,justin_bee|terminator
+sam_2.0,doge,terminator,_honeybadger|S.A.M.
+sam_2.0,doge,terminator,skynet|skynet
+sam_2.0,doge,terminator,live|S.A.M.
+sam_2.0,doge,terminator,meowluigi|terminator
+sam_2.0,doge,terminator,dubo|dubo
+sam_2.0,doge,terminator,jinx|S.A.M.
+sam_2.0,doge,terminator,THUNDER|thunder
+sam_2.0,doge,terminator,Asombra|King Sombra
+sam_2.0,doge,terminator,littlepuppy|Little Puppy
+sam_2.0,doge,terminator,champ|lazer
+sam_2.0,doge,terminator,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,terminator,casimir|Candy
+sam_2.0,doge,ultimate-surrender,_|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,ultimate-surrender,Machine-gun|Machine-gun
+sam_2.0,doge,ultimate-surrender,corelol|laugh
+sam_2.0,doge,ultimate-surrender,MarineKing|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,Kappa|Kappa
+sam_2.0,doge,ultimate-surrender,Wall|Wall
+sam_2.0,doge,ultimate-surrender,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,ultimate-surrender,Varimathras|Candy
+sam_2.0,doge,ultimate-surrender,justin_bee|L'arene des abeilles
+sam_2.0,doge,ultimate-surrender,_honeybadger|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,skynet|skynet
+sam_2.0,doge,ultimate-surrender,live|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,meowluigi|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,dubo|dubo
+sam_2.0,doge,ultimate-surrender,jinx|Jinx
+sam_2.0,doge,ultimate-surrender,THUNDER|thunder
+sam_2.0,doge,ultimate-surrender,Asombra|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,littlepuppy|Little Puppy
+sam_2.0,doge,ultimate-surrender,champ|Ultimate Surrender
+sam_2.0,doge,ultimate-surrender,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,ultimate-surrender,casimir|CASIMIR
+sam_2.0,doge,_,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,doge,_,Machine-gun|Underscore
+sam_2.0,doge,_,corelol|Underscore
+sam_2.0,doge,_,MarineKing|MKP
+sam_2.0,doge,_,Kappa|Underscore
+sam_2.0,doge,_,Wall|Wall
+sam_2.0,doge,_,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,_,Varimathras|Varimathras
+sam_2.0,doge,_,justin_bee|Underscore
+sam_2.0,doge,_,_honeybadger|S.A.M.
+sam_2.0,doge,_,skynet|S.A.M.
+sam_2.0,doge,_,live|zdoh
+sam_2.0,doge,_,meowluigi|Meow Luigi
+sam_2.0,doge,_,dubo|dubo
+sam_2.0,doge,_,jinx|Underscore
+sam_2.0,doge,_,THUNDER|thunder
+sam_2.0,doge,_,Asombra|Underscore
+sam_2.0,doge,_,littlepuppy|Candy
+sam_2.0,doge,_,champ|lazer
+sam_2.0,doge,_,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,_,casimir|S.A.M.
+sam_2.0,doge,salamahenagalabadoun,Machine-gun|Machine-gun
+sam_2.0,doge,salamahenagalabadoun,corelol|Candy
+sam_2.0,doge,salamahenagalabadoun,MarineKing|salamahenagalabadoun
+sam_2.0,doge,salamahenagalabadoun,Kappa|salamahenagalabadoun
+sam_2.0,doge,salamahenagalabadoun,Wall|Wall
+sam_2.0,doge,salamahenagalabadoun,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,salamahenagalabadoun,Varimathras|S.A.M.
+sam_2.0,doge,salamahenagalabadoun,justin_bee|Candy
+sam_2.0,doge,salamahenagalabadoun,_honeybadger|S.A.M.
+sam_2.0,doge,salamahenagalabadoun,skynet|skynet
+sam_2.0,doge,salamahenagalabadoun,live|S.A.M.
+sam_2.0,doge,salamahenagalabadoun,meowluigi|salamahenagalabadoun
+sam_2.0,doge,salamahenagalabadoun,dubo|dubo
+sam_2.0,doge,salamahenagalabadoun,jinx|Jinx
+sam_2.0,doge,salamahenagalabadoun,THUNDER|salamahenagalabadoun
+sam_2.0,doge,salamahenagalabadoun,Asombra|King Sombra
+sam_2.0,doge,salamahenagalabadoun,littlepuppy|Little Puppy
+sam_2.0,doge,salamahenagalabadoun,champ|lazer
+sam_2.0,doge,salamahenagalabadoun,darksasuke|salamahenagalabadoun
+sam_2.0,doge,salamahenagalabadoun,casimir|salamahenagalabadoun
+sam_2.0,doge,Machine-gun,corelol|Candy
+sam_2.0,doge,Machine-gun,MarineKing|Machine-gun
+sam_2.0,doge,Machine-gun,Kappa|Candy
+sam_2.0,doge,Machine-gun,Wall|Wall
+sam_2.0,doge,Machine-gun,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,Machine-gun,Varimathras|S.A.M.
+sam_2.0,doge,Machine-gun,justin_bee|Candy
+sam_2.0,doge,Machine-gun,_honeybadger|S.A.M.
+sam_2.0,doge,Machine-gun,skynet|skynet
+sam_2.0,doge,Machine-gun,live|S.A.M.
+sam_2.0,doge,Machine-gun,meowluigi|Machine-gun
+sam_2.0,doge,Machine-gun,dubo|dubo
+sam_2.0,doge,Machine-gun,jinx|Jinx
+sam_2.0,doge,Machine-gun,THUNDER|Machine-gun
+sam_2.0,doge,Machine-gun,Asombra|King Sombra
+sam_2.0,doge,Machine-gun,littlepuppy|Little Puppy
+sam_2.0,doge,Machine-gun,champ|lazer
+sam_2.0,doge,Machine-gun,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,Machine-gun,casimir|Machine-gun
+sam_2.0,doge,corelol,MarineKing|laugh
+sam_2.0,doge,corelol,Kappa|Candy
+sam_2.0,doge,corelol,Wall|Wall
+sam_2.0,doge,corelol,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,corelol,Varimathras|Varimathras
+sam_2.0,doge,corelol,justin_bee|Candy
+sam_2.0,doge,corelol,_honeybadger|S.A.M.
+sam_2.0,doge,corelol,skynet|skynet
+sam_2.0,doge,corelol,live|S.A.M.
+sam_2.0,doge,corelol,meowluigi|Meow Luigi
+sam_2.0,doge,corelol,dubo|Candy
+sam_2.0,doge,corelol,jinx|S.A.M.
+sam_2.0,doge,corelol,THUNDER|thunder
+sam_2.0,doge,corelol,Asombra|King Sombra
+sam_2.0,doge,corelol,littlepuppy|Little Puppy
+sam_2.0,doge,corelol,champ|S.A.M.
+sam_2.0,doge,corelol,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,corelol,casimir|Candy
+sam_2.0,doge,MarineKing,Kappa|Kappa
+sam_2.0,doge,MarineKing,Wall|MKP
+sam_2.0,doge,MarineKing,Misaka_Mikoto|MKP
+sam_2.0,doge,MarineKing,Varimathras|Varimathras
+sam_2.0,doge,MarineKing,justin_bee|L'arene des abeilles
+sam_2.0,doge,MarineKing,_honeybadger|S.A.M.
+sam_2.0,doge,MarineKing,skynet|skynet
+sam_2.0,doge,MarineKing,live|S.A.M.
+sam_2.0,doge,MarineKing,meowluigi|Meow Luigi
+sam_2.0,doge,MarineKing,dubo|MKP
+sam_2.0,doge,MarineKing,jinx|Jinx
+sam_2.0,doge,MarineKing,THUNDER|thunder
+sam_2.0,doge,MarineKing,Asombra|King Sombra
+sam_2.0,doge,MarineKing,littlepuppy|MKP
+sam_2.0,doge,MarineKing,champ|S.A.M.
+sam_2.0,doge,MarineKing,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,MarineKing,casimir|CASIMIR
+sam_2.0,doge,Kappa,Wall|Candy
+sam_2.0,doge,Kappa,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,Kappa,Varimathras|Candy
+sam_2.0,doge,Kappa,justin_bee|Kappa
+sam_2.0,doge,Kappa,_honeybadger|Candy
+sam_2.0,doge,Kappa,skynet|skynet
+sam_2.0,doge,Kappa,live|Candy
+sam_2.0,doge,Kappa,meowluigi|Candy
+sam_2.0,doge,Kappa,dubo|Candy
+sam_2.0,doge,Kappa,jinx|Candy
+sam_2.0,doge,Kappa,THUNDER|Kappa
+sam_2.0,doge,Kappa,Asombra|King Sombra
+sam_2.0,doge,Kappa,littlepuppy|Candy
+sam_2.0,doge,Kappa,champ|Candy
+sam_2.0,doge,Kappa,darksasuke|Candy
+sam_2.0,doge,Kappa,casimir|Candy
+sam_2.0,doge,Wall,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,doge,Wall,Varimathras|Wall
+sam_2.0,doge,Wall,justin_bee|Wall
+sam_2.0,doge,Wall,_honeybadger|Wall
+sam_2.0,doge,Wall,skynet|skynet
+sam_2.0,doge,Wall,live|Wall
+sam_2.0,doge,Wall,meowluigi|Wall
+sam_2.0,doge,Wall,dubo|Wall
+sam_2.0,doge,Wall,jinx|Wall
+sam_2.0,doge,Wall,THUNDER|Wall
+sam_2.0,doge,Wall,Asombra|King Sombra
+sam_2.0,doge,Wall,littlepuppy|Wall
+sam_2.0,doge,Wall,champ|Wall
+sam_2.0,doge,Wall,darksasuke|Wall
+sam_2.0,doge,Wall,casimir|Wall
+sam_2.0,doge,Misaka_Mikoto,Varimathras|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,justin_bee|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,_honeybadger|S.A.M.
+sam_2.0,doge,Misaka_Mikoto,skynet|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,live|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,meowluigi|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,dubo|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,jinx|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,THUNDER|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,Asombra|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,littlepuppy|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,champ|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,darksasuke|Misaka Mikoto
+sam_2.0,doge,Misaka_Mikoto,casimir|Misaka Mikoto
+sam_2.0,doge,Varimathras,justin_bee|L'arene des abeilles
+sam_2.0,doge,Varimathras,_honeybadger|Varimathras
+sam_2.0,doge,Varimathras,skynet|skynet
+sam_2.0,doge,Varimathras,live|S.A.M.
+sam_2.0,doge,Varimathras,meowluigi|Meow Luigi
+sam_2.0,doge,Varimathras,dubo|dubo
+sam_2.0,doge,Varimathras,jinx|Jinx
+sam_2.0,doge,Varimathras,THUNDER|thunder
+sam_2.0,doge,Varimathras,Asombra|King Sombra
+sam_2.0,doge,Varimathras,littlepuppy|Little Puppy
+sam_2.0,doge,Varimathras,champ|S.A.M.
+sam_2.0,doge,Varimathras,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,Varimathras,casimir|CASIMIR
+sam_2.0,doge,justin_bee,_honeybadger|L'arene des abeilles
+sam_2.0,doge,justin_bee,skynet|skynet
+sam_2.0,doge,justin_bee,live|L'arene des abeilles
+sam_2.0,doge,justin_bee,meowluigi|Candy
+sam_2.0,doge,justin_bee,dubo|L'arene des abeilles
+sam_2.0,doge,justin_bee,jinx|Jinx
+sam_2.0,doge,justin_bee,THUNDER|L'arene des abeilles
+sam_2.0,doge,justin_bee,Asombra|King Sombra
+sam_2.0,doge,justin_bee,littlepuppy|L'arene des abeilles
+sam_2.0,doge,justin_bee,champ|L'arene des abeilles
+sam_2.0,doge,justin_bee,darksasuke|L'arene des abeilles
+sam_2.0,doge,justin_bee,casimir|L'arene des abeilles
+sam_2.0,doge,_honeybadger,skynet|skynet
+sam_2.0,doge,_honeybadger,live|S.A.M.
+sam_2.0,doge,_honeybadger,meowluigi|S.A.M.
+sam_2.0,doge,_honeybadger,dubo|dubo
+sam_2.0,doge,_honeybadger,jinx|Jinx
+sam_2.0,doge,_honeybadger,THUNDER|thunder
+sam_2.0,doge,_honeybadger,Asombra|S.A.M.
+sam_2.0,doge,_honeybadger,littlepuppy|Little Puppy
+sam_2.0,doge,_honeybadger,champ|S.A.M.
+sam_2.0,doge,_honeybadger,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,_honeybadger,casimir|S.A.M.
+sam_2.0,doge,skynet,live|skynet
+sam_2.0,doge,skynet,meowluigi|Meow Luigi
+sam_2.0,doge,skynet,dubo|skynet
+sam_2.0,doge,skynet,jinx|Jinx
+sam_2.0,doge,skynet,THUNDER|skynet
+sam_2.0,doge,skynet,Asombra|King Sombra
+sam_2.0,doge,skynet,littlepuppy|skynet
+sam_2.0,doge,skynet,champ|skynet
+sam_2.0,doge,skynet,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,skynet,casimir|CASIMIR
+sam_2.0,doge,live,meowluigi|zdoh
+sam_2.0,doge,live,dubo|dubo
+sam_2.0,doge,live,jinx|Jinx
+sam_2.0,doge,live,THUNDER|thunder
+sam_2.0,doge,live,Asombra|King Sombra
+sam_2.0,doge,live,littlepuppy|Little Puppy
+sam_2.0,doge,live,champ|S.A.M.
+sam_2.0,doge,live,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,live,casimir|CASIMIR
+sam_2.0,doge,meowluigi,dubo|S.A.M.
+sam_2.0,doge,meowluigi,jinx|S.A.M.
+sam_2.0,doge,meowluigi,THUNDER|S.A.M.
+sam_2.0,doge,meowluigi,Asombra|King Sombra
+sam_2.0,doge,meowluigi,littlepuppy|S.A.M.
+sam_2.0,doge,meowluigi,champ|Candy
+sam_2.0,doge,meowluigi,darksasuke|S.A.M.
+sam_2.0,doge,meowluigi,casimir|Candy
+sam_2.0,doge,dubo,jinx|S.A.M.
+sam_2.0,doge,dubo,THUNDER|dubo
+sam_2.0,doge,dubo,Asombra|King Sombra
+sam_2.0,doge,dubo,littlepuppy|Little Puppy
+sam_2.0,doge,dubo,champ|S.A.M.
+sam_2.0,doge,dubo,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,dubo,casimir|dubo
+sam_2.0,doge,jinx,THUNDER|thunder
+sam_2.0,doge,jinx,Asombra|King Sombra
+sam_2.0,doge,jinx,littlepuppy|Little Puppy
+sam_2.0,doge,jinx,champ|lazer
+sam_2.0,doge,jinx,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,jinx,casimir|Jinx
+sam_2.0,doge,THUNDER,Asombra|S.A.M.
+sam_2.0,doge,THUNDER,littlepuppy|thunder
+sam_2.0,doge,THUNDER,champ|thunder
+sam_2.0,doge,THUNDER,darksasuke|thunder
+sam_2.0,doge,THUNDER,casimir|thunder
+sam_2.0,doge,Asombra,littlepuppy|King Sombra
+sam_2.0,doge,Asombra,champ|lazer
+sam_2.0,doge,Asombra,darksasuke|King Sombra
+sam_2.0,doge,Asombra,casimir|Candy
+sam_2.0,doge,littlepuppy,champ|S.A.M.
+sam_2.0,doge,littlepuppy,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,littlepuppy,casimir|CASIMIR
+sam_2.0,doge,champ,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,doge,champ,casimir|CASIMIR
+sam_2.0,doge,darksasuke,casimir|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,youforkmytralala,big_feet|basic
+sam_2.0,Rainbow_dash,youforkmytralala,loose|basic
+sam_2.0,Rainbow_dash,youforkmytralala,mandragore|S.A.M.
+sam_2.0,Rainbow_dash,youforkmytralala,gedeon|Gédéon le Cochon
+sam_2.0,Rainbow_dash,youforkmytralala,terminator|terminator
+sam_2.0,Rainbow_dash,youforkmytralala,ultimate-surrender|S.A.M.
+sam_2.0,Rainbow_dash,youforkmytralala,_|Underscore
+sam_2.0,Rainbow_dash,youforkmytralala,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,Rainbow_dash,youforkmytralala,Machine-gun|Machine-gun
+sam_2.0,Rainbow_dash,youforkmytralala,corelol|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,MarineKing|MKP
+sam_2.0,Rainbow_dash,youforkmytralala,Kappa|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,Wall|Wall
+sam_2.0,Rainbow_dash,youforkmytralala,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,youforkmytralala,Varimathras|Varimathras
+sam_2.0,Rainbow_dash,youforkmytralala,justin_bee|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,_honeybadger|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,skynet|skynet
+sam_2.0,Rainbow_dash,youforkmytralala,live|S.A.M.
+sam_2.0,Rainbow_dash,youforkmytralala,meowluigi|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,dubo|dubo
+sam_2.0,Rainbow_dash,youforkmytralala,jinx|Jinx
+sam_2.0,Rainbow_dash,youforkmytralala,THUNDER|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,youforkmytralala,Asombra|King Sombra
+sam_2.0,Rainbow_dash,youforkmytralala,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,youforkmytralala,champ|S.A.M.
+sam_2.0,Rainbow_dash,youforkmytralala,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,youforkmytralala,casimir|Oh, You Fork my TRALALA ...
+sam_2.0,Rainbow_dash,big_feet,loose|basic
+sam_2.0,Rainbow_dash,big_feet,mandragore|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,gedeon|Gédéon le Cochon
+sam_2.0,Rainbow_dash,big_feet,terminator|terminator
+sam_2.0,Rainbow_dash,big_feet,ultimate-surrender|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,_|Underscore
+sam_2.0,Rainbow_dash,big_feet,salamahenagalabadoun|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,Machine-gun|basic
+sam_2.0,Rainbow_dash,big_feet,corelol|laugh
+sam_2.0,Rainbow_dash,big_feet,MarineKing|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,Kappa|Kappa
+sam_2.0,Rainbow_dash,big_feet,Wall|Wall
+sam_2.0,Rainbow_dash,big_feet,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,big_feet,Varimathras|basic
+sam_2.0,Rainbow_dash,big_feet,justin_bee|L'arene des abeilles
+sam_2.0,Rainbow_dash,big_feet,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,skynet|skynet
+sam_2.0,Rainbow_dash,big_feet,live|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,big_feet,dubo|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,jinx|Jinx
+sam_2.0,Rainbow_dash,big_feet,THUNDER|thunder
+sam_2.0,Rainbow_dash,big_feet,Asombra|King Sombra
+sam_2.0,Rainbow_dash,big_feet,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,big_feet,champ|S.A.M.
+sam_2.0,Rainbow_dash,big_feet,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,big_feet,casimir|basic
+sam_2.0,Rainbow_dash,loose,mandragore|loose
+sam_2.0,Rainbow_dash,loose,gedeon|Gédéon le Cochon
+sam_2.0,Rainbow_dash,loose,terminator|terminator
+sam_2.0,Rainbow_dash,loose,ultimate-surrender|S.A.M.
+sam_2.0,Rainbow_dash,loose,_|S.A.M.
+sam_2.0,Rainbow_dash,loose,salamahenagalabadoun|S.A.M.
+sam_2.0,Rainbow_dash,loose,Machine-gun|basic
+sam_2.0,Rainbow_dash,loose,corelol|S.A.M.
+sam_2.0,Rainbow_dash,loose,MarineKing|basic
+sam_2.0,Rainbow_dash,loose,Kappa|Kappa
+sam_2.0,Rainbow_dash,loose,Wall|S.A.M.
+sam_2.0,Rainbow_dash,loose,Misaka_Mikoto|basic
+sam_2.0,Rainbow_dash,loose,Varimathras|basic
+sam_2.0,Rainbow_dash,loose,justin_bee|L'arene des abeilles
+sam_2.0,Rainbow_dash,loose,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,loose,skynet|skynet
+sam_2.0,Rainbow_dash,loose,live|S.A.M.
+sam_2.0,Rainbow_dash,loose,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,loose,dubo|S.A.M.
+sam_2.0,Rainbow_dash,loose,jinx|basic
+sam_2.0,Rainbow_dash,loose,THUNDER|thunder
+sam_2.0,Rainbow_dash,loose,Asombra|loose
+sam_2.0,Rainbow_dash,loose,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,loose,champ|S.A.M.
+sam_2.0,Rainbow_dash,loose,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,loose,casimir|basic
+sam_2.0,Rainbow_dash,mandragore,gedeon|Gédéon le Cochon
+sam_2.0,Rainbow_dash,mandragore,terminator|terminator
+sam_2.0,Rainbow_dash,mandragore,ultimate-surrender|S.A.M.
+sam_2.0,Rainbow_dash,mandragore,_|S.A.M.
+sam_2.0,Rainbow_dash,mandragore,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,Rainbow_dash,mandragore,Machine-gun|Machine-gun
+sam_2.0,Rainbow_dash,mandragore,corelol|mandragore
+sam_2.0,Rainbow_dash,mandragore,MarineKing|MKP
+sam_2.0,Rainbow_dash,mandragore,Kappa|Kappa
+sam_2.0,Rainbow_dash,mandragore,Wall|Wall
+sam_2.0,Rainbow_dash,mandragore,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,mandragore,Varimathras|Varimathras
+sam_2.0,Rainbow_dash,mandragore,justin_bee|mandragore
+sam_2.0,Rainbow_dash,mandragore,_honeybadger|mandragore
+sam_2.0,Rainbow_dash,mandragore,skynet|skynet
+sam_2.0,Rainbow_dash,mandragore,live|S.A.M.
+sam_2.0,Rainbow_dash,mandragore,meowluigi|mandragore
+sam_2.0,Rainbow_dash,mandragore,dubo|dubo
+sam_2.0,Rainbow_dash,mandragore,jinx|Jinx
+sam_2.0,Rainbow_dash,mandragore,THUNDER|mandragore
+sam_2.0,Rainbow_dash,mandragore,Asombra|King Sombra
+sam_2.0,Rainbow_dash,mandragore,littlepuppy|mandragore
+sam_2.0,Rainbow_dash,mandragore,champ|S.A.M.
+sam_2.0,Rainbow_dash,mandragore,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,mandragore,casimir|mandragore
+sam_2.0,Rainbow_dash,gedeon,terminator|terminator
+sam_2.0,Rainbow_dash,gedeon,ultimate-surrender|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,_|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,salamahenagalabadoun|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,Machine-gun|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,corelol|laugh
+sam_2.0,Rainbow_dash,gedeon,MarineKing|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,Kappa|Kappa
+sam_2.0,Rainbow_dash,gedeon,Wall|Wall
+sam_2.0,Rainbow_dash,gedeon,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,gedeon,Varimathras|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,justin_bee|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,_honeybadger|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,skynet|skynet
+sam_2.0,Rainbow_dash,gedeon,live|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,gedeon,dubo|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,jinx|Jinx
+sam_2.0,Rainbow_dash,gedeon,THUNDER|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,Asombra|King Sombra
+sam_2.0,Rainbow_dash,gedeon,littlepuppy|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,champ|Gédéon le Cochon
+sam_2.0,Rainbow_dash,gedeon,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,gedeon,casimir|Gédéon le Cochon
+sam_2.0,Rainbow_dash,terminator,ultimate-surrender|S.A.M.
+sam_2.0,Rainbow_dash,terminator,_|Underscore
+sam_2.0,Rainbow_dash,terminator,salamahenagalabadoun|terminator
+sam_2.0,Rainbow_dash,terminator,Machine-gun|Machine-gun
+sam_2.0,Rainbow_dash,terminator,corelol|terminator
+sam_2.0,Rainbow_dash,terminator,MarineKing|MKP
+sam_2.0,Rainbow_dash,terminator,Kappa|Kappa
+sam_2.0,Rainbow_dash,terminator,Wall|Wall
+sam_2.0,Rainbow_dash,terminator,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,terminator,Varimathras|Varimathras
+sam_2.0,Rainbow_dash,terminator,justin_bee|terminator
+sam_2.0,Rainbow_dash,terminator,_honeybadger|terminator
+sam_2.0,Rainbow_dash,terminator,skynet|skynet
+sam_2.0,Rainbow_dash,terminator,live|S.A.M.
+sam_2.0,Rainbow_dash,terminator,meowluigi|terminator
+sam_2.0,Rainbow_dash,terminator,dubo|terminator
+sam_2.0,Rainbow_dash,terminator,jinx|Jinx
+sam_2.0,Rainbow_dash,terminator,THUNDER|terminator
+sam_2.0,Rainbow_dash,terminator,Asombra|King Sombra
+sam_2.0,Rainbow_dash,terminator,littlepuppy|terminator
+sam_2.0,Rainbow_dash,terminator,champ|S.A.M.
+sam_2.0,Rainbow_dash,terminator,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,terminator,casimir|terminator
+sam_2.0,Rainbow_dash,ultimate-surrender,_|Underscore
+sam_2.0,Rainbow_dash,ultimate-surrender,salamahenagalabadoun|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,Machine-gun|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,corelol|laugh
+sam_2.0,Rainbow_dash,ultimate-surrender,MarineKing|Ultimate Surrender
+sam_2.0,Rainbow_dash,ultimate-surrender,Kappa|Kappa
+sam_2.0,Rainbow_dash,ultimate-surrender,Wall|Wall
+sam_2.0,Rainbow_dash,ultimate-surrender,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,ultimate-surrender,Varimathras|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,justin_bee|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,skynet|skynet
+sam_2.0,Rainbow_dash,ultimate-surrender,live|basic
+sam_2.0,Rainbow_dash,ultimate-surrender,meowluigi|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,dubo|dubo
+sam_2.0,Rainbow_dash,ultimate-surrender,jinx|Jinx
+sam_2.0,Rainbow_dash,ultimate-surrender,THUNDER|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,Asombra|King Sombra
+sam_2.0,Rainbow_dash,ultimate-surrender,littlepuppy|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,champ|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,darksasuke|S.A.M.
+sam_2.0,Rainbow_dash,ultimate-surrender,casimir|S.A.M.
+sam_2.0,Rainbow_dash,_,salamahenagalabadoun|S.A.M.
+sam_2.0,Rainbow_dash,_,Machine-gun|Underscore
+sam_2.0,Rainbow_dash,_,corelol|Underscore
+sam_2.0,Rainbow_dash,_,MarineKing|S.A.M.
+sam_2.0,Rainbow_dash,_,Kappa|Kappa
+sam_2.0,Rainbow_dash,_,Wall|Wall
+sam_2.0,Rainbow_dash,_,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,_,Varimathras|Underscore
+sam_2.0,Rainbow_dash,_,justin_bee|Underscore
+sam_2.0,Rainbow_dash,_,_honeybadger|Underscore
+sam_2.0,Rainbow_dash,_,skynet|S.A.M.
+sam_2.0,Rainbow_dash,_,live|zdoh
+sam_2.0,Rainbow_dash,_,meowluigi|Underscore
+sam_2.0,Rainbow_dash,_,dubo|Underscore
+sam_2.0,Rainbow_dash,_,jinx|Underscore
+sam_2.0,Rainbow_dash,_,THUNDER|thunder
+sam_2.0,Rainbow_dash,_,Asombra|Underscore
+sam_2.0,Rainbow_dash,_,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,_,champ|Underscore
+sam_2.0,Rainbow_dash,_,darksasuke|basic
+sam_2.0,Rainbow_dash,_,casimir|Underscore
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Machine-gun|S.A.M.
+sam_2.0,Rainbow_dash,salamahenagalabadoun,corelol|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,MarineKing|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Kappa|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Wall|Wall
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Varimathras|basic
+sam_2.0,Rainbow_dash,salamahenagalabadoun,justin_bee|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,salamahenagalabadoun,skynet|skynet
+sam_2.0,Rainbow_dash,salamahenagalabadoun,live|S.A.M.
+sam_2.0,Rainbow_dash,salamahenagalabadoun,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,salamahenagalabadoun,dubo|S.A.M.
+sam_2.0,Rainbow_dash,salamahenagalabadoun,jinx|Jinx
+sam_2.0,Rainbow_dash,salamahenagalabadoun,THUNDER|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,Asombra|King Sombra
+sam_2.0,Rainbow_dash,salamahenagalabadoun,littlepuppy|salamahenagalabadoun
+sam_2.0,Rainbow_dash,salamahenagalabadoun,champ|S.A.M.
+sam_2.0,Rainbow_dash,salamahenagalabadoun,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,salamahenagalabadoun,casimir|basic
+sam_2.0,Rainbow_dash,Machine-gun,corelol|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,MarineKing|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,Kappa|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,Wall|Wall
+sam_2.0,Rainbow_dash,Machine-gun,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,Machine-gun,Varimathras|basic
+sam_2.0,Rainbow_dash,Machine-gun,justin_bee|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,Machine-gun,skynet|skynet
+sam_2.0,Rainbow_dash,Machine-gun,live|S.A.M.
+sam_2.0,Rainbow_dash,Machine-gun,meowluigi|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,dubo|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,jinx|Jinx
+sam_2.0,Rainbow_dash,Machine-gun,THUNDER|Machine-gun
+sam_2.0,Rainbow_dash,Machine-gun,Asombra|King Sombra
+sam_2.0,Rainbow_dash,Machine-gun,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,Machine-gun,champ|S.A.M.
+sam_2.0,Rainbow_dash,Machine-gun,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,Machine-gun,casimir|basic
+sam_2.0,Rainbow_dash,corelol,MarineKing|MKP
+sam_2.0,Rainbow_dash,corelol,Kappa|laugh
+sam_2.0,Rainbow_dash,corelol,Wall|Wall
+sam_2.0,Rainbow_dash,corelol,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,corelol,Varimathras|laugh
+sam_2.0,Rainbow_dash,corelol,justin_bee|laugh
+sam_2.0,Rainbow_dash,corelol,_honeybadger|laugh
+sam_2.0,Rainbow_dash,corelol,skynet|laugh
+sam_2.0,Rainbow_dash,corelol,live|laugh
+sam_2.0,Rainbow_dash,corelol,meowluigi|laugh
+sam_2.0,Rainbow_dash,corelol,dubo|laugh
+sam_2.0,Rainbow_dash,corelol,jinx|Jinx
+sam_2.0,Rainbow_dash,corelol,THUNDER|laugh
+sam_2.0,Rainbow_dash,corelol,Asombra|King Sombra
+sam_2.0,Rainbow_dash,corelol,littlepuppy|laugh
+sam_2.0,Rainbow_dash,corelol,champ|laugh
+sam_2.0,Rainbow_dash,corelol,darksasuke|laugh
+sam_2.0,Rainbow_dash,corelol,casimir|laugh
+sam_2.0,Rainbow_dash,MarineKing,Kappa|MKP
+sam_2.0,Rainbow_dash,MarineKing,Wall|Wall
+sam_2.0,Rainbow_dash,MarineKing,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,MarineKing,Varimathras|basic
+sam_2.0,Rainbow_dash,MarineKing,justin_bee|basic
+sam_2.0,Rainbow_dash,MarineKing,_honeybadger|MKP
+sam_2.0,Rainbow_dash,MarineKing,skynet|basic
+sam_2.0,Rainbow_dash,MarineKing,live|basic
+sam_2.0,Rainbow_dash,MarineKing,meowluigi|basic
+sam_2.0,Rainbow_dash,MarineKing,dubo|basic
+sam_2.0,Rainbow_dash,MarineKing,jinx|Jinx
+sam_2.0,Rainbow_dash,MarineKing,THUNDER|basic
+sam_2.0,Rainbow_dash,MarineKing,Asombra|King Sombra
+sam_2.0,Rainbow_dash,MarineKing,littlepuppy|basic
+sam_2.0,Rainbow_dash,MarineKing,champ|basic
+sam_2.0,Rainbow_dash,MarineKing,darksasuke|basic
+sam_2.0,Rainbow_dash,MarineKing,casimir|basic
+sam_2.0,Rainbow_dash,Kappa,Wall|Kappa
+sam_2.0,Rainbow_dash,Kappa,Misaka_Mikoto|Kappa
+sam_2.0,Rainbow_dash,Kappa,Varimathras|Kappa
+sam_2.0,Rainbow_dash,Kappa,justin_bee|Kappa
+sam_2.0,Rainbow_dash,Kappa,_honeybadger|Kappa
+sam_2.0,Rainbow_dash,Kappa,skynet|Kappa
+sam_2.0,Rainbow_dash,Kappa,live|Kappa
+sam_2.0,Rainbow_dash,Kappa,meowluigi|Kappa
+sam_2.0,Rainbow_dash,Kappa,dubo|Kappa
+sam_2.0,Rainbow_dash,Kappa,jinx|Jinx
+sam_2.0,Rainbow_dash,Kappa,THUNDER|Kappa
+sam_2.0,Rainbow_dash,Kappa,Asombra|Kappa
+sam_2.0,Rainbow_dash,Kappa,littlepuppy|Kappa
+sam_2.0,Rainbow_dash,Kappa,champ|Kappa
+sam_2.0,Rainbow_dash,Kappa,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,Kappa,casimir|Kappa
+sam_2.0,Rainbow_dash,Wall,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,Rainbow_dash,Wall,Varimathras|Wall
+sam_2.0,Rainbow_dash,Wall,justin_bee|Wall
+sam_2.0,Rainbow_dash,Wall,_honeybadger|Wall
+sam_2.0,Rainbow_dash,Wall,skynet|Wall
+sam_2.0,Rainbow_dash,Wall,live|Wall
+sam_2.0,Rainbow_dash,Wall,meowluigi|Wall
+sam_2.0,Rainbow_dash,Wall,dubo|Wall
+sam_2.0,Rainbow_dash,Wall,jinx|Wall
+sam_2.0,Rainbow_dash,Wall,THUNDER|Wall
+sam_2.0,Rainbow_dash,Wall,Asombra|King Sombra
+sam_2.0,Rainbow_dash,Wall,littlepuppy|Wall
+sam_2.0,Rainbow_dash,Wall,champ|Wall
+sam_2.0,Rainbow_dash,Wall,darksasuke|Wall
+sam_2.0,Rainbow_dash,Wall,casimir|Wall
+sam_2.0,Rainbow_dash,Misaka_Mikoto,Varimathras|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,justin_bee|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,_honeybadger|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,skynet|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,live|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,meowluigi|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,dubo|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,jinx|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,THUNDER|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,Asombra|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,littlepuppy|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,champ|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,darksasuke|Misaka Mikoto
+sam_2.0,Rainbow_dash,Misaka_Mikoto,casimir|Misaka Mikoto
+sam_2.0,Rainbow_dash,Varimathras,justin_bee|L'arene des abeilles
+sam_2.0,Rainbow_dash,Varimathras,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,Varimathras,skynet|skynet
+sam_2.0,Rainbow_dash,Varimathras,live|S.A.M.
+sam_2.0,Rainbow_dash,Varimathras,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,Varimathras,dubo|S.A.M.
+sam_2.0,Rainbow_dash,Varimathras,jinx|Jinx
+sam_2.0,Rainbow_dash,Varimathras,THUNDER|thunder
+sam_2.0,Rainbow_dash,Varimathras,Asombra|King Sombra
+sam_2.0,Rainbow_dash,Varimathras,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,Varimathras,champ|S.A.M.
+sam_2.0,Rainbow_dash,Varimathras,darksasuke|S.A.M.
+sam_2.0,Rainbow_dash,Varimathras,casimir|basic
+sam_2.0,Rainbow_dash,justin_bee,_honeybadger|S.A.M.
+sam_2.0,Rainbow_dash,justin_bee,skynet|skynet
+sam_2.0,Rainbow_dash,justin_bee,live|S.A.M.
+sam_2.0,Rainbow_dash,justin_bee,meowluigi|Meow Luigi
+sam_2.0,Rainbow_dash,justin_bee,dubo|S.A.M.
+sam_2.0,Rainbow_dash,justin_bee,jinx|Jinx
+sam_2.0,Rainbow_dash,justin_bee,THUNDER|L'arene des abeilles
+sam_2.0,Rainbow_dash,justin_bee,Asombra|King Sombra
+sam_2.0,Rainbow_dash,justin_bee,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,justin_bee,champ|S.A.M.
+sam_2.0,Rainbow_dash,justin_bee,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,justin_bee,casimir|L'arene des abeilles
+sam_2.0,Rainbow_dash,_honeybadger,skynet|skynet
+sam_2.0,Rainbow_dash,_honeybadger,live|zdoh
+sam_2.0,Rainbow_dash,_honeybadger,meowluigi|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,dubo|dubo
+sam_2.0,Rainbow_dash,_honeybadger,jinx|Jinx
+sam_2.0,Rainbow_dash,_honeybadger,THUNDER|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,Asombra|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,littlepuppy|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,champ|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,darksasuke|S.A.M.
+sam_2.0,Rainbow_dash,_honeybadger,casimir|S.A.M.
+sam_2.0,Rainbow_dash,skynet,live|skynet
+sam_2.0,Rainbow_dash,skynet,meowluigi|skynet
+sam_2.0,Rainbow_dash,skynet,dubo|skynet
+sam_2.0,Rainbow_dash,skynet,jinx|Jinx
+sam_2.0,Rainbow_dash,skynet,THUNDER|skynet
+sam_2.0,Rainbow_dash,skynet,Asombra|King Sombra
+sam_2.0,Rainbow_dash,skynet,littlepuppy|skynet
+sam_2.0,Rainbow_dash,skynet,champ|skynet
+sam_2.0,Rainbow_dash,skynet,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,skynet,casimir|skynet
+sam_2.0,Rainbow_dash,live,meowluigi|zdoh
+sam_2.0,Rainbow_dash,live,dubo|S.A.M.
+sam_2.0,Rainbow_dash,live,jinx|Jinx
+sam_2.0,Rainbow_dash,live,THUNDER|S.A.M.
+sam_2.0,Rainbow_dash,live,Asombra|King Sombra
+sam_2.0,Rainbow_dash,live,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,live,champ|S.A.M.
+sam_2.0,Rainbow_dash,live,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,live,casimir|S.A.M.
+sam_2.0,Rainbow_dash,meowluigi,dubo|Meow Luigi
+sam_2.0,Rainbow_dash,meowluigi,jinx|Jinx
+sam_2.0,Rainbow_dash,meowluigi,THUNDER|Meow Luigi
+sam_2.0,Rainbow_dash,meowluigi,Asombra|King Sombra
+sam_2.0,Rainbow_dash,meowluigi,littlepuppy|Meow Luigi
+sam_2.0,Rainbow_dash,meowluigi,champ|Meow Luigi
+sam_2.0,Rainbow_dash,meowluigi,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,meowluigi,casimir|Meow Luigi
+sam_2.0,Rainbow_dash,dubo,jinx|Jinx
+sam_2.0,Rainbow_dash,dubo,THUNDER|dubo
+sam_2.0,Rainbow_dash,dubo,Asombra|King Sombra
+sam_2.0,Rainbow_dash,dubo,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,dubo,champ|S.A.M.
+sam_2.0,Rainbow_dash,dubo,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,dubo,casimir|basic
+sam_2.0,Rainbow_dash,jinx,THUNDER|Jinx
+sam_2.0,Rainbow_dash,jinx,Asombra|King Sombra
+sam_2.0,Rainbow_dash,jinx,littlepuppy|Jinx
+sam_2.0,Rainbow_dash,jinx,champ|Jinx
+sam_2.0,Rainbow_dash,jinx,darksasuke|Jinx
+sam_2.0,Rainbow_dash,jinx,casimir|Jinx
+sam_2.0,Rainbow_dash,THUNDER,Asombra|thunder
+sam_2.0,Rainbow_dash,THUNDER,littlepuppy|Little Puppy
+sam_2.0,Rainbow_dash,THUNDER,champ|S.A.M.
+sam_2.0,Rainbow_dash,THUNDER,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,THUNDER,casimir|thunder
+sam_2.0,Rainbow_dash,Asombra,littlepuppy|King Sombra
+sam_2.0,Rainbow_dash,Asombra,champ|King Sombra
+sam_2.0,Rainbow_dash,Asombra,darksasuke|King Sombra
+sam_2.0,Rainbow_dash,Asombra,casimir|King Sombra
+sam_2.0,Rainbow_dash,littlepuppy,champ|S.A.M.
+sam_2.0,Rainbow_dash,littlepuppy,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,littlepuppy,casimir|basic
+sam_2.0,Rainbow_dash,champ,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,Rainbow_dash,champ,casimir|S.A.M.
+sam_2.0,Rainbow_dash,darksasuke,casimir|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,youforkmytralala,big_feet,loose|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,mandragore|S.A.M.
+sam_2.0,youforkmytralala,big_feet,gedeon|Gédéon le Cochon
+sam_2.0,youforkmytralala,big_feet,terminator|S.A.M.
+sam_2.0,youforkmytralala,big_feet,ultimate-surrender|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,_|Underscore
+sam_2.0,youforkmytralala,big_feet,salamahenagalabadoun|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,Machine-gun|Machine-gun
+sam_2.0,youforkmytralala,big_feet,corelol|laugh
+sam_2.0,youforkmytralala,big_feet,MarineKing|MKP
+sam_2.0,youforkmytralala,big_feet,Kappa|Kappa
+sam_2.0,youforkmytralala,big_feet,Wall|Wall
+sam_2.0,youforkmytralala,big_feet,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,youforkmytralala,big_feet,Varimathras|Varimathras
+sam_2.0,youforkmytralala,big_feet,justin_bee|L'arene des abeilles
+sam_2.0,youforkmytralala,big_feet,_honeybadger|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,skynet|skynet
+sam_2.0,youforkmytralala,big_feet,live|S.A.M.
+sam_2.0,youforkmytralala,big_feet,meowluigi|Oh, You Fork my TRALALA ...
+sam_2.0,youforkmytralala,big_feet,dubo|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,jinx|Jinx
+sam_2.0,youforkmytralala,big_feet,THUNDER|thunder
+sam_2.0,youforkmytralala,big_feet,Asombra|S.A.M.
+sam_2.0,youforkmytralala,big_feet,littlepuppy|top defense plus plus
+sam_2.0,youforkmytralala,big_feet,champ|S.A.M.
+sam_2.0,youforkmytralala,big_feet,darksasuke|Xx_DaRk_SaSuKe_93_xX
+sam_2.0,youforkmytralala,big_feet,casimir|CASIMIR
+sam_2.0,youforkmytralala,loose,mandragore|loose
+sam_2.0,youforkmytralala,loose,gedeon|Gédéon le Cochon
+sam_2.0,youforkmytralala,loose,terminator|loose
+sam_2.0,youforkmytralala,loose,ultimate-surrender|loose
+sam_2.0,youforkmytralala,loose,_|loose
+sam_2.0,youforkmytralala,loose,salamahenagalabadoun|salamahenagalabadoun
+sam_2.0,youforkmytralala,loose,Machine-gun|Machine-gun
+sam_2.0,youforkmytralala,loose,corelol|loose
+sam_2.0,youforkmytralala,loose,MarineKing|MKP
