@@ -903,3 +903,4 @@ sam_2.0,youforkmytralala,mandragore,MarineKing|MKP
 sam_2.0,youforkmytralala,mandragore,Kappa|mandragore
 sam_2.0,youforkmytralala,mandragore,Wall|Wall
 sam_2.0,youforkmytralala,mandragore,Misaka_Mikoto|Misaka Mikoto
+sam_2.0,youforkmytralala,mandragore,Varimathras|Varimathras
