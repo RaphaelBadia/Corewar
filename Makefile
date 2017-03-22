@@ -6,7 +6,7 @@
 #    By: jye <jye@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/02/12 18:54:30 by jye               #+#    #+#              #
-#    Updated: 2017/03/21 22:07:13 by rbadia           ###   ########.fr        #
+#    Updated: 2017/03/22 22:55:35 by jye              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,6 +130,7 @@ clean	:
 fclean	:	clean
 	@rm -rf $(VM_NAME)
 	@rm -rf $(ASM_NAME)
+	@rm -rf $(REV_NAME)
 
 re		:	fclean all
 
@@ -145,14 +146,14 @@ $(VM_OBJ_PATH)/%.o		: $(VM_SRC_PATH)/%.c
 	@mkdir -p $(VM_OBJ_PATH)/opts
 	@$(CC) $(CFLAGS) $(DEBUG) $(EXTRA) -I$(INC_PATH) -c -o $@ $<
 	@printf "\033[2K"
-	@printf "\033[36mGenerating %s file\r\033[0m" $@
+	@printf "\033[33;5;36mGenerating %s file\r\033[0m" $@
 $(ASM_OBJ_PATH)/%.o		: $(ASM_SRC_PATH)/%.c
 	@mkdir -p $(ASM_OBJ_PATH)
 	@mkdir -p $(ASM_OBJ_PATH)/op
 	@mkdir -p $(ASM_OBJ_PATH)/utils
 	@$(CC) $(CFLAGS) $(DEBUG) $(EXTRA) -I$(INC_PATH) -c -o $@ $<
 	@printf "\033[2K"
-	@printf "\033[36mGenerating %s file\r\033[0m" $@
+	@printf "\033[33;5;256mGenerating %s file\r\033[0m" $@
 $(REV_OBJ_PATH)/%.o		: $(REV_SRC_PATH)/%.c
 	@mkdir -p $(REV_OBJ_PATH)
 	@$(CC) $(CFLAGS) $(DEBUG) $(EXTRA) -I$(INC_PATH) -c -o $@ $<
