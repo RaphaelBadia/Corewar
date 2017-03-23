@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:25:28 by jye               #+#    #+#             */
-/*   Updated: 2017/03/21 22:56:11 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/23 14:59:46 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void			set_flag_arg(t_vm *vm, t_arg *arg)
 	if (vm->flag & dump)
 		vm->dump_cycle = ft_atoi(arg->av[++arg->i]);
 	if (vm->flag & stop)
-		vm->stop_cycle = ft_atoi(arg->av[++arg->i]);
+		if ((vm->stop_cycle = ft_atoi(arg->av[++arg->i])) <= 0)
+			vm->flag ^= stop;
 }
 
 void			set_flag(t_vm *vm, t_arg *arg)

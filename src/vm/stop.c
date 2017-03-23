@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:18:13 by jye               #+#    #+#             */
-/*   Updated: 2017/03/23 14:32:29 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/23 14:46:01 by jye              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ void		stop_play(t_vm *vm)
 	while (vm->process)
 	{
 		if ((vm->cycle % vm->stop_cycle) == 0)
+		{
 			print_map64(vm->map);
-		read(0, &c, 1);
+			read(0, &c, 1);
+		}
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{
