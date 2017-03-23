@@ -6,7 +6,7 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:19:00 by jye               #+#    #+#             */
-/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/23 14:30:36 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		dump_play(t_vm *vm)
 
 	last_check = 0;
 	introduce(vm);
-	while (vm->process && vm->dump_cycle != vm->cycle)
+	while (vm->process && vm->dump_cycle >= vm->cycle)
 	{
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)

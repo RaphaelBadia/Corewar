@@ -33,6 +33,6 @@
 			echo "\033[31m[KO]\033[0m";
 		else
 			echo "\033[32m[OK]\033[0m";
-		echo " $filename\n";
+		echo " $filename.s\n";
 	}
 ?>

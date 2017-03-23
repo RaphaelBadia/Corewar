@@ -6,10 +6,11 @@
 /*   By: jye <jye@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/18 18:18:13 by jye               #+#    #+#             */
-/*   Updated: 2017/03/20 19:15:39 by rbadia           ###   ########.fr       */
+/*   Updated: 2017/03/23 14:32:29 by rbadia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <vm.h>
 #include <ft_printf.h>
 
@@ -39,6 +40,7 @@ static void	print_map64(unsigned char *map)
 void		stop_play(t_vm *vm)
 {
 	unsigned long	last_check;
+	char			c;
 
 	last_check = 0;
 	introduce(vm);
@@ -46,6 +48,7 @@ void		stop_play(t_vm *vm)
 	{
 		if ((vm->cycle % vm->stop_cycle) == 0)
 			print_map64(vm->map);
+		read(0, &c, 1);
 		check_opt(vm);
 		if (last_check == vm->cycle - vm->cycle_to_die)
 		{

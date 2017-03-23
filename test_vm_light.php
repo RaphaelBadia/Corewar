@@ -2,6 +2,7 @@
 	$scriptList = [];
 	/*
 	** This script runs our corewar and makes a diff with the real corewar.
+	** Takes 1hour max to run.
 	*/
 
 	if ($handle = opendir('./resources_kc'))
@@ -53,27 +54,22 @@
 							{
 								if ($count4 == $count3 + 1 && $count4 < 32)
 								{
-									// $str = shell_exec('/sgoinfre/goinfre/Games/corewar/corewar ' . $path1 . ' ' . $path2 . ' ' . $path3 . ' ' . $path4);
-									// $re = '/, ".*", has won !/';
-									// preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
-									// $zaz_winner = explode("\"", $matches[0][0])[1];
-									//
-									// $str = shell_exec('./corewar ' . $path1 . ' ' . $path2 . ' ' . $path3 . ' ' . $path4);
-									// $re = '/, ".*", has won !/';
-									// preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
-									// $my_winner = explode("\"", $matches[0][0])[1];
-									// if ($my_winner != $zaz_winner)
-									// 	echo "\033[31m[KO]\033[0m";
-									// else
-									// 	echo "\033[32m[OK]\033[0m";
+									$str = shell_exec('/sgoinfre/goinfre/Games/corewar/corewar ' . $path1 . ' ' . $path2 . ' ' . $path3 . ' ' . $path4);
+									$re = '/, ".*", has won !/';
+									preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
+									$zaz_winner = explode("\"", $matches[0][0])[1];
+
+									$str = shell_exec('./corewar ' . $path1 . ' ' . $path2 . ' ' . $path3 . ' ' . $path4);
+									$re = '/, ".*", has won !/';
+									preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
+									$my_winner = explode("\"", $matches[0][0])[1];
+									if ($my_winner != $zaz_winner)
+										echo "\033[31m[KO]\033[0m";
+									else
+										echo "\033[32m[OK]\033[0m";
 										echo "$ch1 vs $ch2 vs $ch3 vs $ch4\n";
-									// echo $path1 . "\n" . $path2 . "\n" . $path3 . "\n" . $path4;
-									// echo "\n\n\n";
 								}
 								$count4++;
-								// $count3 += 2;
-								// $count2 += 3;
-								// $count1 += 4;
 							}
 						}
 						$count3++;
@@ -84,7 +80,6 @@
 		}
 		$count1++;
 	}
-	// var_dump(count($scriptList));
 
 	function loadScript($filename, $fullPath)
 	{
@@ -93,5 +88,4 @@
 		shell_exec('/sgoinfre/goinfre/Games/corewar/asm ' . $filename . '.s');
 		$scriptList[$filename] = $fullPath . '.cor';
 	}
-	// var_dump($scriptList);
 ?>

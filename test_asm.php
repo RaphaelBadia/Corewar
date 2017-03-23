@@ -1,7 +1,7 @@
 <?php
 
 	/*
-	** This script runs our corewar and makes a diff with the real corewar.
+	** This script runs our asm and makes a diff with the real asm.
 	*/
 
 	if ($handle = opendir('./resources_kc'))
